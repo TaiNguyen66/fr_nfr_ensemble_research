@@ -30,8 +30,8 @@ Khi thêm package: `python -m pip freeze | Set-Content -Encoding ascii requireme
 
 ```powershell
 # Literature (công cụ chính, chạy từ thư mục cha NCKH/, kết quả vào literature/search/):
-#   node tools/frnfr-metadata-fetcher/cli.mjs fetch --member tv-b --streams core --max 200
-#   node tools/frnfr-metadata-fetcher/cli.mjs screen --member tv-b
+#   node tools/frnfr-metadata-fetcher/cli.mjs fetch --member phat-tai --streams core --max 200
+#   node tools/frnfr-metadata-fetcher/cli.mjs screen --member phat-tai
 # Dự phòng chỉ OpenAlex (key tùy chọn: $env:OPENALEX_API_KEY = "...")
 python scripts/harvest_openalex.py --max 100
 
