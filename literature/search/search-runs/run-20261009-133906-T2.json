@@ -1,0 +1,103 @@
+{
+  "tool": {
+    "name": "slr-metadata-fetcher",
+    "version": "3.0.0-frnfr"
+  },
+  "protocol": "research_protocol.md v1.1 (2026-10-09)",
+  "member": "phat-tai",
+  "search_stream": "T2",
+  "stream_label": "T2 – So sánh classifier bằng thống kê (nền tảng)",
+  "rerun_no_change": false,
+  "started_at": "2026-10-09T06:38:47.766Z",
+  "finished_at": "2026-10-09T06:39:06.221Z",
+  "query_original": "(\"corrected resampled t-test\" OR \"repeated cross-validation\" OR \"comparing classifiers\" OR \"comparing learning algorithms\") AND (significance OR \"statistical test\" OR \"t-test\")",
+  "scope": "title+abstract",
+  "year_range": {
+    "from": 2017,
+    "to": 2026
+  },
+  "max_per_source": 100,
+  "crossref_prefixes": [],
+  "sources": [
+    {
+      "id": "openalex",
+      "database": "OpenAlex",
+      "search_stream": "T2",
+      "status": "done",
+      "exact_query_used": "title_and_abstract.search: (\"corrected resampled t-test\" OR \"repeated cross-validation\" OR \"comparing classifiers\" OR \"comparing learning algorithms\") AND (significance OR \"statistical test\" OR \"t-test\")",
+      "search_fields": "title + abstract (title_and_abstract.search)",
+      "filters": [
+        "publication_year:>2016",
+        "publication_year:<2027"
+      ],
+      "date": "2026-10-09",
+      "result_count": 110,
+      "exported_count": 100,
+      "endpoint": "https://api.openalex.org/works",
+      "sort": "mặc định (relevance), phân trang cursor",
+      "limit": 100,
+      "error": "",
+      "note": "",
+      "resumed_from_saved_run": false
+    },
+    {
+      "id": "semanticscholar",
+      "database": "Semantic Scholar",
+      "search_stream": "T2",
+      "status": "done",
+      "exact_query_used": "(\"corrected resampled t-test\" | \"repeated cross-validation\" | \"comparing classifiers\" | \"comparing learning algorithms\") + (significance | \"statistical test\" | \"t-test\")",
+      "search_fields": "title + abstract (paper/search/bulk)",
+      "filters": [
+        "year=2017-2026"
+      ],
+      "date": "2026-10-09",
+      "result_count": 70,
+      "exported_count": 70,
+      "endpoint": "https://api.semanticscholar.org/graph/v1/paper/search/bulk",
+      "sort": "mặc định của bulk search, phân trang token",
+      "limit": 100,
+      "error": "",
+      "note": "Chạy không có API key",
+      "resumed_from_saved_run": false
+    },
+    {
+      "id": "arxiv",
+      "database": "arXiv",
+      "search_stream": "T2",
+      "status": "done",
+      "exact_query_used": "((all:\"corrected resampled t-test\" OR all:\"repeated cross-validation\" OR all:\"comparing classifiers\" OR all:\"comparing learning algorithms\") AND (all:significance OR all:\"statistical test\" OR all:\"t-test\")) AND submittedDate:[201701010000 TO 202612312359]",
+      "search_fields": "all fields (all:)",
+      "filters": [],
+      "date": "2026-10-09",
+      "result_count": 10,
+      "exported_count": 10,
+      "endpoint": "https://export.arxiv.org/api/query",
+      "sort": "relevance desc",
+      "limit": 100,
+      "error": "",
+      "note": "",
+      "resumed_from_saved_run": false
+    }
+  ],
+  "funnel": {
+    "retrieved": 180,
+    "outOfRange": 0,
+    "offTopic": 0,
+    "rerun": 0,
+    "written": 180,
+    "dupDoi": 56,
+    "dupTitle": 17,
+    "possibleDup": 0,
+    "added": 107,
+    "converted": 0,
+    "existing": 1825,
+    "totalRows": 2005,
+    "total": 1276,
+    "queryMatch": {
+      "yes": 66,
+      "no": 28,
+      "unknown": 13
+    }
+  },
+  "notes": []
+}

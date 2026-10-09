@@ -1,0 +1,103 @@
+{
+  "tool": {
+    "name": "slr-metadata-fetcher",
+    "version": "3.0.0-frnfr"
+  },
+  "protocol": "research_protocol.md v1.1 (2026-10-09)",
+  "member": "phat-tai",
+  "search_stream": "Q3",
+  "stream_label": "Q3 – PROMISE dataset",
+  "rerun_no_change": false,
+  "started_at": "2026-10-09T06:37:23.729Z",
+  "finished_at": "2026-10-09T06:37:31.385Z",
+  "query_original": "(\"PROMISE_exp\" OR \"PROMISE NFR\" OR \"PROMISE dataset\" OR \"PROMISE repository\" OR \"PROMISE corpus\") AND requirements",
+  "scope": "title+abstract",
+  "year_range": {
+    "from": 2017,
+    "to": 2026
+  },
+  "max_per_source": 200,
+  "crossref_prefixes": [],
+  "sources": [
+    {
+      "id": "openalex",
+      "database": "OpenAlex",
+      "search_stream": "Q3",
+      "status": "done",
+      "exact_query_used": "title_and_abstract.search: (\"PROMISE_exp\" OR \"PROMISE NFR\" OR \"PROMISE dataset\" OR \"PROMISE repository\" OR \"PROMISE corpus\") AND requirements",
+      "search_fields": "title + abstract (title_and_abstract.search)",
+      "filters": [
+        "publication_year:>2016",
+        "publication_year:<2027"
+      ],
+      "date": "2026-10-09",
+      "result_count": 110,
+      "exported_count": 110,
+      "endpoint": "https://api.openalex.org/works",
+      "sort": "mặc định (relevance), phân trang cursor",
+      "limit": 200,
+      "error": "",
+      "note": "",
+      "resumed_from_saved_run": false
+    },
+    {
+      "id": "semanticscholar",
+      "database": "Semantic Scholar",
+      "search_stream": "Q3",
+      "status": "done",
+      "exact_query_used": "(\"PROMISE_exp\" | \"PROMISE NFR\" | \"PROMISE dataset\" | \"PROMISE repository\" | \"PROMISE corpus\") + requirements",
+      "search_fields": "title + abstract (paper/search/bulk)",
+      "filters": [
+        "year=2017-2026"
+      ],
+      "date": "2026-10-09",
+      "result_count": 76,
+      "exported_count": 76,
+      "endpoint": "https://api.semanticscholar.org/graph/v1/paper/search/bulk",
+      "sort": "mặc định của bulk search, phân trang token",
+      "limit": 200,
+      "error": "",
+      "note": "Chạy không có API key",
+      "resumed_from_saved_run": false
+    },
+    {
+      "id": "arxiv",
+      "database": "arXiv",
+      "search_stream": "Q3",
+      "status": "done",
+      "exact_query_used": "((all:\"PROMISE_exp\" OR all:\"PROMISE NFR\" OR all:\"PROMISE dataset\" OR all:\"PROMISE repository\" OR all:\"PROMISE corpus\") AND all:requirements) AND submittedDate:[201701010000 TO 202612312359]",
+      "search_fields": "all fields (all:)",
+      "filters": [],
+      "date": "2026-10-09",
+      "result_count": 5,
+      "exported_count": 5,
+      "endpoint": "https://export.arxiv.org/api/query",
+      "sort": "relevance desc",
+      "limit": 200,
+      "error": "",
+      "note": "",
+      "resumed_from_saved_run": false
+    }
+  ],
+  "funnel": {
+    "retrieved": 191,
+    "outOfRange": 0,
+    "offTopic": 0,
+    "rerun": 0,
+    "written": 191,
+    "dupDoi": 126,
+    "dupTitle": 13,
+    "possibleDup": 0,
+    "added": 52,
+    "converted": 0,
+    "existing": 1166,
+    "totalRows": 1357,
+    "total": 893,
+    "queryMatch": {
+      "yes": 37,
+      "no": 2,
+      "unknown": 13
+    }
+  },
+  "notes": []
+}
