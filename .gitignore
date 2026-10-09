@@ -1,7 +1,13 @@
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 .vscode/
+.env
 
+# Excel/Word lock files
+~$*
+
+# Dữ liệu nguồn: không public cho tới khi kiểm tra license
 data/raw/
 results/predictions/
