@@ -8,8 +8,8 @@ A Reproducible and Leakage-Aware Evaluation of Ensemble Learning for Functional 
 
 | Vai trò | Phụ trách |
 |---|---|
-| TV A | protocol, dataset, audit, preprocessing, splits |
-| TV B | literature, models, thống kê, bảng/hình |
+| Hoang Anh (TV A) | protocol, dataset, audit, preprocessing, splits |
+| Phat Tai (TV B) | literature, models, thống kê, bảng/hình |
 | Cả hai | review code split/leakage, xác nhận số liệu, Discussion |
 
 ## Môi trường

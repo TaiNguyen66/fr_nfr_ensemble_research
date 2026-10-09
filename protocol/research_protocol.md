@@ -154,5 +154,5 @@ Single public benchmark; binary labels hide mixed requirements; known label-qual
 
 | Member | Role | Date | Signature |
 |---|---|---|---|
-| TV A | dataset, preprocessing, splits, protocol | 2026-10-09 | Agreed (confirmed via TV B) |
-| TV B | literature, models, statistics, figures | 2026-10-09 | Agreed |
+| Hoang Anh (TV A) | dataset, preprocessing, splits, protocol | 2026-10-09 | Agreed (confirmed via Phat Tai) |
+| Phat Tai (TV B) | literature, models, statistics, figures | 2026-10-09 | Agreed |

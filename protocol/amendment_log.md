@@ -5,6 +5,7 @@ Mọi thay đổi RQ, dataset, split, model, metric hoặc quy tắc kết luậ
 | ID | Ngày | Người đề xuất | Thay đổi | Lý do | Tác động lên kết quả đã có | Hai TV đồng ý |
 |---|---|---|---|---|---|---|
 | A-001 | 2026-10-08 | Nhóm (góp ý review kế hoạch) | Protocol v1 → v1.1 (xem chi tiết dưới) | v1 mâu thuẫn với kế hoạch và thiếu các tham số phải khóa trước | Không có (chưa chạy model nào) | ☑ A ☑ B (2026-10-09) |
+| A-002 | 2026-10-09 | Phat Tai | Chỉ sửa trình bày (editorial): ghi tên thành viên vào bảng ký tên §14 của protocol (TV A = Hoang Anh, TV B = Phat Tai) và README. Không đổi RQ, dữ liệu, model, split, metric hay quy tắc kết luận | Đồng bộ với tài liệu kế hoạch trên Drive | Không có | ☑ Hoang Anh ☑ Phat Tai (2026-10-09) |
 
 ## A-001 chi tiết (v1 → v1.1)
 
