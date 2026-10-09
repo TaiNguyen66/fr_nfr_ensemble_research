@@ -29,7 +29,10 @@ Khi thêm package: `python -m pip freeze | Set-Content -Encoding ascii requireme
 ## Lệnh
 
 ```powershell
-# Literature: thu metadata OpenAlex (key tùy chọn: $env:OPENALEX_API_KEY = "...")
+# Literature (công cụ chính, chạy từ thư mục cha NCKH/, kết quả vào literature/search/):
+#   node tools/frnfr-metadata-fetcher/cli.mjs fetch --member tv-b --streams core --max 200
+#   node tools/frnfr-metadata-fetcher/cli.mjs screen --member tv-b
+# Dự phòng chỉ OpenAlex (key tùy chọn: $env:OPENALEX_API_KEY = "...")
 python scripts/harvest_openalex.py --max 100
 
 # Dataset: freeze file thô (điền metadata đã xác minh, chưa rõ thì UNKNOWN)
@@ -44,7 +47,7 @@ python experiments/run_all.py
 
 ```text
 protocol/      research_protocol.md, amendment_log.md
-literature/    01_openalex_screening.csv, openalex_search_manifest.json, search-log.md, literature_matrix.xlsx, references.bib
+literature/    search/ (output của frnfr-metadata-fetcher), 01_openalex_screening.csv (dự phòng), openalex_search_manifest.json, search-log.md, literature_matrix.xlsx, references.bib
 data/          README.md, raw/ (không push), processed/, dataset_manifest.json, checksums.csv
 scripts/       harvest_openalex.py, freeze_dataset.py
 src/           audit_dataset.py, preprocessing.py, features.py, models.py, splits.py, stacking.py, evaluation.py, stats.py

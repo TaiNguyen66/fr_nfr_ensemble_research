@@ -1,7 +1,7 @@
 """Thu metadata paper từ OpenAlex cho phần literature (Phase 2).
 
 Chạy (từ gốc repo):
-    python scripts/harvest_openalex.py                 # Q1–Q5, 100 bản ghi/query
+    python scripts/harvest_openalex.py                 # Q1, Q1b, Q2–Q5, 100 bản ghi/query
     python scripts/harvest_openalex.py --queries Q1,Q2 --max 200
 
 Đầu ra trong literature/:
@@ -40,6 +40,12 @@ QUERIES = {
     "Q1": ("Core FR/NFR",
            '("functional requirements" OR "non-functional requirements" OR "nonfunctional requirements" '
            'OR "quality requirements") AND (classification OR classifying OR classifier)'),
+    # Bổ sung Q1 (thêm 2026-10-09): bài viết "functional and non-functional (quality) requirements"
+    # không khớp cụm từ của Q1, vd Dalpiaz et al. 2019
+    "Q1b": ("Requirements classification + ML",
+            '("requirements classification" OR "requirement classification" OR "classifying requirements" '
+            'OR "classification of requirements") AND ("machine learning" OR "deep learning" OR classifier '
+            'OR classifiers OR "natural language processing" OR NLP)'),
     "Q2": ("Ensemble",
            '("requirements classification" OR "requirement classification" OR "classifying requirements") '
            'AND (ensemble OR voting OR stacking OR bagging OR boosting)'),
