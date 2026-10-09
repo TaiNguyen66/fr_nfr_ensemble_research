@@ -47,7 +47,7 @@ python experiments/run_all.py
 
 ```text
 protocol/      research_protocol.md, amendment_log.md
-literature/    search/ (output của frnfr-metadata-fetcher), 01_openalex_screening.csv (dự phòng), openalex_search_manifest.json, search-log.md, literature_matrix.xlsx, references.bib
+literature/    search/ (output của frnfr-metadata-fetcher), 01_openalex_screening.csv (dự phòng), openalex_search_manifest.json, search-log.md, literature_matrix.xlsx (snapshot; bản chính là Google Sheet trên Drive nhóm), references.bib
 data/          README.md, raw/ (không push), processed/, dataset_manifest.json, checksums.csv
 scripts/       harvest_openalex.py, freeze_dataset.py
 src/           audit_dataset.py, preprocessing.py, features.py, models.py, splits.py, stacking.py, evaluation.py, stats.py
