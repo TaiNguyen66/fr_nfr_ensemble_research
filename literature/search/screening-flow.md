@@ -19,10 +19,10 @@ flowchart TD
     end
     subgraph SC ["Screening – vòng 1 (title/abstract)"]
         B["Bản ghi được sàng lọc (UNIQUE)<br/><b>n = 1276</b>"]
-        C["Bị loại vòng 1<br/><b>n = 376</b>"]
-        D["Chuyển sang toàn văn<br/>INCLUDE 221 · BACKGROUND 314 · UNSURE 365<br/><b>n = 900</b>"]
+        C["Bị loại vòng 1<br/><b>n = 536</b>"]
+        D["Chuyển sang toàn văn<br/>INCLUDE 183 · BACKGROUND 297 · UNSURE 260<br/><b>n = 740</b>"]
         E["Không lấy được toàn văn (EC-F)<br/><b>n = 0</b>"]
-        F["Đã đọc toàn văn<br/><b>n = 0</b><br/>Chờ thẩm định: 900"]
+        F["Đã đọc toàn văn<br/><b>n = 0</b><br/>Chờ thẩm định: 740"]
         G["Bị loại vòng 2<br/><b>n = 0</b>"]
     end
     subgraph IN ["Included"]
@@ -73,19 +73,19 @@ IEEE Xplore, ACM DL, Scopus, Web of Science không có API dùng được: tra t
 
 | Quyết định | Databases | Citation searching | Tổng | Tỷ lệ |
 |---|---:|---:|---:|---:|
-| INCLUDE | 221 | 0 | 221 | 17.3% |
-| BACKGROUND | 314 | 0 | 314 | 24.6% |
-| UNSURE | 365 | 0 | 365 | 28.6% |
-| EXCLUDE | 376 | 0 | 376 | 29.5% |
+| INCLUDE | 183 | 0 | 183 | 14.3% |
+| BACKGROUND | 297 | 0 | 297 | 23.3% |
+| UNSURE | 260 | 0 | 260 | 20.4% |
+| EXCLUDE | 536 | 0 | 536 | 42.0% |
 | **Tổng** | 1276 | 0 | **1276** | 100% |
 
 Lý do loại vòng 1 (một mã chính mỗi bản ghi, theo thứ tự EC-D → EC-Y → EC-G → EC-S → EC-T → EC-E):
 
 | Mã | Lý do | Số lượng |
 |:---:|---|---:|
-| `EC-S` | OUT_OF_SCOPE: không phải phân loại requirements | 301 |
+| `EC-S` | OUT_OF_SCOPE: không phải phân loại requirements | 467 |
 | `EC-G` | Gray literature / dataset | 46 |
-| `EC-T` | WRONG_TASK: sai nhiệm vụ / loại văn bản / không dùng ML | 22 |
+| `EC-T` | WRONG_TASK: sai nhiệm vụ / loại văn bản / không dùng ML | 16 |
 | `EC-Y` | Ngoài khung năm / không phải tiếng Anh | 7 |
 
 Người quyết định: `auto-rules v3.0.0-frnfr` 1276.
@@ -96,12 +96,12 @@ Người quyết định: `auto-rules v3.0.0-frnfr` 1276.
 
 | Bước | Databases | Citation searching | Tổng |
 |---|---:|---:|---:|
-| Chuyển sang toàn văn | 900 | 0 | 900 |
+| Chuyển sang toàn văn | 740 | 0 | 740 |
 | Không lấy được toàn văn (EC-F) | 0 | 0 | 0 |
 | Đã đọc toàn văn | 0 | 0 | 0 |
 | Bị loại vòng 2 | 0 | 0 | 0 |
 | Giữ lại | 0 | 0 | 0 |
-| **Chờ thẩm định toàn văn** | 900 | 0 | **900** |
+| **Chờ thẩm định toàn văn** | 740 | 0 | **740** |
 
 Lý do loại vòng 2:
 

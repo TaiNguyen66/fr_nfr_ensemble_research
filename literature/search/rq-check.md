@@ -42,4 +42,4 @@ MISS ở paper nền thì thêm stream hẹp hơn (Q1b…) hoặc lấy qua snow
 - Có **kiểm định thống kê** khi so model: 0 / 0.
 - Kết quả **so được trực tiếp** với protocol của mình (comparable = Yes): 0 / 0.
 
-> Gap chỉ được viết vào bài sau khi đọc đủ ≥ 12 bài (gate G2). Còn **900** bản ghi chờ đọc toàn văn trong thư mục này.
+> Gap chỉ được viết vào bài sau khi đọc đủ ≥ 12 bài (gate G2). Còn **740** bản ghi chờ đọc toàn văn trong thư mục này.
