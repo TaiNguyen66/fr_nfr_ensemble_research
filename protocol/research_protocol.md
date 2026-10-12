@@ -4,8 +4,8 @@
 |---|---|
 | Version | **1.1** (supersedes v1, commit `b14c06e`; changes listed in `amendment_log.md`, A-001) |
 | Date | 2026-10-08 |
-| Status | **CANDIDATE DESIGN** (v1.1 signed 2026-10-09). Under amendment A-003 the research questions and design are re-decided after the literature review (`review_protocol.md`, phase 3) and frozen as **v2.0 on 2026-10-22**, before any model is run. Until then v1.1 is the default design. |
-| Schedule | 2026-10-09 → 2026-11-05: literature review 12/10–22/10, experiments and writing 23/10–05/11 |
+| Status | **CANDIDATE DESIGN** (v1.1 signed 2026-10-09). Under amendment A-003 the research questions and design are re-decided after the literature review (`review_protocol.md`, phase 3) and frozen as **v2.0 on 2026-10-17** (moved earlier by A-004), before any model is run. Until then v1.1 is the default design. |
+| Schedule | 2026-10-09 → 2026-11-05: literature review 12/10–17/10, experiments and writing 18/10–05/11 |
 
 ## 1. Title (working title, final after phase 3)
 

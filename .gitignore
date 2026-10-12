@@ -11,3 +11,6 @@ __pycache__/
 # Dữ liệu nguồn: không public cho tới khi kiểm tra license
 data/raw/
 results/predictions/
+
+# PDF toàn văn: không commit (bản quyền)
+literature/pdf/

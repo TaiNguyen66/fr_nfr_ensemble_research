@@ -2,9 +2,9 @@
 
 | Trường | Giá trị |
 |---|---|
-| Phiên bản | 1.0 (2026-10-12) |
+| Phiên bản | 1.1 (2026-10-12; sửa theo A-004: lọc nhanh tự động, vòng cuối 30 bài) |
 | Trạng thái | LOCKED khi hai thành viên đồng ý (amendment A-003). Đổi tiêu chí sau đó = amendment mới |
-| Phạm vi | Giai đoạn 1–3 của kế hoạch (12/10 → 22/10/2026). Thiết kế thí nghiệm nằm ở `research_protocol.md` |
+| Phạm vi | Giai đoạn 1–3 của kế hoạch (12/10 → 17/10/2026). Thiết kế thí nghiệm nằm ở `research_protocol.md` |
 | Loại review | **Targeted literature review** có ghi nhật ký tìm kiếm và sàng lọc nhiều vòng. Không gọi là SLR/PRISMA đầy đủ |
 
 ## 1. Mục tiêu
@@ -30,6 +30,26 @@ RQ ứng viên hiện tại (`research_protocol.md` v1.1 §3: ensemble, tiền x
 - **Đã chạy:** 2026-10-09. 1.276 bản ghi duy nhất. Known-paper check 7/7 HIT (`literature/search/rq-check.md`).
 - **Bổ sung tay** (ghi vào `search-log.md`): tra Google Scholar / IEEE Xplore / ACM DL cho chuỗi Q1–Q2, và snowballing ngược/xuôi từ 3–5 bài cốt lõi sau R3 nếu thiếu bài nhóm ensemble hoặc đánh giá.
 - **Thêm tay:** 5 paper nền ngoài khung năm/chuỗi (S01–S05).
+
+## 3b. Lọc nhanh theo A-004 (đã áp dụng ngày 12/10, thay §5–§6)
+
+Để rút thời gian, vòng R1 (tiêu đề + tóm tắt) và R2 (đủ điều kiện) làm tay được thay bằng lọc tự động `scripts/select_final_papers.py`:
+
+| Luật | Giữ khi | Loại |
+|---|---|---|
+| L1 | Gợi ý R0 là INCLUDE (stream core), hoặc là bài nền tảng trong danh sách (survey phân loại yêu cầu, leakage) | UNSURE, EXCLUDE, BACKGROUND khác |
+| L2 | Abstract ≥ 200 ký tự | Thiếu abstract |
+| L3 | Journal / conference | Preprint, luận văn, sách |
+| L4 | Nhắc FR/NFR (hoặc PROMISE) và "phân loại yêu cầu" trong cùng ngữ cảnh; không phải app review / issue / văn bản pháp lý; người duyệt loại thêm bài lạc đề | Lạc đề |
+| L5 | Tải được PDF hợp lệ **ngay lần thử đầu** (một link open access, ≤ 10 giây) | Không có bản open access, bị chặn, đòi xác nhận bot, trả về trang web |
+
+Thứ tự thử tải: bài nền tảng (tối đa 4), rồi luân phiên CORE-ENSEMBLE → EVALUATION → CORE-ML, trong mỗi nhóm theo số trích dẫn/năm; **dừng khi đủ 30 bài có PDF**. Kết quả: 1.276 → 174 (L1–L4) → 30 (L5). Chi tiết từng bài: `literature/review/final_candidates.csv`.
+
+Bằng chứng từ PDF được trích tự động (`scripts/extract_pdf_evidence.py`) và **phải được người đọc xác nhận** trong workbook `NCKH_FRNFR_VongCuoi` (tab VongCuoi) trước khi dùng cho gap.
+
+**Hạn chế phải nêu trong bài:** chỉ dùng bài có bản open access tải được tự động, nên bỏ sót một số bài quan trọng không có bản mở (ví dụ Canedo & Mendes 2020, Kurtanović & Maalej 2017, bài Voting/Stacking ESEM 2025). Có thể trích dẫn các bài này từ abstract cho phần bối cảnh, nhưng không đưa vào số liệu đếm gap.
+
+§5–§6 dưới đây giữ lại để tham khảo, không còn áp dụng.
 
 ## 4. Vòng R0 – Lọc tự động (đã xong)
 
@@ -69,7 +89,7 @@ Bài nền tảng (survey, leakage, thống kê) chỉ cần E5.
 
 **Chọn sang R3 (30–40 bài):** đủ E2+E4+E5; ưu tiên bài có D1 hoặc D3, venue bình duyệt, dataset công khai; đảm bảo có đủ 4 nhóm.
 
-## 7. Vòng R3 – Toàn văn, trích xuất, chất lượng (17/10 → 19/10)
+## 7. Vòng R3 – Toàn văn, trích xuất, chất lượng (13/10 → 15/10, trên 30 bài vòng cuối)
 
 Đọc toàn văn, điền tab `R3_ToanVan_QA`: dataset (+version), nhiệm vụ, biểu diễn, model, tiền xử lý, **cách chia dữ liệu**, **kiểm soát trùng lặp/leakage**, metric, **loại F1**, kết quả tốt nhất kèm điều kiện, kiểm định thống kê, code/data công khai, so được với mình không, hạn chế.
 
@@ -90,12 +110,12 @@ Tổng ≥ 6 → tổng hợp chính. < 6 → giữ nhưng gắn LOW-CONFIDENCE.
 
 Thiếu nhóm nào → snowballing từ bài cốt lõi của nhóm đó (tối đa nửa ngày).
 
-## 8. Tổng hợp và tìm khoảng trống (20/10 → 22/10)
+## 8. Tổng hợp và tìm khoảng trống (16/10 → 17/10)
 
 1. **Bảng so sánh** từ R3: dataset × kỹ thuật × cách chia × loại F1 × kết quả × QA. Đếm theo từng cột (ví dụ: "k/N bài dùng 10-fold ngẫu nhiên không xử lý trùng lặp").
 2. **Liệt kê gap** vào tab `GD3_Gap`, mỗi gap phải có **bằng chứng đếm được** (ID bài, k/N). Loại gap: phương pháp đánh giá · so sánh công bằng · dữ liệu · tái lập · kỹ thuật.
 3. **Lọc theo khả thi.** Gap chỉ được chọn khi đạt **tất cả**:
-   - Dữ liệu công khai, tải và kiểm tra được trước 22/10.
+   - Dữ liệu công khai, tải và kiểm tra được trước 17/10.
    - Chạy được trên CPU laptop; toàn bộ thí nghiệm < 1 ngày tính toán.
    - Code + test làm xong trong ≤ 5 ngày cho 2 người.
    - Đo được bằng metric chuẩn, có quy tắc kết luận định trước.
