@@ -6,6 +6,7 @@ Mọi thay đổi RQ, dataset, split, model, metric hoặc quy tắc kết luậ
 |---|---|---|---|---|---|---|
 | A-001 | 2026-10-08 | Nhóm (góp ý review kế hoạch) | Protocol v1 → v1.1 (xem chi tiết dưới) | v1 mâu thuẫn với kế hoạch và thiếu các tham số phải khóa trước | Không có (chưa chạy model nào) | ☑ A ☑ B (2026-10-09) |
 | A-002 | 2026-10-09 | Phat Tai | Chỉ sửa trình bày (editorial): ghi tên thành viên vào bảng ký tên §14 của protocol (TV A = Hoang Anh, TV B = Phat Tai) và README. Không đổi RQ, dữ liệu, model, split, metric hay quy tắc kết luận | Đồng bộ với tài liệu kế hoạch trên Drive | Không có | ☑ Hoang Anh ☑ Phat Tai (2026-10-09) |
+| A-003 | 2026-10-12 | Phat Tai | Đổi thứ tự nghiên cứu: review tài liệu nhiều vòng (`review_protocol.md`) → tìm gap → chốt RQ và thiết kế thí nghiệm `research_protocol.md` **v2.0 ngày 22/10**. v1.1 thành thiết kế ứng viên / phương án mặc định | RQ nên xuất phát từ gap có bằng chứng trong tài liệu, không đặt trước | Không có (chưa chạy model nào). Lịch: thí nghiệm dời sang 23/10–05/11 | ☐ Hoang Anh ☑ Phat Tai |
 
 ## A-001 chi tiết (v1 → v1.1)
 

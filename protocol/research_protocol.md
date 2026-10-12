@@ -4,10 +4,10 @@
 |---|---|
 | Version | **1.1** (supersedes v1, commit `b14c06e`; changes listed in `amendment_log.md`, A-001) |
 | Date | 2026-10-08 |
-| Status | **LOCKED** 2026-10-09 (both members agreed). Any later change = new amendment entry (A-002, ...). |
-| Schedule | 4 weeks, 2026-10-09 → 2026-11-05 |
+| Status | **CANDIDATE DESIGN** (v1.1 signed 2026-10-09). Under amendment A-003 the research questions and design are re-decided after the literature review (`review_protocol.md`, phase 3) and frozen as **v2.0 on 2026-10-22**, before any model is run. Until then v1.1 is the default design. |
+| Schedule | 2026-10-09 → 2026-11-05: literature review 12/10–22/10, experiments and writing 23/10–05/11 |
 
-## 1. Title
+## 1. Title (working title, final after phase 3)
 
 A Reproducible and Leakage-Aware Evaluation of Ensemble Learning for Functional and Non-Functional Software Requirements Classification
 
@@ -20,7 +20,7 @@ Out of scope: NFR sub-classes (12-class), multi-label/mixed requirements, Transf
 
 A null result (e.g. "ensembles do not beat Linear SVM", "the gap disappears under grouped CV") is a valid outcome and will be reported as such.
 
-## 3. Research questions
+## 3. Research questions (candidate; confirmed, narrowed or replaced by the gap analysis in phase 3)
 
 - **RQ1 (individual vs ensemble).** How do individual classifiers (LR, Linear SVM, RF, Complement NB) and ensembles (Hard Voting, Stacking) compare in binary FR/NFR classification?
 - **RQ2 (preprocessing).** How do minimal cleaning (P0), stopword removal (P1) and stopword removal + lemmatization (P2) affect performance and the model ranking?
