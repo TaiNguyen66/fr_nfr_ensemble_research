@@ -32,6 +32,9 @@ GUIDE = [
     ("Mục đích", "Xác nhận 30 bài vòng cuối và tìm gap. Thông tin tự động (cột xám) do dò từ khóa trong PDF: CÓ THỂ SAI, phải kiểm tra."),
     ("Cách làm", "Mở PDF trong Drive 01_Tai_lieu_tham_khao/Vong_cuoi_30_bai (tên file bắt đầu bằng ID). Đọc Abstract, Method/Evaluation, bảng kết quả (~20–30 phút/bài). "
      "Điền các cột 'XÁC NHẬN' (xanh). Câu trích ở tab BangChung giúp tìm nhanh đoạn cần đọc."),
+    ("Bản đọc trước (Claude)", "Các cột XÁC NHẬN và Q1–Q5 đã được Claude điền sẵn sau khi đọc các đoạn liên quan trong PDF (cột Ghi chú ghi độ chắc chắn). "
+     "Người đọc chỉ cần mở PDF, kiểm tra nhanh các ô quan trọng (cách chia, câu trùng, oversampling, kiểm định) — ưu tiên dòng có độ chắc chắn 'thấp' / 'trung bình' — "
+     "rồi ghi ĐỒNG Ý hoặc SỬA ở cột cuối. Số liệu gap chỉ tính các dòng đã có người ĐỒNG Ý / SỬA."),
     ("Câu hỏi quan trọng nhất", "Mỗi bài: (1) chia train/test thế nào; (2) câu trùng có thể nằm ở cả train và test không; "
      "(3) oversampling / augmentation làm TRƯỚC hay SAU khi chia; (4) có kiểm định thống kê khi so model không; (5) báo loại F1 nào."),
     ("Bài lạc đề", "Nếu đọc thấy bài không phải phân loại yêu cầu FR/NFR: ghi 'Giữ?' = N và lý do ở Ghi chú. Không cần điền tiếp."),
@@ -80,14 +83,27 @@ def main():
               "XÁC NHẬN: Model chính", "XÁC NHẬN: Cách chia dữ liệu", "XÁC NHẬN: Câu trùng có thể ở cả train và test? (Y/N/không rõ)",
               "XÁC NHẬN: Oversampling / augmentation trước khi chia? (Y/N/không dùng)", "XÁC NHẬN: Loại F1 (macro / weighted / micro / theo lớp / chỉ accuracy)",
               "XÁC NHẬN: Kiểm định thống kê (Y/N)", "XÁC NHẬN: Code/data công khai (Y/N)", "XÁC NHẬN: Kết quả tốt nhất (kèm điều kiện)",
-              "Q1", "Q2", "Q3", "Q4", "Q5", "QA tổng", "Hạn chế / ý cho đề tài", "Ghi chú"]
+              "Q1", "Q2", "Q3", "Q4", "Q5", "QA tổng", "Hạn chế / ý cho đề tài", "Ghi chú",
+              "Người kiểm tra: ĐỒNG Ý / SỬA (ghi ô đã sửa)"]
     ws.append(meta + auto + verify)
+    # Bản đọc trước của Claude (claude_verification.csv): điền sẵn vào cột XÁC NHẬN, người đọc chỉ cần kiểm tra
+    vpath = REVIEW / "claude_verification.csv"
+    ver = {r["id"]: r for r in csv.DictReader(vpath.open(encoding="utf-8-sig"))} if vpath.exists() else {}
+    vkeys = ["giu", "dataset", "nhiem_vu", "model_chinh", "cach_chia", "cau_trung_ca_train_test", "oversampling_truoc_khi_chia",
+             "loai_f1", "kiem_dinh_thong_ke", "code_data", "ket_qua_tot_nhat"]
     pattern = [B, A, B, A, B]  # Phat Tai ~60%, Hoang Anh ~40%
     for i, p in enumerate(sorted(final, key=lambda r: (r["group"], r["id"]))):
         e = ev.get(p["id"], {})
         row = [p["id"], p["group"], p["title"], p["year"], p["venue"][:50], f"https://doi.org/{p['doi']}" if p["doi"] else "",
                f"{p['id']}_{short(p['title'])}.pdf", pattern[i % len(pattern)]]
-        row += [e.get(k, "") for k in AUTO] + [""] * len(verify)
+        v = ver.get(p["id"])
+        if v:
+            qs = [int(v[q]) if v[q] != "" else None for q in ("q1", "q2", "q3", "q4", "q5")]
+            note = " · ".join(x for x in (v["ly_do_loai"], v["ghi_chu"], f"Claude đọc (độ chắc chắn: {v['do_chac_chan']})") if x)
+            vals = [v[k] for k in vkeys] + qs + ["", "", note, ""]
+        else:
+            vals = [""] * len(verify)
+        row += [e.get(k, "") for k in AUTO] + vals
         ws.append(row)
         r = ws.max_row
         q = [ws.cell(r, len(meta) + len(auto) + 12 + k).coordinate for k in range(5)]
