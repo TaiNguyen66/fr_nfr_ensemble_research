@@ -15,6 +15,66 @@
       "retrieved_date": "2026-10-14",
       "frozen_at": "2026-10-14T03:41:33+00:00",
       "notes": "Mirror on GitHub; original author release not found yet"
+    },
+    {
+      "path": "data/raw/dalpiaz2019/dronology.csv",
+      "dataset_name": "Dalpiaz2019-dronology",
+      "sha256": "8fe6fbd5d8524ef0febecac1dda688a9980b83bce023b84f12b683e63217f07b",
+      "size_bytes": 10672,
+      "expected_rows": "97",
+      "canonical_url": "https://zenodo.org/records/3309582 (RE2019-Paper96.zip, 'Manually tagged datasets/')",
+      "doi": "10.5281/zenodo.3309582",
+      "source_paper": "Dalpiaz, Dell'Anna, Aydemir, Cevikol. Requirements Classification with Interpretable Machine Learning and Dependency Parsing. RE 2019",
+      "version": "Zenodo v1 (2019-07-10); archive SHA-256 8e274e26699db6a82194d340334ba7059f4eb7ed54d6ec21a39b0c83ba7136f6",
+      "license": "GPL-3.0 (LICENSE.md in archive)",
+      "retrieved_date": "2026-10-14",
+      "frozen_at": "2026-10-14T04:24:31+00:00",
+      "notes": "Labels IsFunctional/IsQuality (multi-label). Secondary replication dataset (A-007). ds2, ds3, esa-eucl-est excluded: text withheld"
+    },
+    {
+      "path": "data/raw/dalpiaz2019/leeds.csv",
+      "dataset_name": "Dalpiaz2019-leeds",
+      "sha256": "984c9c0ec1c4c0b22915cdb0db88ee41e1b7eba85803feec2c56130e5929f554",
+      "size_bytes": 10617,
+      "expected_rows": "85",
+      "canonical_url": "https://zenodo.org/records/3309582 (RE2019-Paper96.zip, 'Manually tagged datasets/')",
+      "doi": "10.5281/zenodo.3309582",
+      "source_paper": "Dalpiaz, Dell'Anna, Aydemir, Cevikol. Requirements Classification with Interpretable Machine Learning and Dependency Parsing. RE 2019",
+      "version": "Zenodo v1 (2019-07-10); archive SHA-256 8e274e26699db6a82194d340334ba7059f4eb7ed54d6ec21a39b0c83ba7136f6",
+      "license": "GPL-3.0 (LICENSE.md in archive)",
+      "retrieved_date": "2026-10-14",
+      "frozen_at": "2026-10-14T04:24:31+00:00",
+      "notes": "Labels IsFunctional/IsQuality (multi-label). Secondary replication dataset (A-007). ds2, ds3, esa-eucl-est excluded: text withheld"
+    },
+    {
+      "path": "data/raw/dalpiaz2019/reqview.csv",
+      "dataset_name": "Dalpiaz2019-reqview",
+      "sha256": "5f09a011d3af5a52615aa634d2481ae82b44cd80d195bde7b85f00fa5cfbb00a",
+      "size_bytes": 9463,
+      "expected_rows": "87",
+      "canonical_url": "https://zenodo.org/records/3309582 (RE2019-Paper96.zip, 'Manually tagged datasets/')",
+      "doi": "10.5281/zenodo.3309582",
+      "source_paper": "Dalpiaz, Dell'Anna, Aydemir, Cevikol. Requirements Classification with Interpretable Machine Learning and Dependency Parsing. RE 2019",
+      "version": "Zenodo v1 (2019-07-10); archive SHA-256 8e274e26699db6a82194d340334ba7059f4eb7ed54d6ec21a39b0c83ba7136f6",
+      "license": "GPL-3.0 (LICENSE.md in archive)",
+      "retrieved_date": "2026-10-14",
+      "frozen_at": "2026-10-14T04:24:31+00:00",
+      "notes": "Labels IsFunctional/IsQuality (multi-label). Secondary replication dataset (A-007). ds2, ds3, esa-eucl-est excluded: text withheld"
+    },
+    {
+      "path": "data/raw/dalpiaz2019/wasp.csv",
+      "dataset_name": "Dalpiaz2019-wasp",
+      "sha256": "3485faec3010ec1a1ec099be057c0e966937625d427fc96cc0183ad87e812cf4",
+      "size_bytes": 8204,
+      "expected_rows": "62",
+      "canonical_url": "https://zenodo.org/records/3309582 (RE2019-Paper96.zip, 'Manually tagged datasets/')",
+      "doi": "10.5281/zenodo.3309582",
+      "source_paper": "Dalpiaz, Dell'Anna, Aydemir, Cevikol. Requirements Classification with Interpretable Machine Learning and Dependency Parsing. RE 2019",
+      "version": "Zenodo v1 (2019-07-10); archive SHA-256 8e274e26699db6a82194d340334ba7059f4eb7ed54d6ec21a39b0c83ba7136f6",
+      "license": "GPL-3.0 (LICENSE.md in archive)",
+      "retrieved_date": "2026-10-14",
+      "frozen_at": "2026-10-14T04:24:31+00:00",
+      "notes": "Labels IsFunctional/IsQuality (multi-label). Secondary replication dataset (A-007). ds2, ds3, esa-eucl-est excluded: text withheld"
     }
   ]
 }
