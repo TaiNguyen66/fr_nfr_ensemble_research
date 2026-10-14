@@ -32,7 +32,7 @@ GUIDE = [
     ("Mục đích", "Xác nhận 30 bài vòng cuối và tìm gap. Thông tin tự động (cột xám) do dò từ khóa trong PDF: CÓ THỂ SAI, phải kiểm tra."),
     ("Cách làm", "Mở PDF trong Drive 01_Tai_lieu_tham_khao/Vong_cuoi_30_bai (tên file bắt đầu bằng ID). Đọc Abstract, Method/Evaluation, bảng kết quả (~20–30 phút/bài). "
      "Điền các cột 'XÁC NHẬN' (xanh). Câu trích ở tab BangChung giúp tìm nhanh đoạn cần đọc."),
-    ("Bản đọc trước (Claude)", "Các cột XÁC NHẬN và Q1–Q5 đã được Claude điền sẵn sau khi đọc các đoạn liên quan trong PDF (cột Ghi chú ghi độ chắc chắn). "
+    ("Bản đọc trước", "Các cột XÁC NHẬN và Q1–Q5 đã được điền sẵn sau khi đọc các đoạn liên quan trong PDF (cột Ghi chú ghi độ chắc chắn). "
      "Người đọc chỉ cần mở PDF, kiểm tra nhanh các ô quan trọng (cách chia, câu trùng, oversampling, kiểm định) — ưu tiên dòng có độ chắc chắn 'thấp' / 'trung bình' — "
      "rồi ghi ĐỒNG Ý hoặc SỬA ở cột cuối. Số liệu gap chỉ tính các dòng đã có người ĐỒNG Ý / SỬA."),
     ("Câu hỏi quan trọng nhất", "Mỗi bài: (1) chia train/test thế nào; (2) câu trùng có thể nằm ở cả train và test không; "
@@ -86,8 +86,8 @@ def main():
               "Q1", "Q2", "Q3", "Q4", "Q5", "QA tổng", "Hạn chế / ý cho đề tài", "Ghi chú",
               "Người kiểm tra: ĐỒNG Ý / SỬA (ghi ô đã sửa)"]
     ws.append(meta + auto + verify)
-    # Bản đọc trước của Claude (claude_verification.csv): điền sẵn vào cột XÁC NHẬN, người đọc chỉ cần kiểm tra
-    vpath = REVIEW / "claude_verification.csv"
+    # Bản đọc trước (pre_read_verification.csv): điền sẵn vào cột XÁC NHẬN, người đọc chỉ cần kiểm tra
+    vpath = REVIEW / "pre_read_verification.csv"
     ver = {r["id"]: r for r in csv.DictReader(vpath.open(encoding="utf-8-sig"))} if vpath.exists() else {}
     vkeys = ["giu", "dataset", "nhiem_vu", "model_chinh", "cach_chia", "cau_trung_ca_train_test", "oversampling_truoc_khi_chia",
              "loai_f1", "kiem_dinh_thong_ke", "code_data", "ket_qua_tot_nhat"]
@@ -99,7 +99,7 @@ def main():
         v = ver.get(p["id"])
         if v:
             qs = [int(v[q]) if v[q] != "" else None for q in ("q1", "q2", "q3", "q4", "q5")]
-            note = " · ".join(x for x in (v["ly_do_loai"], v["ghi_chu"], f"Claude đọc (độ chắc chắn: {v['do_chac_chan']})") if x)
+            note = " · ".join(x for x in (v["ly_do_loai"], v["ghi_chu"], f"Đọc trước (độ chắc chắn: {v['do_chac_chan']})") if x)
             vals = [v[k] for k in vkeys] + qs + ["", "", note, ""]
         else:
             vals = [""] * len(verify)

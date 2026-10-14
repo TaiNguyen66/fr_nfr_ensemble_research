@@ -1,4 +1,4 @@
-﻿pair,cosine,row_a,row_b,project_a,project_b,claude_proposal,reason,reviewer,reviewer_decision (AGREE / SAME / DIFFERENT),final
+﻿pair,cosine,row_a,row_b,project_a,project_b,proposal,reason,reviewer,reviewer_decision (AGREE / SAME / DIFFERENT),final
 1,1.000,532,533,10,10,DIFFERENT,"Đảo vai offensive/defensive: hai hành vi ngược nhau (cosine 1,0 do cùng bộ n-gram ký tự)",,,
 2,0.981,756,943,34,46,SAME,Chỉ khác must/shall; cùng câu ở hai project,,,
 3,0.974,757,945,34,46,SAME,Chỉ khác should/shall; cùng câu ở hai project,,,

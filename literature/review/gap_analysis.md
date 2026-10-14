@@ -1,6 +1,6 @@
 # Phân tích khoảng trống (bản đề xuất cho họp chọn gap)
 
-> **Nguồn:** 30 bài vòng cuối (`final_set.csv`), Claude đọc các đoạn liên quan trong toàn văn ngày 12/10 (`claude_verification.csv`).
+> **Nguồn:** 30 bài vòng cuối (`final_set.csv`), Phat Tai đọc trước các đoạn liên quan trong toàn văn ngày 12/10 (`pre_read_verification.csv`).
 > **Trạng thái:** ĐÃ CHỐT 14/10 (nhóm chọn "theo đề xuất"). Sau khi hai thành viên kiểm tra, còn **21 bài thực nghiệm** (loại thêm R0043, R0145, R0229, R0813, R0618; R1526 không đếm). Số liệu chính thức: mục 0 bên dưới; protocol: `research_protocol.md` v2.0.
 > **Phạm vi đếm:** 26 bài thực nghiệm được giữ. Loại 3 bài: R0014 (review ứng dụng), R0615 (phát hiện câu mơ hồ), R0072 (chỉ xây dataset). R1526 (Allamanis 2019) là bài nền tảng, không đếm.
 
@@ -53,5 +53,5 @@ Tất cả đều qua bộ lọc khả thi (`review_protocol.md` §8): dữ li�
 
 ## 4. Hạn chế của bản phân tích này
 
-- Claude đọc các đoạn liên quan, không đọc toàn văn từng câu. Các ô có độ chắc chắn "thấp" / "trung bình" cần người kiểm tra trước khi số liệu thành chính thức. Ưu tiên kiểm tra: R0187, R0538, R0618 (thứ tự oversampling); R0043, R0118, R0145, R0229, R0813 (không nêu cách chia).
+- Bản đọc trước chỉ đọc các đoạn liên quan, không đọc toàn văn từng câu. Các ô có độ chắc chắn "thấp" / "trung bình" cần người kiểm tra trước khi số liệu thành chính thức. Ưu tiên kiểm tra: R0187, R0538, R0618 (thứ tự oversampling); R0043, R0118, R0145, R0229, R0813 (không nêu cách chia).
 - Bộ 30 bài chỉ gồm bài có bản open access tải được tự động (A-004). Bài quan trọng không có bản mở (Canedo & Mendes 2020, Kurtanović & Maalej 2017, ESEM 2025 Voting/Stacking) có thể được trích dẫn từ abstract cho bối cảnh, nhưng không đưa vào số đếm.
