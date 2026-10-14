@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "path": "data/raw/PROMISE_exp.arff",
+      "dataset_name": "PROMISE_exp",
+      "sha256": "7475c2904648912ef08bd1b6149f505f7ce6ab26ee9b187c2ddee28d1af97d75",
+      "size_bytes": 115622,
+      "line_count": 1015,
+      "expected_rows": "969",
+      "canonical_url": "https://github.com/AleksandarMitrevski/se-requirements-classification/tree/master/0-datasets/PROMISE_exp (mirror)",
+      "doi": "10.1145/3350768.3350776 (source paper)",
+      "source_paper": "Lima et al., Software Engineering Repositories: Expanding the PROMISE Database, SBES 2019",
+      "version": "mirror commit master @ 2026-10-14",
+      "license": "UNKNOWN",
+      "retrieved_date": "2026-10-14",
+      "frozen_at": "2026-10-14T03:41:33+00:00",
+      "notes": "Mirror on GitHub; original author release not found yet"
+    }
+  ]
+}
