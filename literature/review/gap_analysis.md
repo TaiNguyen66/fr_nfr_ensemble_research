@@ -1,10 +1,21 @@
 # Phân tích khoảng trống (bản đề xuất cho họp chọn gap)
 
 > **Nguồn:** 30 bài vòng cuối (`final_set.csv`), Claude đọc các đoạn liên quan trong toàn văn ngày 12/10 (`claude_verification.csv`).
-> **Trạng thái:** ĐỀ XUẤT. Số liệu thành chính thức khi hai thành viên kiểm tra và ghi ĐỒNG Ý / SỬA ở cột cuối tab `VongCuoi`.
+> **Trạng thái:** ĐÃ CHỐT 14/10 (nhóm chọn "theo đề xuất"). Sau khi hai thành viên kiểm tra, còn **21 bài thực nghiệm** (loại thêm R0043, R0145, R0229, R0813, R0618; R1526 không đếm). Số liệu chính thức: mục 0 bên dưới; protocol: `research_protocol.md` v2.0.
 > **Phạm vi đếm:** 26 bài thực nghiệm được giữ. Loại 3 bài: R0014 (review ứng dụng), R0615 (phát hiện câu mơ hồ), R0072 (chỉ xây dataset). R1526 (Allamanis 2019) là bài nền tảng, không đếm.
 
-## 1. Bằng chứng theo từng gap
+## 0. Số liệu chính thức sau xác nhận (21 bài)
+
+| Gap | k/N |
+|---|---|
+| G1 chia ngẫu nhiên không khử trùng | 14/21; 0/21 nhóm câu trùng |
+| G2 oversampling trước khi chia | 3 trong 6 bài có oversampling |
+| G3 ensemble không kiểm định | 4/6 |
+| G4 báo macro-F1 | 1/21 |
+| G5 đánh giá theo project/domain | 3/21 (+ NoRBERT một phần) |
+| G6 công bố code/data | 5/21 |
+
+## 1. Bằng chứng theo từng gap (bản đọc trước, 26 bài)
 
 | Gap | Bằng chứng (k/N trên 26 bài) | Mức |
 |---|---|---|

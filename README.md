@@ -1,11 +1,11 @@
 # FR/NFR Ensemble — Leakage-Aware Evaluation
 
-Working title: *A Reproducible and Leakage-Aware Evaluation of Ensemble Learning for Functional and Non-Functional Software Requirements Classification* (chốt sau giai đoạn 3). Nhóm 2 người, 09/10 → 05/11/2026.
+Title: *How Much Does Evaluation Leakage Inflate FR/NFR Requirements Classification? A Leakage-Aware Re-Evaluation of Single and Ensemble Classifiers*. Nhóm 2 người, 09/10 → 05/11/2026.
 
 Quy trình 4 giai đoạn: **(1)** chọn chủ đề & kiểm tra tài liệu → **(2)** chọn & tổng hợp tài liệu → **(3)** đọc, so sánh & tìm khoảng trống → **(4)** triển khai end-to-end.
 
 - Review tài liệu (GĐ1–3, tiêu chí từng vòng sàng lọc): [protocol/review_protocol.md](protocol/review_protocol.md)
-- Thiết kế thí nghiệm (GĐ4; v1.1 là thiết kế ứng viên, chốt v2.0 ngày 17/10): [protocol/research_protocol.md](protocol/research_protocol.md)
+- Thiết kế thí nghiệm **v2.0** (từ gap đã chốt 14/10; RQ1 câu trùng/project, RQ2 oversampling trước khi chia, RQ3 ensemble): [protocol/research_protocol.md](protocol/research_protocol.md) · phân tích gap: [literature/review/gap_analysis.md](literature/review/gap_analysis.md)
 - Thay đổi sau khi khóa protocol: [protocol/amendment_log.md](protocol/amendment_log.md)
 - Nhật ký hằng ngày: [research_log.md](research_log.md) · Nhật ký chạy: [experiments/experiment_log.csv](experiments/experiment_log.csv)
 
