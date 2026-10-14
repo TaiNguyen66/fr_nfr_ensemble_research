@@ -18,3 +18,4 @@ literature/pdf/
 # Processed tables contain requirement text (raw licenses differ)
 data/processed/requirements.csv
 data/processed/dalpiaz_requirements*.csv
+logs/
