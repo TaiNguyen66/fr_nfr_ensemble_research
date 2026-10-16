@@ -4,7 +4,7 @@
 |---|---|
 | Version | **2.0** (supersedes v1.1; derived from the gap analysis `literature/review/gap_analysis.md`; changes in `amendment_log.md`, A-005) |
 | Date | 2026-10-14 |
-| Status | **DRAFT** until both members sign §14; then **LOCKED**. No model is run before LOCKED. Any later change = new amendment entry. |
+| Status | **LOCKED** on 2026-10-16 (signed by the lead, Phat Tai, A-008). No model is run before LOCKED. Any later change = new amendment entry approved by the lead (A-008). |
 | Schedule | Experiments and writing 2026-10-18 → 2026-11-05 |
 
 ## 1. Title
@@ -159,5 +159,5 @@ Single public benchmark; binary labels hide mixed requirements; label-quality co
 
 | Member | Role | Date | Signature |
 |---|---|---|---|
-| Hoang Anh (TV A) | dataset, preprocessing, splits, protocol | | |
-| Phat Tai (TV B) | literature, models, statistics, figures | 2026-10-14 | Agreed (gap choice "theo đề xuất") |
+| Hoang Anh (TV A) | advisory; writes sections on request (A-008) | — | Not required (A-008) |
+| Phat Tai (TV B) | lead; literature, models, statistics, figures | 2026-10-16 | Signed: protocol LOCKED (A-008) |
