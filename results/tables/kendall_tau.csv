@@ -1,0 +1,4 @@
+dataset,protocol_x,protocol_y,models,kendall_tau
+requirements.csv,S,G-dup,M1 M2 M3 M4 M5 M6,0.7333333333333333
+requirements.csv,S,G-proj,M1 M2 M3 M4 M5 M6,0.6
+dalpiaz_requirements.csv,S,LODO,M1 M2 M3 M4 M5,0.19999999999999998
