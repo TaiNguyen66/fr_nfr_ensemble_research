@@ -1,0 +1,40 @@
+% Evaluation design (Fig. 1). Included with \input{figures/design} inside a figure* environment.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=7mm, inner sep=3pt},
+  data/.style={box, fill=gray!12},
+  bad/.style={box, fill=black, text=white},
+  good/.style={box, fill=white, very thick},
+  arr/.style={-{Stealth[length=2mm]}, thick},
+  lbl/.style={font=\footnotesize\bfseries, anchor=west}
+]
+% ---------- (a) splitting protocols ----------
+\node[lbl] at (0,0) {(a) Splitting protocols (RQ1, RQ3)};
+\node[data, anchor=west, text width=2.6cm] (d) at (0,-1.4) {PROMISE\_exp\\969 req., 47 projects};
+\node[box, right=8mm of d, yshift=7mm, text width=4.4cm] (s) {\textbf{S}: stratified 5-fold CV\\(rows assigned at random)};
+\node[box, right=8mm of d, yshift=-1mm, text width=4.4cm] (gd) {\textbf{G-dup}: duplicate group kept\\in one fold (8 groups, 16 rows)};
+\node[box, right=8mm of d, yshift=-9mm, text width=4.4cm] (gp) {\textbf{G-proj}: all requirements of a\\project kept in one fold};
+\draw[arr] (d.east) -- (s.west);
+\draw[arr] (d.east) -- (gd.west);
+\draw[arr] (d.east) -- (gp.west);
+\node[font=\scriptsize, align=left, anchor=north west] at (0,-2.9) {5 seeds $\times$ 5 folds = 25 paired scores per configuration;\\ models M0--M6, TF-IDF fitted on the training fold only.};
+
+% ---------- (b) oversampling order ----------
+\begin{scope}[xshift=9.2cm]
+\node[lbl] at (0,0) {(b) Oversampling order (RQ2)};
+\node[font=\scriptsize\bfseries, anchor=west] at (0,-0.45) {BEFORE (leaky)};
+\node[data, anchor=west] (d2) at (0,-1.0) {All rows};
+\node[bad, right=5mm of d2] (os1) {Oversample};
+\node[box, right=5mm of os1] (sp1) {Split};
+\node[box, right=5mm of sp1, text width=1.5cm] (t1) {Train / test\\(copies in both)};
+\draw[arr] (d2) -- (os1); \draw[arr] (os1) -- (sp1); \draw[arr] (sp1) -- (t1);
+
+\node[font=\scriptsize\bfseries, anchor=west] at (0,-1.65) {IN-FOLD (correct)};
+\node[data, anchor=west] (d3) at (0,-2.2) {All rows};
+\node[box, right=5mm of d3] (sp2) {Split};
+\node[good, right=5mm of sp2] (os2) {Oversample\\train only};
+\node[box, right=5mm of os2, text width=1.5cm] (t2) {Test = original\\rows only};
+\draw[arr] (d3) -- (sp2); \draw[arr] (sp2) -- (os2); \draw[arr] (os2) -- (t2);
+\node[font=\scriptsize, align=left, anchor=north west] at (0,-2.9) {OS-R: random oversampling; OS-S: SMOTE.\\ Tasks: T-bin (FR/NFR) and T-12 (12 classes).};
+\end{scope}
+\end{tikzpicture}

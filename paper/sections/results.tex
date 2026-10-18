@@ -1,0 +1,30 @@
+% RESULTS (~1.5-2 pages). Prompt: AGENT_PROMPTS.md, section "Results".
+% Keep the table/figure commands; only describe what the tables show. Numbers must match fact_sheet.md.
+\section{Results}
+\label{sec:results}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/summary_deltas.pdf}
+\caption{Mean paired difference in macro-F1 for every planned comparison (one dot per model or model$\times$oversampler). Filled: clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$); hollow: no clear difference. Grey band: $|\Delta| < 0.01$. Right: clear differences per family.}
+\label{fig:summary}
+\end{figure}
+
+\subsection{RQ1: Duplicate- and project-grouped evaluation}
+\input{tables/rq1}
+TODO: RQ1 text.
+
+\subsection{RQ2: Oversampling before vs.\ inside the training fold}
+\input{tables/rq2}
+TODO: RQ2 text.
+
+\subsection{RQ3: Ensembles under leakage-aware evaluation}
+\input{tables/rq3}
+TODO: RQ3 text.
+
+\subsection{Replication on the Dalpiaz et al.\ dataset}
+\input{tables/dalpiaz}
+TODO: replication text.
+
+\subsection{Error analysis}
+TODO: error analysis (30 misclassified rows; categories from fact_sheet.md section 7). Fill in after labelling.
