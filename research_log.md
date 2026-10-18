@@ -26,3 +26,10 @@ Blockers: không.
 Decisions: không đổi thiết kế; không chạy lại cấu hình nào.
 Next: error analysis §11 (T-bin, G-dup, seed 42, M2 và M5); viết Results; kiểm chứng chạy lại sạch ngày 02/11.
 Needs review from: —
+
+## 2026-10-18 — Phat Tai
+Done: kiểm chứng chạy lại sạch trên máy cá nhân: pytest 34 passed; audit_dataset khớp; chạy lại RQ1 (413 s), RQ2 (710 s), D2 (174 s), analyze_results. SHA-256 cả 3 `fold_scores_*.csv` trùng lần 2026-10-16, `git diff --stat results/tables` rỗng → tái lập đúng từng bit.
+Blockers: không.
+Decisions: `splits_D2.csv` chỉ đổi thứ tự khối (thứ tự duyệt `set` không cố định) → sửa `run_experiments.py` dùng `sorted(...)`, khôi phục file đã commit; không đổi thiết kế, không cần amendment. Không dùng Colab cho lần kiểm chứng này.
+Next: push (sau khi Phat Tai đồng ý); bảng phụ lục no-both D2; gán nhãn error analysis; viết Results.
+Needs review from: —

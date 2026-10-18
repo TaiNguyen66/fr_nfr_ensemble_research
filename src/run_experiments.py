@@ -85,7 +85,7 @@ def main(argv=None):
         raise SystemExit("Protocol is not LOCKED (research_protocol.md §14). No model is run before LOCKED.")
 
     jobs = list(plan(args.plan))
-    data = {f: pd.read_csv(PROCESSED / f, keep_default_na=False) for f in {j[0] for j in jobs}}
+    data = {f: pd.read_csv(PROCESSED / f, keep_default_na=False) for f in sorted({j[0] for j in jobs})}
     for f, df in data.items():
         df["duplicate_group"] = df["duplicate_group"].astype(int)
     for d in ("tables", "predictions", "splits"):

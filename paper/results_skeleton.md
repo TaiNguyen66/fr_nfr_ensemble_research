@@ -85,3 +85,7 @@ Runner ghi đè `results/tables/fold_scores_*.csv` (đã commit ở `72f3a37`), 
 
 Nếu hash khác: so từng ô `macro_f1` (file CSV), ghi chênh lệch lớn nhất vào `research_log.md`; chênh ≤ 1e-9 (sai số số học) thì coi là tái lập; chênh lớn hơn thì **không sửa/chọn lại**, ghi nguyên nhân (phiên bản gói, thứ tự dữ liệu) và báo cáo cả hai lần chạy. Không chạy lại để "đẹp" kết quả (§Key constraints).
 Sau khi khớp: ghi thời gian + kết quả vào `research_log.md`, rồi mới push.
+
+### Kết quả kiểm chứng chạy lại (2026-10-18, Phat Tai, máy cá nhân)
+
+`pytest` 34 passed; `audit_dataset` khớp; 3 hash `fold_scores_{RQ1,RQ2,D2}.csv` trùng khớp bảng trên, `git diff --stat results/tables` rỗng → **tái lập đúng từng bit**. Số "clear differences" giống lần đầu. Thời gian: RQ1 413 s, RQ2 710 s, D2 174 s (lần đầu 398/611/150 s). `results/splits/splits_D2.csv` chỉ khác thứ tự khối dataset (cùng nội dung sau khi sắp xếp) do duyệt `set` tên file trong `run_experiments.py`; đã sửa thành `sorted(...)` (chỉ ảnh hưởng thứ tự ghi file, không đổi thiết kế) và khôi phục file đã commit.
