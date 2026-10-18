@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\centering
+\caption{RQ2: macro-F1 when oversampling is applied to the whole dataset before splitting (BEFORE) versus inside each training fold only (IN-FOLD), PROMISE\_exp, stratified CV. OS-R: random oversampling; OS-S: SMOTE. $\Delta$ = BEFORE $-$ IN-FOLD. Bold $\Delta$: clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$, corrected repeated k-fold $t$-test).}
+\label{tab:rq2}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll cc rr cc rr}
+\toprule
+& & \multicolumn{4}{c}{T-bin (FR vs NFR)} & \multicolumn{4}{c}{T-12 (12 classes)} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}
+Model & OS & BEFORE & IN-FOLD & $\Delta$ & $p_{\mathrm{Holm}}$ & BEFORE & IN-FOLD & $\Delta$ & $p_{\mathrm{Holm}}$ \\
+\midrule
+M1 & OS-R & 0.899 & 0.878 & +0.020 & 0.687 & 0.989 & 0.597 & \textbf{+0.392} & $<$0.001 \\
+M1 & OS-S & 0.900 & 0.879 & +0.021 & 0.712 & 0.988 & 0.589 & \textbf{+0.399} & $<$0.001 \\
+M2 & OS-R & 0.917 & 0.893 & +0.024 & 0.687 & 0.992 & 0.593 & \textbf{+0.399} & $<$0.001 \\
+M2 & OS-S & 0.920 & 0.894 & +0.026 & 0.194 & 0.992 & 0.595 & \textbf{+0.398} & $<$0.001 \\
+M3 & OS-R & 0.882 & 0.855 & +0.027 & 0.621 & 0.994 & 0.506 & \textbf{+0.488} & $<$0.001 \\
+M3 & OS-S & 0.878 & 0.855 & +0.023 & 0.712 & 0.986 & 0.495 & \textbf{+0.491} & $<$0.001 \\
+M4 & OS-R & 0.903 & 0.888 & +0.015 & 0.712 & 0.967 & 0.526 & \textbf{+0.441} & $<$0.001 \\
+M4 & OS-S & 0.905 & 0.890 & +0.015 & 0.712 & 0.951 & 0.525 & \textbf{+0.425} & $<$0.001 \\
+M5 & OS-R & 0.909 & 0.886 & +0.023 & 0.712 & 0.992 & 0.595 & \textbf{+0.398} & $<$0.001 \\
+M5 & OS-S & 0.908 & 0.885 & +0.023 & 0.687 & 0.993 & 0.587 & \textbf{+0.406} & $<$0.001 \\
+\bottomrule
+\end{tabular}
+\end{table*}

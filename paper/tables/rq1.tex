@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{RQ1: macro-F1 under stratified CV (S), duplicate-grouped CV (G-dup) and project-grouped CV (G-proj) on PROMISE\_exp, T-bin, no oversampling (mean over 5 seeds $\times$ 5 folds). $\Delta$ = S $-$ grouped. Bold $\Delta$: clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$, corrected repeated k-fold $t$-test).}
+\label{tab:rq1}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccc rr rr}
+\toprule
+& \multicolumn{3}{c}{Macro-F1} & \multicolumn{2}{c}{S $-$ G-dup} & \multicolumn{2}{c}{S $-$ G-proj} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+Model & S & G-dup & G-proj & $\Delta$ & $p_{\mathrm{Holm}}$ & $\Delta$ & $p_{\mathrm{Holm}}$ \\
+\midrule
+M0 & 0.351 & 0.351 & 0.352 & -- & -- & -- & -- \\
+M1 & 0.876 & 0.878 & 0.694 & -0.002 & 1.000 & \textbf{+0.182} & 0.004 \\
+M2 & 0.893 & 0.891 & 0.722 & +0.001 & 1.000 & \textbf{+0.171} & $<$0.001 \\
+M3 & 0.851 & 0.853 & 0.661 & -0.001 & 1.000 & \textbf{+0.190} & 0.007 \\
+M4 & 0.889 & 0.884 & 0.755 & +0.005 & 1.000 & \textbf{+0.134} & $<$0.001 \\
+M5 & 0.882 & 0.885 & 0.705 & -0.003 & 1.000 & \textbf{+0.176} & 0.002 \\
+M6 & 0.891 & 0.894 & 0.749 & -0.003 & 1.000 & \textbf{+0.142} & $<$0.001 \\
+\bottomrule
+\end{tabular}
+\end{table*}
