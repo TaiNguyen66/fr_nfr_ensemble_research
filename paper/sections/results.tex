@@ -45,6 +45,55 @@ Under G-dup, both ensembles were clearly better than the random forest only (Tab
 On the Dalpiaz data (T-bin), BEFORE again gave higher estimates than IN-FOLD for every model and oversampler, by $+0.034$ to $+0.081$ (BEFORE 0.775--0.822, IN-FOLD 0.716--0.754; Table~\ref{tab:dalpiaz}). These differences are again consistent in direction and comparable to the fold standard deviation (0.039--0.066). Testing on an unseen dataset (LODO) gave 0.405--0.511, compared with 0.709--0.746 under S, a drop of 0.21--0.31. Rankings agreed little between S and LODO (Kendall's $\tau = 0.20$). In the no-both sensitivity analysis (Table~\ref{tab:noboth}), removing the 81 requirements labelled both functional and quality raised M2--M5 by $+0.035$ to $+0.074$ and lowered M1 by 0.103.
 
 \subsection{Error analysis}
-% CHECK: PROVISIONAL counts from a suggested labelling (error_analysis_suggested.csv).
-% Replace with the reconciled counts after Phat Tai (and Hoang Anh, if asked) label the 30 rows (protocol §11).
-We inspected 30 misclassified requirements (T-bin, G-dup, seed 42): 15 from M2 and 15 from M5, each with 8 true-NFR and 7 true-FR rows. Ground-truth labels were not changed. The most frequent category was a \emph{functional verb in an NFR} (8 rows): quality requirements phrased as system actions, e.g.\ ``The system shall utilize HTTPS communication to ensure data confidentiality'' (labelled SE, predicted FR). Next came \emph{mixed FR/NFR} requirements (6), which state a function together with a quality, e.g.\ a list that ``must be color coded for easy identification''. Errors on true-FR rows were mostly caused by a \emph{quality keyword in an FR} (5), such as ``login'', ``available'' or ``time'', and by \emph{ambiguous or underspecified} statements (4). Four rows were flagged as a \emph{possible annotation issue}, e.g.\ an F-labelled requirement asking for a ``Windows XP look and feel''. The remaining rows were \emph{short or low-context} (2) or \emph{other} (1). Two of the 30 rows are the same sentence in one duplicate group, placed in the same fold by G-dup. Overall, most errors arise from requirements whose wording mixes functional and quality aspects, which a binary label cannot express.
+
+We inspected 30 misclassified requirements from
+PROMISE_exp (T-bin, G-dup, seed 42): 15 errors
+from Linear SVM (M2) and 15 from Hard Voting (M5).
+Each model contributed eight true-NFR and seven
+true-FR instances. Ground-truth labels were
+not changed.
+
+Two authors assigned initial error categories
+to the selected requirements and subsequently
+reconciled their disagreements. Their initial
+categorizations agreed on 15 of 30 instances
+(50.0\%), yielding Cohen's $\kappa = 0.3911$.
+Both authors used AI assistance during the
+annotation workflow. Consequently, this
+agreement should not be interpreted as fully
+independent, unaided human inter-rater agreement.
+
+After reconciliation, the most frequent category
+was \emph{ambiguous or underspecified}
+(8/30, 26.7\%), followed by \emph{mixed FR/NFR}
+(7/30, 23.3\%) and \emph{functional verb in NFR}
+(6/30, 20.0\%). An example of an ambiguous
+requirement concerns using stored email addresses
+as the primary means of communication.
+A mixed requirement states that dispute cases
+``must be color coded for easy identification''.
+An NFR requiring the system to ``utilize HTTPS
+communication to ensure data confidentiality''
+was incorrectly predicted as FR.
+
+The remaining categories were \emph{quality
+keyword in FR} (4/30, 13.3\%), such as a
+requirement concerning failed login alerts;
+\emph{possible annotation issue} (2/30, 6.7\%);
+\emph{other} (2/30, 6.7\%); and
+\emph{short/low context} (1/30, 3.3\%).
+
+Two selected errors, P0809 and P0752, contain
+the same requirement wording apart from
+punctuation and belong to one duplicate group,
+which G-dup assigns to the same fold.
+
+The three most frequent categories accounted
+for 21 of the 30 selected errors (70.0\%).
+The relatively modest initial agreement also
+indicates that identifying a single primary
+error category was challenging for the reviewers.
+These findings are qualitative observations,
+not verified causal explanations of model
+behavior, and the observed proportions
+cannot be generalized to the full dataset.

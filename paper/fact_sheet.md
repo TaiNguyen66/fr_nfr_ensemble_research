@@ -104,9 +104,51 @@ Raw PROMISE_exp is not redistributed (license unknown).
 - Clear-difference counts (tested families only): RQ3-Gdup 2/8, RQ3-S 2/8. All other families are descriptive (Figure `fig:summary`).
 - The re-run on 2026-10-18 reproduced every per-fold score bit-for-bit (SHA-256 of all fold-score files identical).
 
-## 7. Error analysis (pending)
 
-Sample: T-bin, G-dup, seed 42; 30 misclassified rows (15 M2 + 15 M5, each 8 true-NFR + 7 true-FR). Categories: mixed FR/NFR; quality keyword in FR; functional verb in NFR; ambiguous/underspecified; short/low context; possible annotation issue; other. Counts: **TODO after labelling** — do not invent them.
+## 7. Error analysis
+
+### Sample and protocol
+
+- Dataset/task: PROMISE_exp, T-bin.
+- Evaluation protocol: G-dup, seed 42.
+- Sample: 30 misclassified requirements.
+- Models: M2 (15 rows) and M5 (15 rows).
+- Each model: 8 true-NFR and 7 true-FR rows.
+- Ground-truth labels were not modified.
+- Seven predefined error categories were used.
+
+### Reconciled error categories
+
+| Category | FR | NFR | M2 | M5 | Total |
+|---|---:|---:|---:|---:|---:|
+| ambiguous/underspecified | 6 | 2 | 4 | 4 | 8 |
+| mixed FR/NFR | 0 | 7 | 3 | 4 | 7 |
+| functional verb in NFR | 0 | 6 | 2 | 4 | 6 |
+| quality keyword in FR | 4 | 0 | 3 | 1 | 4 |
+| possible annotation issue | 1 | 1 | 2 | 0 | 2 |
+| other | 2 | 0 | 0 | 2 | 2 |
+| short/low context | 1 | 0 | 1 | 0 | 1 |
+| **Total** | **14** | **16** | **15** | **15** | **30** |
+
+### Annotation agreement
+
+- Initial agreement: 15/30 (50.0%).
+- Cohen's kappa: 0.3911.
+- Disagreements: 15/30.
+- Reconciliation: 30/30 final categories completed.
+- Original reviewer labels were preserved.
+- Reconciled data: `results/predictions/error_analysis_reconciled.csv` (not public).
+
+### AI assistance disclosure
+
+Both authors used AI assistance during the annotation workflow. The initial label sets therefore should not be interpreted as fully independent, unaided human annotations. Disagreements were reconciled to obtain the final categories.
+
+### Main findings and limitations
+
+The three most frequent categories were ambiguous/underspecified (8), mixed FR/NFR (7), and functional verb in NFR (6). Together, they accounted for 21/30 selected errors (70.0%).
+
+The categories represent qualitative interpretations of the selected misclassifications, not verified causal explanations of model predictions. The sample is small and error-focused; category proportions must not be generalized to the full dataset.
+
 
 ## 8. Recommendations to state in the paper
 

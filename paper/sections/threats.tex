@@ -8,4 +8,15 @@
 
 \textbf{External validity.} The study rests on one main benchmark, PROMISE\_exp, and one small replication on the Dalpiaz et al.\ data. Larger or automatically collected corpora may contain many more duplicates, so the negative RQ1(a) result may not transfer. We evaluated classical models only; transformer and LLM classifiers were not tested. The literature review covers only open-access papers whose PDF could be downloaded automatically, so the gap counts may not represent the whole field.
 
-\textbf{Conclusion validity.} Folds of repeated CV are not independent. For RQ3, the corrected repeated $k$-fold $t$-test~\cite{nadeau2003,bouckaert2004} reduces, but does not remove, the resulting optimism, and Holm adjustment~\cite{holm1979} controls the family-wise error rate within each family. RQ1, RQ2 and the replication carry no significance test; their conclusions rest on the size and consistency of the differences relative to the fold-to-fold variation, which is clear-cut for G-proj and for T-12 but not for the small T-bin differences. The error analysis covers only 30 rows and supports qualitative observations only. A complete re-run reproduced every fold score bit for bit.
+\textbf{Conclusion validity.} Folds of repeated CV are not independent. For RQ3, the corrected repeated $k$-fold $t$-test~\cite{nadeau2003,bouckaert2004} reduces, but does not remove, the resulting optimism, and Holm adjustment~\cite{holm1979} controls the family-wise error rate within each family. RQ1, RQ2 and the replication carry no significance test; their conclusions rest on the size and consistency of the differences relative to the fold-to-fold variation, which is clear-cut for G-proj and for T-12 but not for the small T-bin differences.
+The error analysis covers only 30 misclassified
+requirements and supports qualitative
+observations only. The two authors' initial
+categorizations agreed on 15 of 30 cases
+(50.0\%), with Cohen's $\kappa = 0.3911$.
+Disagreements were subsequently reconciled.
+Both authors used AI assistance during the
+annotation process; therefore, the two sets
+of labels cannot be regarded as fully
+independent, unaided human annotations.
+ A complete re-run reproduced every fold score bit for bit.

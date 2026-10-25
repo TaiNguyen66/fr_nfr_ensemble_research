@@ -40,3 +40,15 @@ Blockers: không.
 Decisions: A-009 (đề xuất Hoang Anh, Phat Tai mở rộng sang RQ2). Không chạy lại model; Δ trung bình không đổi.
 Next: Hoang Anh cập nhật mục Error analysis theo nhãn đã thống nhất (15/30, κ = 0.391; nhãn hai phía đều có hỗ trợ AI); soát bài; biên dịch IEEEtran.
 Needs review from: Hoang Anh
+
+## 2026-10-26 — Hoang Anh
+
+Done: Hoàn thành Error Analysis theo protocol §11. Đối chiếu 30/30 nhãn của Hoàng Anh và Phát Tài với dữ liệu đã thực hiện trước đó; toàn bộ row_id và nhãn ban đầu khớp. Agreement trước hòa giải: 15/30 (50.0%), Cohen's kappa = 0.3911. Hoàn tất hòa giải 30/30 câu, kiểm tra thành công bằng `scripts/reconcile_error_labels.py counts`. Phân bố 7 nhóm lỗi: 8, 7, 6, 4, 2, 2, 1. Cập nhật `paper/sections/results.tex`, `paper/sections/threats.tex` và `paper/fact_sheet.md` trên phiên bản đã tích hợp A-009. Ghi rõ cả hai tác giả sử dụng AI hỗ trợ trong quá trình gán nhãn.
+
+Blockers: Không có đối với phần Error Analysis. Cần Phát Tài kiểm tra nội dung paper và biên dịch IEEEtran trên Overleaf.
+
+Decisions: Tái sử dụng kết quả gán nhãn và hòa giải cũ sau khi xác minh với file Phát Tài bàn giao. Không chạy lại mô hình, không thay đổi nhãn gốc. A-009 đã được Phát Tài phê duyệt và triển khai; giữ nguyên các thay đổi thống kê của A-009.
+
+Next: Chạy pytest trên phiên bản mới, kiểm tra Git, commit và push nội dung Error Analysis; gửi Phát Tài commit hash, Agreement, Kappa và bảng đếm chính thức.
+
+Needs review from: Phat Tai — Error Analysis, tính nhất quán của paper và bản biên dịch IEEEtran.
