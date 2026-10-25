@@ -2,4 +2,24 @@
 % Use only keys from references.bib. Literature-review counts are in fact_sheet.md, section 2.
 \section{Related Work}
 \label{sec:related}
-TODO: related work.
+
+\subsection{FR/NFR requirements classification}
+
+Cleland-Huang et al.~\cite{clelandhuang2007} introduced automated NFR classification together with the PROMISE NFR dataset, which Lima et al.\ later expanded into PROMISE\_exp~\cite{lima2019}. Kurtanovi\'c and Maalej~\cite{kurtanovic2017} classified FR and NFR with supervised learning, and Abad et al.~\cite{abad2017what} compared preprocessing and classifiers. Dalpiaz et al.~\cite{dalpiaz2019} proposed interpretable features based on dependency parsing, released relabelled datasets, and raised concerns about the label quality of PROMISE. Later work followed several directions. Classical machine learning on TF-IDF or embedding features remains common~\cite{toth2019comparative,younas2019automated,baskoro2021systematic,rahman2023functional}. Deep-learning models such as CNN and LSTM variants have also been proposed~\cite{rahimi2021phase,metu2024hybrid,khayashi2026deep,kadhim2026enhancing}. Several studies used ensembles~\cite{rahimi2020ensemble,abbas2024classification,kiani2026deep}, and others used transformers, e.g.\ BERT fine-tuning and LoRA~\cite{hey2020norbert,eltahier2025bert,li2025study}. Zero-shot and prompt-based large language models have been evaluated as well~\cite{alhoshan2023zero,binkhonain2025prompts,martin2025evaluating}. Further work addressed class imbalance~\cite{or2025improving} and cross-project or cross-domain classification~\cite{tahir2025cross,ali2025multi}.
+
+\subsection{Evaluation pitfalls: leakage and duplication}
+
+Kaufman et al.~\cite{kaufman2012} formalised data leakage as the use of information at training or evaluation time that would not be available in deployment. Kapoor and Narayanan~\cite{kapoor2023} showed that leakage, including preprocessing on the full dataset and duplicates across training and test sets, affects many fields that use machine learning. For models of source code, Allamanis~\cite{allamanis2019adverse} showed that code duplication between training and test sets can strongly inflate reported performance. To our knowledge, the size of such effects has not been measured for FR/NFR classification.
+
+\subsection{Evaluation practice in FR/NFR studies}
+
+To check how FR/NFR studies are evaluated, we systematically selected 30 papers and, after verification by both authors, counted 21 empirical FR/NFR classification studies. We found six gaps:
+\begin{itemize}
+\item \emph{G1, random splits:} 14 of the 21 studies split at random without handling duplicates~\cite{toth2019comparative,abad2017what,baskoro2021systematic,metu2024hybrid,kiani2026deep}, and none keeps duplicates in one fold.
+\item \emph{G2, oversampling before splitting:} 3 of the 6 studies that oversample do so before splitting~\cite{kiani2026deep,baskoro2021systematic,metu2024hybrid}; the other three oversample the training data only~\cite{hey2020norbert,rahimi2021phase,or2025improving}.
+\item \emph{G3, untested ensemble claims:} 4 of the 6 ensemble studies claim improvements without a statistical test; only two test them~\cite{kiani2026deep,kadhim2026enhancing}.
+\item \emph{G4, metrics:} only one study reports macro-F1~\cite{binkhonain2025prompts}.
+\item \emph{G5, project-level evaluation:} only 3 studies evaluate on unseen projects or domains~\cite{tahir2025cross,ali2025multi,martin2025evaluating}, plus NoRBERT in part~\cite{hey2020norbert}.
+\item \emph{G6, reproducibility:} only 5 studies publish both code and data~\cite{tahir2025cross,hey2020norbert,alhoshan2023zero,eltahier2025bert,martin2025evaluating}.
+\end{itemize}
+The two highest scores in the set (98.79\% accuracy~\cite{metu2024hybrid} and 99\%~\cite{baskoro2021systematic}) both come from studies that show signs of oversampling before splitting. In contrast, studies that evaluate on unseen projects report clearly lower scores, e.g.\ an F1 of 0.62~\cite{martin2025evaluating}. This observation does not prove those results wrong. It does, however, motivate measuring directly how much these evaluation choices change the estimates, which is the gap this paper addresses.

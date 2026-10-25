@@ -1,4 +1,11 @@
 % THREATS TO VALIDITY (~0.5 page). Prompt: AGENT_PROMPTS.md, section "Threats".
 \section{Threats to Validity}
 \label{sec:threats}
-TODO: construct, internal, external, conclusion validity.
+
+\textbf{Construct validity.} The binary FR/NFR label hides requirements that are both functional and quality-related; our error analysis and the no-both sensitivity analysis (Table~\ref{tab:noboth}) show that such requirements matter. Concerns about the label quality of PROMISE have been raised before~\cite{dalpiaz2019}; we never changed a ground-truth label. Duplicate groups depend on the near-duplicate threshold (0.90), and one person reviewed the 14 candidate pairs. BEFORE is a simplified reproduction of the practice in the reviewed studies, not each paper's exact pipeline. We therefore present it as a measurement of the practice, not as a re-run of any specific study.
+
+\textbf{Internal validity.} BEFORE and IN-FOLD folds are paired by (seed, fold) index, not by identical test rows, because BEFORE splits an oversampled set; the differences therefore combine the effect of leakage with that of a different test distribution. Grouped folds are uneven (172--245 rows under G-proj). Hyperparameters were fixed and not tuned, by design; tuning could change absolute scores and individual model comparisons, but not the mechanism behind the BEFORE inflation. To limit analyst bias, the protocol, the decision rule and the wording rules were locked before any run, and no configuration was re-run.
+
+\textbf{External validity.} The study rests on one main benchmark, PROMISE\_exp, and one small replication on the Dalpiaz et al.\ data. Larger or automatically collected corpora may contain many more duplicates, so the negative RQ1(a) result may not transfer. We evaluated classical models only; transformer and LLM classifiers were not tested. The literature review covers only open-access papers whose PDF could be downloaded automatically, so the gap counts may not represent the whole field.
+
+\textbf{Conclusion validity.} Folds of repeated CV are not independent. The corrected repeated $k$-fold $t$-test~\cite{nadeau2003,bouckaert2004} reduces, but does not remove, the resulting optimism, and Holm adjustment~\cite{holm1979} controls the family-wise error rate within each family. The S vs.\ LODO comparison has only 4 folds and is reported descriptively. The error analysis covers only 30 rows and supports qualitative observations only. A complete re-run reproduced every fold score bit for bit.

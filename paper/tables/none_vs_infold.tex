@@ -1,25 +1,29 @@
 \begin{table}[t]
 \centering
-\caption{Effect of correct (IN-FOLD) oversampling against no oversampling (NONE), PROMISE\_exp, stratified CV, macro-F1. $\Delta$ = IN-FOLD $-$ NONE. Descriptive only.}
+\caption{Effect of correct (IN-FOLD) oversampling against no oversampling (NONE), PROMISE\_exp, stratified CV, macro-F1. OS-R: random oversampling; OS-S: SMOTE. $\Delta$ = IN-FOLD $-$ NONE. Descriptive only.}
 \label{tab:none_infold}
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{ll ccr ccr}
+\begin{tabular}{l c cr cr}
 \toprule
-& & \multicolumn{3}{c}{T-bin} & \multicolumn{3}{c}{T-12} \\
-\cmidrule(lr){3-5}\cmidrule(lr){6-8}
-Model & OS & NONE & IN-FOLD & $\Delta$ & NONE & IN-FOLD & $\Delta$ \\
+& & \multicolumn{2}{c}{IN-FOLD, OS-R} & \multicolumn{2}{c}{IN-FOLD, OS-S} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Model & NONE & F1 & $\Delta$ & F1 & $\Delta$ \\
 \midrule
-M1 & OS-R & 0.876 & 0.878 & +0.003 & 0.292 & 0.597 & +0.304 \\
-M1 & OS-S & 0.876 & 0.879 & +0.003 & 0.292 & 0.589 & +0.297 \\
-M2 & OS-R & 0.893 & 0.893 & -0.000 & 0.562 & 0.593 & +0.030 \\
-M2 & OS-S & 0.893 & 0.894 & +0.001 & 0.562 & 0.595 & +0.032 \\
-M3 & OS-R & 0.851 & 0.855 & +0.004 & 0.386 & 0.506 & +0.120 \\
-M3 & OS-S & 0.851 & 0.855 & +0.004 & 0.386 & 0.495 & +0.109 \\
-M4 & OS-R & 0.889 & 0.888 & -0.001 & 0.563 & 0.526 & -0.037 \\
-M4 & OS-S & 0.889 & 0.890 & +0.001 & 0.563 & 0.525 & -0.038 \\
-M5 & OS-R & 0.882 & 0.886 & +0.004 & 0.414 & 0.595 & +0.180 \\
-M5 & OS-S & 0.882 & 0.885 & +0.003 & 0.414 & 0.587 & +0.173 \\
+\multicolumn{6}{l}{\textit{T-bin (FR vs NFR)}} \\
+M1 & 0.876 & 0.878 & +0.003 & 0.879 & +0.003 \\
+M2 & 0.893 & 0.893 & -0.000 & 0.894 & +0.001 \\
+M3 & 0.851 & 0.855 & +0.004 & 0.855 & +0.004 \\
+M4 & 0.889 & 0.888 & -0.001 & 0.890 & +0.001 \\
+M5 & 0.882 & 0.886 & +0.004 & 0.885 & +0.003 \\
+\midrule
+\multicolumn{6}{l}{\textit{T-12 (12 classes)}} \\
+M1 & 0.292 & 0.597 & +0.304 & 0.589 & +0.297 \\
+M2 & 0.562 & 0.593 & +0.030 & 0.595 & +0.032 \\
+M3 & 0.386 & 0.506 & +0.120 & 0.495 & +0.109 \\
+M4 & 0.563 & 0.526 & -0.037 & 0.525 & -0.038 \\
+M5 & 0.414 & 0.595 & +0.180 & 0.587 & +0.173 \\
 \bottomrule
 \end{tabular}
 \end{table}
+

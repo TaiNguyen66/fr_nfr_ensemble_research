@@ -2,4 +2,31 @@
 % Must end with the three RQs and a contribution list.
 \section{Introduction}
 \label{sec:intro}
-TODO: introduction.
+
+Distinguishing functional requirements (FR) from non-functional requirements (NFR) early helps analysts plan architecture, testing and quality assurance, and automating this step has been studied for almost two decades~\cite{clelandhuang2007,kurtanovic2017,abad2017what}. Most studies evaluate on the PROMISE NFR dataset or its expansion PROMISE\_exp~\cite{lima2019}, and reported scores have risen steadily. Some recent studies report accuracies of 98--99\%~\cite{metu2024hybrid,baskoro2021systematic}.
+
+Such numbers depend not only on the classifier but also on how it is evaluated. Three evaluation choices are common in this field and can make estimates optimistic. First, requirements are usually split at random, so duplicate or near-duplicate requirements and requirements from the same project can appear in both training and test data. Second, some studies oversample the minority classes on the whole dataset before splitting it, so test folds can contain copies of training rows. Third, ensembles are often reported as better than single models without a statistical test. Data leakage of this kind is known to inflate results in machine-learning-based science~\cite{kaufman2012,kapoor2023} and in models of source code~\cite{allamanis2019adverse}, but its size has not been measured for FR/NFR classification.
+
+Our review of 21 empirical FR/NFR studies confirms that these practices are widespread: 14 split at random without handling duplicates, 3 of the 6 that oversample do so before splitting, 4 of the 6 ensemble studies give no statistical test, and only 1 reports macro-F1. We therefore re-evaluated single and ensemble classifiers on PROMISE\_exp under leakage-aware protocols, with a replication on the data of Dalpiaz et al.~\cite{dalpiaz2019}. The entire design and the decision rules were fixed in a protocol that we locked before running any model. We answer three research questions:
+\begin{enumerate}
+\item[\textbf{RQ1}] How much do performance estimates and model rankings change when (a) duplicate and near-duplicate requirements are kept in the same fold, and (b) all requirements of a project are kept in the same fold, compared with stratified random CV?
+\item[\textbf{RQ2}] How much does oversampling the whole dataset before splitting inflate performance estimates compared with oversampling only the training part of each fold?
+\item[\textbf{RQ3}] Under leakage-aware evaluation, do hard voting and stacking outperform the individual classifiers by a practically and statistically meaningful margin?
+\end{enumerate}
+Only RQ1(a) and RQ2 are leakage questions; RQ1(b) concerns generalisation to unseen projects.
+
+Our main findings are:
+\begin{itemize}
+\item Oversampling before splitting inflates macro-F1 on the 12-class task by 0.392--0.491 for every model (from at most 0.597 to 0.951--0.994); on the binary task the increase (0.015--0.027) is not clear.
+\item Testing on unseen projects lowers macro-F1 by 0.134--0.190 and changes the model ranking, whereas grouping the few duplicates in PROMISE\_exp gives no clear difference.
+\item Hard voting and stacking are clearly better only than random forest, with no clear difference against the linear models.
+\end{itemize}
+
+Our contributions are:
+\begin{itemize}
+\item a measurement of how much duplicate handling, project grouping and the order of oversampling change FR/NFR classification estimates, using corrected statistical tests;
+\item a locked evaluation protocol and five concrete recommendations for future studies;
+\item a reproducible package with code, split indices and per-fold scores, re-run bit for bit.
+\end{itemize}
+
+Section~\ref{sec:related} reviews related work, Section~\ref{sec:method} describes the study design, Section~\ref{sec:results} presents the results, Section~\ref{sec:discussion} discusses them, Section~\ref{sec:threats} covers threats to validity, and Section~\ref{sec:conclusion} concludes.

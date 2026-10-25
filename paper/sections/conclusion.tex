@@ -1,7 +1,11 @@
 % CONCLUSION (~0.3 page) + data availability. Prompt: AGENT_PROMPTS.md, section "Conclusion".
 \section{Conclusion}
 \label{sec:conclusion}
-TODO: conclusion and future work.
+We re-evaluated FR/NFR requirements classifiers on PROMISE\_exp under a protocol locked before any run. Oversampling the whole dataset before splitting inflated macro-F1 on the 12-class task by 0.392--0.491, enough to turn a task with an honest macro-F1 of at most 0.597 into an apparent 0.951--0.994; on the binary task the inflation was small and not clear. Testing on unseen projects lowered macro-F1 by 0.134--0.190 and changed the ranking of the models, whereas grouping the few duplicates in PROMISE\_exp made no clear difference. Ensembles were clearly better only than random forest.
+
+For researchers and reviewers, the main take-away is that the evaluation protocol can matter more than the choice of classifier. Results obtained with oversampling before splitting or only with random CV should not be compared with results from leakage-aware or project-level evaluation, and claims that one model is better need a corrected paired test.
+
+Future work should apply the same protocol to transformer and LLM classifiers, to datasets with more duplicates, and to a label review guided by the error analysis.
 
 \section*{Data and Code Availability}
 Code, split indices, per-fold scores and the analysis scripts are available at \url{https://github.com/TaiNguyen66/fr_nfr_ensemble_research}. The PROMISE\_exp file is not redistributed because its license is unknown; the Dalpiaz et al.\ data are available from Zenodo~\cite{dalpiaz2019data}.

@@ -173,20 +173,26 @@ def noboth_d2():
 
 
 def none_vs_infold():
+    """Appendix: IN-FOLD vs NONE (descriptive). Two stacked panels (T-bin, T-12) so the table fits one column;
+    NONE does not depend on the oversampler, so it is shown once per model."""
     df = pd.read_csv(TABLES / "descriptive_none_vs_infold_RQ2.csv")
     rows = []
-    for (m, o), g in df.groupby(["model", "oversampler"]):
-        g = g.set_index("task")
-        rows.append(f"{m} & {o} & {g.loc['T-bin', 'mean_none']:.3f} & {g.loc['T-bin', 'mean_in_fold']:.3f} & "
-                    f"{d(-g.loc['T-bin', 'delta_none_minus_in_fold'])} & {g.loc['T-12', 'mean_none']:.3f} & "
-                    f"{g.loc['T-12', 'mean_in_fold']:.3f} & {d(-g.loc['T-12', 'delta_none_minus_in_fold'])} \\\\")
+    for i, (task, title) in enumerate([("T-bin", "T-bin (FR vs NFR)"), ("T-12", "T-12 (12 classes)")]):
+        if i:
+            rows.append("\\midrule")
+        rows.append(f"\\multicolumn{{6}}{{l}}{{\\textit{{{title}}}}} \\\\")
+        g = df[df.task == task].set_index(["model", "oversampler"])
+        for m in sorted(g.index.get_level_values("model").unique()):
+            r, s = g.loc[(m, "OS-R")], g.loc[(m, "OS-S")]
+            rows.append(f"{m} & {r['mean_none']:.3f} & {r['mean_in_fold']:.3f} & {d(-r['delta_none_minus_in_fold'])} & "
+                        f"{s['mean_in_fold']:.3f} & {d(-s['delta_none_minus_in_fold'])} \\\\")
     return table("tab:none_infold",
                  "Effect of correct (IN-FOLD) oversampling against no oversampling (NONE), PROMISE\\_exp, stratified CV, "
-                 "macro-F1. $\\Delta$ = IN-FOLD $-$ NONE. Descriptive only.",
-                 "ll ccr ccr",
-                 ["& & \\multicolumn{3}{c}{T-bin} & \\multicolumn{3}{c}{T-12} \\\\",
-                  "\\cmidrule(lr){3-5}\\cmidrule(lr){6-8}",
-                  "Model & OS & NONE & IN-FOLD & $\\Delta$ & NONE & IN-FOLD & $\\Delta$ \\\\"],
+                 "macro-F1. OS-R: random oversampling; OS-S: SMOTE. $\\Delta$ = IN-FOLD $-$ NONE. Descriptive only.",
+                 "l c cr cr",
+                 ["& & \\multicolumn{2}{c}{IN-FOLD, OS-R} & \\multicolumn{2}{c}{IN-FOLD, OS-S} \\\\",
+                  "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}",
+                  "Model & NONE & F1 & $\\Delta$ & F1 & $\\Delta$ \\\\"],
                  rows)
 
 

@@ -10,4 +10,36 @@
 \label{fig:design}
 \end{figure*}
 
-TODO: method text (datasets, tasks, preprocessing and features, models, protocols, oversampling conditions, metrics, statistical decision rule, reproducibility).
+We fixed the complete design (data, pipeline, models, protocols, statistical decision rule and wording rules) in a written protocol and locked it before any model was trained. This section summarises that protocol.
+
+\subsection{Datasets and tasks}
+
+\textbf{PROMISE\_exp.} Our primary benchmark is PROMISE\_exp~\cite{lima2019}, the expanded version of the PROMISE NFR dataset~\cite{clelandhuang2007}. We used a public mirror and recorded its SHA-256 hash. It contains 969 requirements (444 FR, 525 NFR) from 47 projects (1--92 requirements per project), each labelled with one of 12 codes: F (444), SE (125), US (85), O (77), PE (67), LF (49), A (31), MN (24), SC (22), FT (18), L (15) and PO (12). We studied two tasks: \emph{T-bin}, where F is mapped to FR and every other code to NFR, and \emph{T-12}, the original 12-class task.
+
+\textbf{Duplicate groups.} We found 3 groups of exact duplicates. We also computed character 3--5-gram TF-IDF cosine similarity between all requirement pairs and flagged 14 near-duplicate candidates with similarity $\geq 0.90$; manual review confirmed 5 of them as the same requirement. Together this gives 8 duplicate groups covering 16 rows, with no label conflicts inside a group. Under stratified random CV, 6--8 of these groups are split across folds, depending on the seed.
+
+\textbf{Replication data.} To check whether the RQ2 findings carry over, we replicated the binary analysis on the data released by Dalpiaz et al.~\cite{dalpiaz2019,dalpiaz2019data} (four datasets: dronology, leeds, reqview and wasp). A requirement with IsQuality~$=1$ was mapped to NFR, including 81 requirements labelled both functional and quality; a requirement with only IsFunctional~$=1$ was mapped to FR; 4 unlabelled rows were dropped. This leaves 327 requirements (187 FR, 140 NFR). The data contain no duplicates and do not overlap with PROMISE\_exp. As a sensitivity analysis (``no-both''), we also removed the 81 requirements labelled both ways (246 rows: 187 FR, 59 NFR) and evaluated them under stratified CV only.
+
+\subsection{Pipeline and models}
+
+Every model used the same pipeline. Preprocessing (P0) applied Unicode NFKC normalisation, lowercasing, expansion of negative contractions and whitespace collapsing, with no stop-word removal or lemmatisation. Features were TF-IDF word unigrams and bigrams (\texttt{min\_df}~$=2$, sublinear term frequency). The vectoriser was part of the pipeline and was fitted on the training fold only.
+
+We used seven classifiers from scikit-learn~\cite{pedregosa2011} with fixed hyperparameters and no tuning: M0, a most-frequent dummy classifier used as a sanity floor; M1, logistic regression ($C=1$); M2, a linear SVM ($C=1$); M3, a random forest with 300 trees; M4, complement naive Bayes ($\alpha=1$); M5, hard voting over M1, M2 and M3; and M6, stacking of M1, M2 and M3 with a logistic-regression meta-learner. M6 builds its meta-features with an inner 5-fold CV that uses only the outer training rows and the same splitter type as the outer protocol. A unit test checks that no outer test row enters inner training.
+
+\subsection{Evaluation protocols}
+
+We compared three 5-fold protocols on PROMISE\_exp (Fig.~\ref{fig:design}a). \emph{S} is stratified random CV (\texttt{StratifiedKFold}). \emph{G-dup} uses \texttt{StratifiedGroupKFold} with duplicate groups as groups, so all copies of a requirement fall into the same fold. \emph{G-proj} uses \texttt{StratifiedGroupKFold} with the project ID as group, so every test fold contains only projects unseen in training. On the Dalpiaz data we additionally used leave-one-dataset-out (\emph{LODO}, 4 folds). Every configuration was repeated with 5 seeds (42, 123, 2026, 3407 and 9917), giving $5 \times 5 = 25$ paired fold scores. Test folds held 193--194 rows under S and G-dup and 172--245 rows under G-proj. RQ1 and RQ3 use T-bin without oversampling; G-dup is the primary protocol for RQ3.
+
+\subsection{Oversampling conditions}
+
+For RQ2 we used two oversamplers from imbalanced-learn~\cite{lemaitre2017}: random oversampling (OS-R) and SMOTE~\cite{chawla2002} applied to the TF-IDF vectors (OS-S). We compared three conditions (Fig.~\ref{fig:design}b). In \emph{NONE}, no oversampling is applied. In \emph{IN-FOLD}, only the training part of each fold is oversampled, and test folds contain original requirements only. In \emph{BEFORE}, the whole dataset is oversampled first and then split, as in several reviewed studies; for OS-S, TF-IDF is therefore fitted on all rows. As a result, BEFORE test folds can contain exact copies (OS-R) or synthetic neighbours (OS-S) of training rows. Because BEFORE splits a larger, oversampled set, its test folds are not the same rows as the IN-FOLD test folds; the two conditions are paired by (seed, fold) index only. RQ2 uses protocol S, models M1--M5 and both tasks; the Dalpiaz replication uses T-bin.
+
+\subsection{Metrics and statistical analysis}
+
+The primary metric is macro-F1, computed on each test fold and averaged over the 25 folds; accuracy, macro precision and macro recall were recorded as secondary metrics. For each planned comparison of A against B we computed the mean paired difference $\Delta$, its standard deviation and a 95\% confidence interval using the corrected repeated $k$-fold $t$-test~\cite{nadeau2003,bouckaert2004} with the actual test/training size ratio. $p$-values were adjusted with the Holm method~\cite{holm1979} within each family of tests: RQ1-dup (6 tests), RQ1-proj (6), RQ2-bin (10), RQ2-12 (10), RQ3 under G-dup (8) and under S (8), and Dalpiaz BEFORE vs.\ IN-FOLD (10).
+
+We report a \emph{clear difference} only if $|\Delta| \geq 0.01$ and the Holm-adjusted $p < 0.05$; otherwise we report \emph{no clear difference}. Agreement between model rankings was measured with Kendall's $\tau$. S vs.\ LODO, Kendall's $\tau$, NONE vs.\ IN-FOLD and the no-both sensitivity analysis are descriptive only; in particular, S (25 folds) and LODO (4 folds) cannot be paired.
+
+\subsection{Reproducibility}
+
+The protocol was locked on 16 October 2026, before any model was run, and no configuration was re-run to change a result. The runs comprised 21 configurations for RQ1 (525 fold fits), 50 for RQ2 (1250) and 35 for the Dalpiaz replication (770). Every run logged the git commit, dataset hashes, seeds and package versions. A complete re-run on 18 October 2026 reproduced every per-fold score bit for bit (identical SHA-256 hashes of all fold-score files). Code, split indices, per-fold scores and analysis scripts are public (Section~\ref{sec:conclusion}).
