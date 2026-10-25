@@ -33,3 +33,10 @@ Blockers: không.
 Decisions: `splits_D2.csv` chỉ đổi thứ tự khối (thứ tự duyệt `set` không cố định) → sửa `run_experiments.py` dùng `sorted(...)`, khôi phục file đã commit; không đổi thiết kế, không cần amendment. Không dùng Colab cho lần kiểm chứng này.
 Next: push (sau khi Phat Tai đồng ý); bảng phụ lục no-both D2; gán nhãn error analysis; viết Results.
 Needs review from: —
+
+## 2026-10-25 — Phat Tai
+Done: viết bản nháp đủ 8 section (commit 61fba32); bib thêm URL DOI, phụ lục trước References; Table 5 một cột; thông tin tác giả (3b1ac44, 49b476c, 3d34c4a); script ghép nhãn error analysis (aeb4071). Gán nhãn error analysis phía Phat Tai (có hỗ trợ AI, đã duyệt). Phê duyệt và triển khai A-009: RQ1-dup, RQ1-proj, RQ2-bin, RQ2-12, RQ2-D2 chỉ báo cáo mô tả; kiểm định chỉ còn cho RQ3; sửa analyze_results, paper_tables, test, bảng/hình, fact_sheet và các section.
+Blockers: không.
+Decisions: A-009 (đề xuất Hoang Anh, Phat Tai mở rộng sang RQ2). Không chạy lại model; Δ trung bình không đổi.
+Next: Hoang Anh cập nhật mục Error analysis theo nhãn đã thống nhất (15/30, κ = 0.391; nhãn hai phía đều có hỗ trợ AI); soát bài; biên dịch IEEEtran.
+Needs review from: Hoang Anh

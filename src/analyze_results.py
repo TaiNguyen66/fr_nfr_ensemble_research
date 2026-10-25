@@ -2,8 +2,12 @@
 
     python -m src.analyze_results          # every plan whose fold_scores file exists
 
-Writes results/tables/stats_<family>.csv, summary_<plan>.csv, kendall_tau.csv, descriptive_<name>.csv
-and results/figures/delta_<family>.png. Δ is always A − B as named in the 'comparison' column.
+Writes results/tables/stats_<family>.csv (tested families, RQ3 only), descriptive_<name>.csv, summary_<plan>.csv,
+kendall_tau.csv and results/figures/delta_<family>.png. Δ is always A − B as named in the 'comparison' column.
+
+A-009 (2026-10-25): comparisons between different protocols (S vs G-dup / G-proj) or oversampling conditions
+(BEFORE vs IN-FOLD) are reported descriptively only, because their test folds are different rows and cannot be
+paired on (seed, fold). The corrected paired t-test is kept for RQ3, where models share the same splits.
 """
 import argparse
 import sys
@@ -41,6 +45,10 @@ def select(df, metric="macro_f1", **where):
 
 def paired(df, a, b, metric="macro_f1"):
     """Scores of A and B matched on (seed, fold) (§10: same folds, same seeds) and the n_test/n_train ratio."""
+    for key in ("dataset", "task", "protocol", "condition", "oversampler"):
+        if a.get(key) != b.get(key):
+            raise ValueError(f"A-009: no paired test across different {key} ({a.get(key)} vs {b.get(key)}): "
+                             "test folds are not the same rows")
     sa, ra = select(df, metric, **a)
     sb, rb = select(df, metric, **b)
     if not sa.index.equals(sb.index):
@@ -66,15 +74,23 @@ def _cfg(dataset=PROMISE, task="T-bin", model="M1", protocol="S", condition="NON
 
 
 def families(plan, df):
-    """Comparison families of protocol §10 / A-007 available from one plan's fold scores."""
+    """Tested families (§10): only RQ3, where models are compared on the same splits (A-009)."""
     fam = {}
     if plan == "RQ1":
         singles, ens = ("M1", "M2", "M3", "M4"), ("M5", "M6")
-        for g, name in (("G-dup", "RQ1-dup"), ("G-proj", "RQ1-proj")):
-            fam[name] = {f"{m}: S vs {g}": (_cfg(model=m), _cfg(model=m, protocol=g)) for m in singles + ens}
         for p, name in (("G-dup", "RQ3-Gdup"), ("S", "RQ3-S")):
             fam[name] = {f"{e} vs {m} ({p})": (_cfg(model=e, protocol=p), _cfg(model=m, protocol=p))
                          for e in ens for m in singles}
+    return fam
+
+
+def cross_families(plan, df):
+    """Descriptive families (A-009): different protocols or oversampling conditions, so no paired test."""
+    fam = {}
+    if plan == "RQ1":
+        for g, name in (("G-dup", "RQ1-dup"), ("G-proj", "RQ1-proj")):
+            fam[name] = {f"{m}: S vs {g}": (_cfg(model=m), _cfg(model=m, protocol=g))
+                         for m in ("M1", "M2", "M3", "M4", "M5", "M6")}
     elif plan in ("RQ2", "D2"):
         tasks = ("T-bin", "T-12") if plan == "RQ2" else ("T-bin",)
         dataset = PROMISE if plan == "RQ2" else DALPIAZ
@@ -85,6 +101,17 @@ def families(plan, df):
                 _cfg(dataset, task, m, condition="IN-FOLD", oversampler=o))
                 for m in ("M1", "M2", "M3", "M4", "M5") for o in ("OS-R", "OS-S")}
     return fam
+
+
+def describe_family(df, comparisons, metric="macro_f1"):
+    """Mean and SD of A and B over their own folds and Δ = mean(A) − mean(B); no test, no pairing (A-009)."""
+    rows = []
+    for name, (a, b) in comparisons.items():
+        sa, _ = select(df, metric, **a)
+        sb, _ = select(df, metric, **b)
+        rows.append({"comparison": name, "mean_a": sa.mean(), "sd_a": sa.std(ddof=1), "n_a": len(sa),
+                     "mean_b": sb.mean(), "sd_b": sb.std(ddof=1), "n_b": len(sb), "mean_delta": sa.mean() - sb.mean()})
+    return pd.DataFrame(rows)
 
 
 def summary(df, metric="macro_f1"):
@@ -180,6 +207,10 @@ def main(argv=None, tables=TABLES, figures=FIGURES):
             if not args.no_figures:
                 plot_family(name, st, figures / f"delta_{name}.png")
             print(f"{name}: {(st.decision != 'no clear difference').sum()}/{len(st)} clear differences")
+        for name, comps in cross_families(plan, df).items():
+            ds = describe_family(df, comps)
+            ds.to_csv(tables / f"descriptive_{name}.csv", index=False)
+            print(f"{name}: descriptive only (A-009), Δ {ds.mean_delta.min():+.3f} to {ds.mean_delta.max():+.3f}")
         for name, t in descriptive(plan, df).items():
             t.to_csv(tables / f"descriptive_{name}.csv", index=False)
         tau_rows += taus(plan, df)

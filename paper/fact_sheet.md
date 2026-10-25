@@ -63,29 +63,31 @@ Raw PROMISE_exp is not redistributed (license unknown).
 - Repetition: 5 seeds (42, 123, 2026, 3407, 9917) × 5 folds = **25 paired scores** per configuration. Test fold sizes: S and G-dup 193–194 rows; G-proj 172–245 rows.
 - Runs: RQ1 21 configurations (525 fold fits), RQ2 50 configurations (1250), Dalpiaz 35 configurations (770).
 
-## 5. Statistics and wording rules (fixed before results, protocol §10)
+## 5. Statistics and wording rules (protocol §10, amended by A-009 on 2026-10-25)
+
+- **A-009:** comparisons across protocols (S vs G-dup, S vs G-proj) and across oversampling conditions (BEFORE vs IN-FOLD, PROMISE_exp and Dalpiaz) are **descriptive only**: their test folds are different rows (S vs G-dup/G-proj: 0/25 identical folds, ~20% shared rows; BEFORE folds 210–1066 rows vs 193–194), so no paired test, p-value, CI or "clear difference" label. Report mean ± SD per side and Δ = difference of means. The paired test below applies to **RQ3 only**. No model was re-run.
 
 - Primary metric: **macro-F1**, computed per test fold, averaged over 25 folds. Secondary: accuracy, macro precision, macro recall.
-- Paired comparison A vs B: mean Δ, SD, 95% CI from the **corrected repeated k-fold t-test** (`nadeau2003`, `bouckaert2004`), with the real n_test/n_train ratio.
+- Paired comparison A vs B (RQ3 only): mean Δ, SD, 95% CI from the **corrected repeated k-fold t-test** (`nadeau2003`, `bouckaert2004`), with the real n_test/n_train ratio.
 - **Clear difference** only if |mean Δ| ≥ 0.01 **and** Holm-adjusted p < 0.05 (`holm1979`) within the family. Otherwise write "**no clear difference**" (not "equal", not "slightly better").
-- Families: RQ1-dup (6 tests), RQ1-proj (6), RQ2-bin (10), RQ2-12 (10), RQ3 under G-dup (8) and under S (8), Dalpiaz BEFORE vs IN-FOLD (10). S vs LODO and Kendall τ are descriptive only (25 vs 4 folds cannot be paired).
+- Tested families: RQ3 under G-dup (8) and under S (8). Descriptive: RQ1-dup (6), RQ1-proj (6), RQ2-bin (10), RQ2-12 (10), Dalpiaz BEFORE vs IN-FOLD (10), S vs LODO, Kendall τ, NONE vs IN-FOLD, no-both.
 - Do **not** call RQ1(a) "leakage" (too few duplicates). Do **not** call RQ1(b) "leakage". Do **not** claim superiority over published numbers (different data versions, splits, F1 averaging).
 - Protocol was locked on 2026-10-16 before any model was run; no configuration was re-run to change results; negative results are reported.
 
 ## 6. Results (macro-F1)
 
 ### RQ1 (Table `tab:rq1`)
-- **(a) S vs G-dup: no clear difference for any model (0/6).** Δ from −0.003 to +0.005; Holm p = 1.0 for all. Rankings: Kendall τ = 0.733.
+- **(a) S vs G-dup: |Δ| < 0.01 for every model (descriptive).** Δ from −0.003 to +0.005; fold SD 0.018–0.031 (S), 0.018–0.025 (G-dup). Rankings: Kendall τ = 0.733.
   - Interpretation: PROMISE_exp has only 8 duplicate groups (16 of 969 rows), so duplicate leakage cannot have a large effect *on this dataset*. A negative finding, not proof that duplicates never matter.
-- **(b) S vs G-proj: clear drop for all six models (6/6).** Δ = +0.134 (M4) to +0.190 (M3); Holm p ≤ 0.007. G-proj macro-F1 0.661–0.755 vs S 0.851–0.893. Fold-to-fold SD under G-proj 0.05–0.11 (vs about 0.02–0.03 under S). Kendall τ (S vs G-proj) = 0.600: rankings change.
+- **(b) S vs G-proj: drop for all six models (descriptive).** Δ = +0.134 (M4) to +0.190 (M3). G-proj macro-F1 0.661–0.755 vs S 0.851–0.893. Fold SD under G-proj 0.052–0.113 (vs 0.018–0.031 under S). Kendall τ (S vs G-proj) = 0.600: rankings change.
   - Best under S: M2 (0.893); best under G-proj: M4 (0.755).
 - M0 (dummy) ≈ 0.35 under every protocol (sanity check passed).
 
 ### RQ2 (Table `tab:rq2`, protocol S, models M1–M5, OS-R and OS-S)
-- **T-bin (FR vs NFR): no clear difference (0/10).** BEFORE − IN-FOLD = +0.015 to +0.027 (all positive, but Holm p ≥ 0.19). BEFORE 0.878–0.920 vs IN-FOLD 0.855–0.894.
-- **T-12 (12 classes): clear inflation for all ten (10/10).** BEFORE − IN-FOLD = **+0.392 to +0.491**; Holm p < 0.001. BEFORE 0.951–0.994 vs IN-FOLD 0.495–0.597.
+- **T-bin (FR vs NFR): small, consistent increase (descriptive).** BEFORE − IN-FOLD = +0.015 to +0.027 (all positive), same order as fold SD (0.015–0.032). BEFORE 0.878–0.920 vs IN-FOLD 0.855–0.894.
+- **T-12 (12 classes): large inflation for all ten (descriptive).** BEFORE − IN-FOLD = **+0.392 to +0.491**; fold SD 0.002–0.006 (BEFORE), 0.040–0.075 (IN-FOLD). BEFORE 0.951–0.994 vs IN-FOLD 0.495–0.597.
 - IN-FOLD vs NONE (descriptive, Table `tab:none_infold`): on T-12, correct oversampling helps M1 (+0.30), M5 (+0.17 to +0.18) and M3 (+0.11 to +0.12), barely changes M2 (+0.03) and **lowers** M4 (−0.04). So the honest T-12 range is NONE 0.292–0.563 vs IN-FOLD 0.495–0.597; the large gap to BEFORE (0.951–0.994) is not explained by oversampling being useful. On T-bin, IN-FOLD vs NONE changes almost nothing (−0.001 to +0.004).
-- Explanation (mechanism, by construction): in BEFORE, test folds contain exact copies (OS-R) or SMOTE neighbours (OS-S) of training rows; the rare classes of T-12 are copied many times, so the classifier is largely tested on what it has seen. BEFORE folds are paired with IN-FOLD folds by (seed, fold) index only, not by identical test rows; say so in Method/Threats.
+- Explanation (mechanism, by construction): in BEFORE, test folds contain exact copies (OS-R) or SMOTE neighbours (OS-S) of training rows; the rare classes of T-12 are copied many times, so the classifier is largely tested on what it has seen. BEFORE test folds are not the IN-FOLD test rows, which is why RQ2 is descriptive (A-009); say so in Method/Threats.
 - **Key message:** the BEFORE practice can turn a ~0.5–0.6 macro-F1 problem into an apparent ~0.95–0.99 result, comparable to the 98–99% figures reported in some studies.
 
 ### RQ3 (Table `tab:rq3`, primary protocol G-dup)
@@ -94,12 +96,12 @@ Raw PROMISE_exp is not redistributed (license unknown).
 - Interpretation: ensembles of correlated linear models (M1, M2) do not beat the best single linear model; the claimed ensemble gains in the literature are not supported here. As expected in the protocol, M5 behaves close to the better linear model.
 
 ### Replication on Dalpiaz (Table `tab:dalpiaz`, T-bin, M1–M5)
-- BEFORE − IN-FOLD = +0.034 to +0.081, same direction as PROMISE_exp T-bin, but **no clear difference (0/10)** after Holm (p ≥ 0.30). BEFORE 0.775–0.822 vs IN-FOLD 0.716–0.754.
+- BEFORE − IN-FOLD = +0.034 to +0.081, same direction as PROMISE_exp T-bin, comparable to fold SD (0.039–0.066) (descriptive). BEFORE 0.775–0.822 vs IN-FOLD 0.716–0.754.
 - S vs LODO (unseen dataset): drop of **0.21–0.31** (S 0.709–0.746, LODO 0.405–0.511); descriptive only (n = 4 LODO folds). Kendall τ = 0.20.
 - No-both sensitivity (appendix `tab:noboth`, descriptive): removing both-labelled rows raises M2–M5 by +0.035 to +0.074 and lowers M1 by 0.103.
 
 ### Overall
-- Clear-difference counts: RQ1-dup 0/6, RQ1-proj 6/6, RQ2-bin 0/10, RQ2-12 10/10, RQ3-Gdup 2/8, RQ3-S 2/8, Dalpiaz 0/10 (Figure `fig:summary`).
+- Clear-difference counts (tested families only): RQ3-Gdup 2/8, RQ3-S 2/8. All other families are descriptive (Figure `fig:summary`).
 - The re-run on 2026-10-18 reproduced every per-fold score bit-for-bit (SHA-256 of all fold-score files identical).
 
 ## 7. Error analysis (pending)
@@ -116,7 +118,7 @@ Sample: T-bin, G-dup, seed 42; 30 misclassified rows (15 M2 + 15 M5, each 8 true
 
 ## 9. Threats (to discuss)
 
-Single main benchmark (+ one small replication); binary label hides mixed requirements; PROMISE label-quality concerns (`dalpiaz2019`); near-duplicate threshold 0.90 and one-person review of 14 candidate pairs; dependence between CV folds (the corrected t-test mitigates but does not remove it); uneven grouped folds (172–245 rows); fixed hyperparameters (no tuning, by design); BEFORE is a simplified reproduction of the practice, not each paper's exact pipeline; BEFORE and IN-FOLD folds are paired by index, not identical test rows; classical models only (no transformers/LLMs); literature review limited to automatically downloadable open-access papers; error analysis on 30 rows only.
+Single main benchmark (+ one small replication); binary label hides mixed requirements; PROMISE label-quality concerns (`dalpiaz2019`); near-duplicate threshold 0.90 and one-person review of 14 candidate pairs; dependence between CV folds (the corrected t-test mitigates but does not remove it); uneven grouped folds (172–245 rows); fixed hyperparameters (no tuning, by design); BEFORE is a simplified reproduction of the practice, not each paper's exact pipeline; BEFORE test folds differ from IN-FOLD test folds (hence descriptive RQ2, A-009); classical models only (no transformers/LLMs); literature review limited to automatically downloadable open-access papers; error analysis on 30 rows only.
 
 ## 10. Citation keys (only these exist in `references.bib`)
 

@@ -17,14 +17,14 @@ Only RQ1(a) and RQ2 are leakage questions; RQ1(b) concerns generalisation to uns
 
 Our main findings are:
 \begin{itemize}
-\item Oversampling before splitting inflates macro-F1 on the 12-class task by 0.392--0.491 for every model (from at most 0.597 to 0.951--0.994); on the binary task the increase (0.015--0.027) is not clear.
-\item Testing on unseen projects lowers macro-F1 by 0.134--0.190 and changes the model ranking, whereas grouping the few duplicates in PROMISE\_exp gives no clear difference.
+\item Oversampling before splitting inflates macro-F1 on the 12-class task by 0.392--0.491 for every model (from at most 0.597 to 0.951--0.994); on the binary task the increase is small (0.015--0.027).
+\item Testing on unseen projects lowers macro-F1 by 0.134--0.190 and changes the model ranking, whereas grouping the few duplicates in PROMISE\_exp changes macro-F1 by less than 0.01.
 \item Hard voting and stacking are clearly better only than random forest, with no clear difference against the linear models.
 \end{itemize}
 
 Our contributions are:
 \begin{itemize}
-\item a measurement of how much duplicate handling, project grouping and the order of oversampling change FR/NFR classification estimates, using corrected statistical tests;
+\item a measurement of how much duplicate handling, project grouping and the order of oversampling change FR/NFR classification estimates, and a statistically tested comparison of ensembles with single classifiers;
 \item a locked evaluation protocol and five concrete recommendations for future studies;
 \item a reproducible package with code, split indices and per-fold scores, re-run bit for bit.
 \end{itemize}

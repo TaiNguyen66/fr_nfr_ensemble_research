@@ -18,14 +18,14 @@ OUT = ROOT / "paper" / "tables"
 FIG = ROOT / "paper" / "figures"
 MODELS = ["M1", "M2", "M3", "M4", "M5", "M6"]
 PROMISE, DALPIAZ, NOBOTH = "requirements.csv", "dalpiaz_requirements.csv", "dalpiaz_requirements_noboth.csv"
-FAMILIES = [  # (stats file stem, label in the figure)
-    ("RQ1-dup", "RQ1a  S vs G-dup"),
-    ("RQ1-proj", "RQ1b  S vs G-proj"),
-    ("RQ2-bin", "RQ2  BEFORE vs IN-FOLD, T-bin"),
-    ("RQ2-12", "RQ2  BEFORE vs IN-FOLD, T-12"),
-    ("RQ3-Gdup", "RQ3  M5/M6 vs M1–M4, G-dup"),
-    ("RQ3-S", "RQ3  M5/M6 vs M1–M4, S"),
-    ("RQ2-D2", "Dalpiaz  BEFORE vs IN-FOLD"),
+FAMILIES = [  # (file stem, label in the figure, tested?) — A-009: only RQ3 is tested
+    ("RQ1-dup", "RQ1a  S vs G-dup", False),
+    ("RQ1-proj", "RQ1b  S vs G-proj", False),
+    ("RQ2-bin", "RQ2  BEFORE vs IN-FOLD, T-bin", False),
+    ("RQ2-12", "RQ2  BEFORE vs IN-FOLD, T-12", False),
+    ("RQ2-D2", "Dalpiaz  BEFORE vs IN-FOLD", False),
+    ("RQ3-Gdup", "RQ3  M5/M6 vs M1–M4, G-dup", True),
+    ("RQ3-S", "RQ3  M5/M6 vs M1–M4, S", True),
 ]
 
 
@@ -51,6 +51,19 @@ def stats(name):
     return pd.read_csv(TABLES / f"stats_{name}.csv")
 
 
+def desc(name):
+    """Descriptive comparison family (A-009): mean_a, sd_a, mean_b, sd_b, mean_delta per comparison."""
+    return pd.read_csv(TABLES / f"descriptive_{name}.csv")
+
+
+def msd(mean, sd):
+    return f"{mean:.3f} $\\pm$ {sd:.3f}"
+
+
+DESC = ("Descriptive only: the protocols use different test folds, so no paired test is applied "
+        "(mean $\\pm$ SD over 5 seeds $\\times$ 5 folds).")
+
+
 def table(label, caption, cols, header, rows, wide=False, size="\\small"):
     env = "table*" if wide else "table"
     return "\n".join([
@@ -64,55 +77,46 @@ NOTE = "Bold $\\Delta$: clear difference ($|\\Delta| \\geq 0.01$ and Holm-adjust
 
 
 def rq1():
-    s = pd.read_csv(TABLES / "summary_RQ1.csv").set_index(["model", "protocol"])["mean"]
-    dup = stats("RQ1-dup").assign(model=lambda x: x.comparison.str[:2]).set_index("model")
-    proj = stats("RQ1-proj").assign(model=lambda x: x.comparison.str[:2]).set_index("model")
-    rows = [f"M0 & {s['M0', 'S']:.3f} & {s['M0', 'G-dup']:.3f} & {s['M0', 'G-proj']:.3f} & -- & -- & -- & -- \\\\"]
+    s = pd.read_csv(TABLES / "summary_RQ1.csv").set_index(["model", "protocol"])
+    dup = desc("RQ1-dup").assign(model=lambda x: x.comparison.str[:2]).set_index("model")
+    proj = desc("RQ1-proj").assign(model=lambda x: x.comparison.str[:2]).set_index("model")
+    cell = lambda m, pr: msd(s.loc[(m, pr), "mean"], s.loc[(m, pr), "sd"])
+    rows = [f"M0 & {cell('M0', 'S')} & {cell('M0', 'G-dup')} & {cell('M0', 'G-proj')} & -- & -- \\\\"]
     for m in MODELS:
-        a, b = dup.loc[m], proj.loc[m]
-        rows.append(f"{m} & {s[m, 'S']:.3f} & {s[m, 'G-dup']:.3f} & {s[m, 'G-proj']:.3f} & "
-                    f"{mark(a)} & {p(a.p_holm)} & {mark(b)} & {p(b.p_holm)} \\\\")
+        rows.append(f"{m} & {cell(m, 'S')} & {cell(m, 'G-dup')} & {cell(m, 'G-proj')} & "
+                    f"{d(dup.loc[m, 'mean_delta'])} & {d(proj.loc[m, 'mean_delta'])} \\\\")
     return table("tab:rq1",
                  "RQ1: macro-F1 under stratified CV (S), duplicate-grouped CV (G-dup) and project-grouped CV (G-proj) "
-                 "on PROMISE\\_exp, T-bin, no oversampling (mean over 5 seeds $\\times$ 5 folds). "
-                 f"$\\Delta$ = S $-$ grouped. {NOTE}",
-                 "lccc rr rr",
-                 ["& \\multicolumn{3}{c}{Macro-F1} & \\multicolumn{2}{c}{S $-$ G-dup} & \\multicolumn{2}{c}{S $-$ G-proj} \\\\",
-                  "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}\\cmidrule(lr){7-8}",
-                  "Model & S & G-dup & G-proj & $\\Delta$ & $p_{\\mathrm{Holm}}$ & $\\Delta$ & $p_{\\mathrm{Holm}}$ \\\\"],
+                 "on PROMISE\\_exp, T-bin, no oversampling. $\\Delta$ = S $-$ grouped (difference of means). " + DESC,
+                 "lccc rr",
+                 ["& \\multicolumn{3}{c}{Macro-F1} & \\multicolumn{2}{c}{$\\Delta$} \\\\",
+                  "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
+                  "Model & S & G-dup & G-proj & S $-$ G-dup & S $-$ G-proj \\\\"],
                  rows, wide=True)
 
 
-def parse_os(df):
-    m = df.comparison.str.extract(r"^(M\d) (OS-[RS]):")
-    return df.assign(model=m[0], os=m[1]).set_index(["model", "os"])
-
-
-def rq2_rows(summary, task, st, dataset):
-    s = summary[(summary.dataset == dataset) & (summary.task == task)].set_index(["model", "condition", "oversampler"])["mean"]
-    out = []
-    for (m, o), r in st.iterrows():
-        out.append((m, o, s[m, "BEFORE", o], s[m, "IN-FOLD", o], r))
-    return out
-
-
 def rq2():
-    summ = pd.read_csv(TABLES / "summary_RQ2.csv")
-    rb = rq2_rows(summ, "T-bin", parse_os(stats("RQ2-bin")), PROMISE)
-    r12 = {(m, o): rest for m, o, *rest in rq2_rows(summ, "T-12", parse_os(stats("RQ2-12")), PROMISE)}
+    s = pd.read_csv(TABLES / "summary_RQ2.csv")
+    s = s[s.dataset == PROMISE].set_index(["task", "model", "condition", "oversampler"])
+    cell = lambda task, m, c, o: msd(s.loc[(task, m, c, o), "mean"], s.loc[(task, m, c, o), "sd"])
     rows = []
-    for m, o, bb, bi, sb in rb:
-        tb, ti, s12 = r12[m, o]
-        rows.append(f"{m} & {o} & {bb:.3f} & {bi:.3f} & {mark(sb)} & {p(sb.p_holm)} & "
-                    f"{tb:.3f} & {ti:.3f} & {mark(s12)} & {p(s12.p_holm)} \\\\")
+    for m in ("M1", "M2", "M3", "M4", "M5"):
+        for o in ("OS-R", "OS-S"):
+            parts = []
+            for task in ("T-bin", "T-12"):
+                delta = s.loc[(task, m, "BEFORE", o), "mean"] - s.loc[(task, m, "IN-FOLD", o), "mean"]
+                parts.append(f"{cell(task, m, 'BEFORE', o)} & {cell(task, m, 'IN-FOLD', o)} & {d(delta)}")
+            rows.append(f"{m} & {o} & {parts[0]} & {parts[1]} \\\\")
     return table("tab:rq2",
                  "RQ2: macro-F1 when oversampling is applied to the whole dataset before splitting (BEFORE) versus "
                  "inside each training fold only (IN-FOLD), PROMISE\\_exp, stratified CV. OS-R: random oversampling; "
-                 f"OS-S: SMOTE. $\\Delta$ = BEFORE $-$ IN-FOLD. {NOTE}",
-                 "ll cc rr cc rr",
-                 ["& & \\multicolumn{4}{c}{T-bin (FR vs NFR)} & \\multicolumn{4}{c}{T-12 (12 classes)} \\\\",
-                  "\\cmidrule(lr){3-6}\\cmidrule(lr){7-10}",
-                  "Model & OS & BEFORE & IN-FOLD & $\\Delta$ & $p_{\\mathrm{Holm}}$ & BEFORE & IN-FOLD & $\\Delta$ & $p_{\\mathrm{Holm}}$ \\\\"],
+                 "OS-S: SMOTE. $\\Delta$ = BEFORE $-$ IN-FOLD (difference of means). Descriptive only: BEFORE test folds "
+                 "are drawn from the oversampled set, so they are not the IN-FOLD test rows and no paired test is applied "
+                 "(mean $\\pm$ SD over 5 seeds $\\times$ 5 folds).",
+                 "ll ccr ccr",
+                 ["& & \\multicolumn{3}{c}{T-bin (FR vs NFR)} & \\multicolumn{3}{c}{T-12 (12 classes)} \\\\",
+                  "\\cmidrule(lr){3-5}\\cmidrule(lr){6-8}",
+                  "Model & OS & BEFORE & IN-FOLD & $\\Delta$ & BEFORE & IN-FOLD & $\\Delta$ \\\\"],
                  rows, wide=True)
 
 
@@ -136,16 +140,17 @@ def rq3():
 
 def dalpiaz():
     lodo = pd.read_csv(TABLES / "descriptive_RQ1-D2_S_vs_LODO.csv").set_index("model")
-    st = parse_os(stats("RQ2-D2"))
+    st = desc("RQ2-D2")
+    m_os = st.comparison.str.extract(r"^(M\d) (OS-[RS]):")
+    st = st.assign(model=m_os[0], os=m_os[1]).set_index(["model", "os"])
     rows = []
     for m, r in lodo.iterrows():
-        a, b = st.loc[(m, "OS-R")], st.loc[(m, "OS-S")]
         rows.append(f"{m} & {r.mean_S:.3f} & {r.mean_LODO:.3f} & {d(r.delta_S_minus_LODO)} & "
-                    f"{mark(a)} ({p(a.p_holm)}) & {mark(b)} ({p(b.p_holm)}) \\\\")
+                    f"{d(st.loc[(m, 'OS-R'), 'mean_delta'])} & {d(st.loc[(m, 'OS-S'), 'mean_delta'])} \\\\")
     return table("tab:dalpiaz",
-                 "Replication on the Dalpiaz et al.\\ dataset ($n=327$, 4 projects), T-bin, macro-F1. "
-                 "S vs leave-one-dataset-out (LODO) is descriptive only (25 vs 4 folds cannot be paired). "
-                 "Right: $\\Delta$ = BEFORE $-$ IN-FOLD with Holm-adjusted $p$ in brackets. " + NOTE,
+                 "Replication on the Dalpiaz et al.\\ dataset ($n=327$, 4 projects), T-bin, macro-F1 (means). "
+                 "Left: stratified CV (S) vs leave-one-dataset-out (LODO). Right: $\\Delta$ = BEFORE $-$ IN-FOLD. "
+                 "All comparisons are descriptive (different test folds; S has 25 folds, LODO 4).",
                  "l cc r rr",
                  ["& \\multicolumn{3}{c}{Evaluation protocol} & \\multicolumn{2}{c}{BEFORE $-$ IN-FOLD} \\\\",
                   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
@@ -208,22 +213,28 @@ def kendall():
 
 
 def summary_figure():
-    """One dot per comparison, grouped by family: filled = clear difference, hollow = not. Grayscale-safe."""
+    """One dot per comparison, grouped by family. RQ3 (tested): filled = clear difference, hollow = not.
+    Cross-protocol/condition families (A-009): grey crosses, descriptive only. Grayscale-safe."""
     plt.rcParams.update({"font.size": 8, "font.family": "serif", "axes.linewidth": 0.6})
     fig, ax = plt.subplots(figsize=(3.5, 2.6))
-    ink, muted = "#1f2937", "#9ca3af"
-    for i, (name, label) in enumerate(FAMILIES):
+    ink, muted, grey = "#1f2937", "#9ca3af", "#6b7280"
+    for i, (name, label, tested) in enumerate(FAMILIES):
         y = len(FAMILIES) - 1 - i
-        st = stats(name)
-        clear = st.decision != "no clear difference"
+        st = stats(name) if tested else desc(name)
         jitter = [((k % 5) - 2) * 0.07 for k in range(len(st))]
         ys = [y + j for j in jitter]
-        ax.scatter(st.mean_delta[~clear], [v for v, c in zip(ys, clear) if not c], s=16,
-                   facecolors="white", edgecolors=ink, linewidths=0.8, zorder=3)
-        ax.scatter(st.mean_delta[clear], [v for v, c in zip(ys, clear) if c], s=16, color=ink, zorder=3)
+        if tested:
+            clear = st.decision != "no clear difference"
+            ax.scatter(st.mean_delta[~clear], [v for v, c in zip(ys, clear) if not c], s=16,
+                       facecolors="white", edgecolors=ink, linewidths=0.8, zorder=3)
+            ax.scatter(st.mean_delta[clear], [v for v, c in zip(ys, clear) if c], s=16, color=ink, zorder=3)
+            right = f"{clear.sum()}/{len(st)}"
+        else:
+            ax.scatter(st.mean_delta, ys, s=18, marker="x", color=grey, linewidths=0.8, zorder=3)
+            right = "desc."
         ax.text(-0.03, y, label, ha="right", va="center", fontsize=7, transform=ax.get_yaxis_transform())
-        ax.text(1.02, y, f"{clear.sum()}/{len(st)}", ha="left", va="center", fontsize=7,
-                transform=ax.get_yaxis_transform())
+        ax.text(1.02, y, right, ha="left", va="center", fontsize=7, transform=ax.get_yaxis_transform())
+    ax.axhline(1.5, color="#e5e7eb", linewidth=0.6, zorder=0)
     ax.axvline(0, color=muted, linewidth=0.6, zorder=1)
     ax.axvspan(-0.01, 0.01, color="#e5e7eb", zorder=0, linewidth=0)
     ax.set_yticks([])
@@ -233,9 +244,10 @@ def summary_figure():
     ax.set_axisbelow(True)
     for side in ("top", "right", "left"):
         ax.spines[side].set_visible(False)
-    ax.scatter([], [], s=16, color=ink, label="clear difference")
-    ax.scatter([], [], s=16, facecolors="white", edgecolors=ink, linewidths=0.8, label="no clear difference")
-    ax.legend(loc="lower right", fontsize=6.5, frameon=False, handletextpad=0.2)
+    ax.scatter([], [], s=18, marker="x", color=grey, linewidths=0.8, label="descriptive (no test)")
+    ax.scatter([], [], s=16, color=ink, label="RQ3: clear difference")
+    ax.scatter([], [], s=16, facecolors="white", edgecolors=ink, linewidths=0.8, label="RQ3: no clear difference")
+    ax.legend(loc="lower right", fontsize=6, frameon=False, handletextpad=0.2)
     FIG.mkdir(parents=True, exist_ok=True)
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"summary_deltas.{ext}", bbox_inches="tight", dpi=300)

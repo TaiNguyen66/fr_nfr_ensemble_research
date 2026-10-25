@@ -6,31 +6,31 @@
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/summary_deltas.pdf}
-\caption{Mean paired difference in macro-F1 for every planned comparison (one dot per model or model$\times$oversampler). Filled: clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$); hollow: no clear difference. Grey band: $|\Delta| < 0.01$. Right: clear differences per family.}
+\caption{Mean difference in macro-F1 for every planned comparison (one marker per model or model$\times$oversampler). Crosses: comparisons across protocols or oversampling conditions, reported descriptively (difference of means; different test folds). Circles: RQ3, tested on the same splits; filled = clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$), hollow = no clear difference. Grey band: $|\Delta| < 0.01$. Right: clear differences per tested family.}
 \label{fig:summary}
 \end{figure}
 
-Fig.~\ref{fig:summary} summarises all planned comparisons. Clear differences appear in two families only: S vs.\ G-proj (6/6) and BEFORE vs.\ IN-FOLD on the 12-class task (10/10). RQ3 shows 2/8 clear differences under both G-dup and S. S vs.\ G-dup (0/6), BEFORE vs.\ IN-FOLD on the binary task (0/10) and the Dalpiaz replication (0/10) show none. The dummy classifier M0 reached a macro-F1 of about 0.35 under every protocol, as expected.
+Fig.~\ref{fig:summary} summarises all planned comparisons. Comparisons across protocols (RQ1) or oversampling conditions (RQ2 and the replication) are reported as differences of means, because their test folds differ (Section~\ref{sec:method}). Two of them are large compared with the fold-to-fold variation: S vs.\ G-proj and BEFORE vs.\ IN-FOLD on the 12-class task. In RQ3, which compares models on the same splits, 2 of 8 comparisons show a clear difference under both G-dup and S. The dummy classifier M0 reached a macro-F1 of about 0.35 under every protocol, as expected.
 
 \subsection{RQ1: Duplicate- and project-grouped evaluation}
 \input{tables/rq1}
 
-\textbf{S vs.\ G-dup.} Grouping the duplicate requirements left the estimates practically unchanged (Table~\ref{tab:rq1}). $\Delta$ ranged from $-0.003$ to $+0.005$, and the Holm-adjusted $p$ was 1.000 for all six models, so there is no clear difference for any model (0/6). Rankings changed only slightly (Kendall's $\tau = 0.733$, Table~\ref{tab:kendall}). PROMISE\_exp contains only 8 duplicate groups (16 of 969 rows), so this is a negative result for this dataset, not evidence that duplicates can never matter.
+\textbf{S vs.\ G-dup.} Grouping the duplicate requirements left the estimates practically unchanged (Table~\ref{tab:rq1}). $\Delta$ ranged from $-0.003$ to $+0.005$, below the 0.01 threshold for every model and far smaller than the fold standard deviation (0.018--0.031 under S, 0.018--0.025 under G-dup). Rankings changed only slightly (Kendall's $\tau = 0.733$, Table~\ref{tab:kendall}). PROMISE\_exp contains only 8 duplicate groups (16 of 969 rows), so this is a negative result for this dataset, not evidence that duplicates can never matter.
 
-\textbf{S vs.\ G-proj.} Keeping each project in a single fold lowered macro-F1 clearly for all six models (6/6). G-proj scores were 0.661--0.755, compared with 0.851--0.893 under S. $\Delta$ ranged from $+0.134$ (M4) to $+0.190$ (M3), with Holm-adjusted $p \leq 0.007$. The variation between folds was also larger: the fold standard deviation was 0.05--0.11 under G-proj versus about 0.02--0.03 under S. The ranking of the models changed (Kendall's $\tau = 0.600$): M2 was best under S (0.893), whereas M4 was best under G-proj (0.755).
+\textbf{S vs.\ G-proj.} Keeping each project in a single fold lowered macro-F1 for all six models. G-proj scores were 0.661--0.755, compared with 0.851--0.893 under S, a drop of 0.134 (M4) to 0.190 (M3). The variation between folds was also larger: the fold standard deviation was 0.052--0.113 under G-proj versus 0.018--0.031 under S. The ranking of the models changed (Kendall's $\tau = 0.600$): M2 was best under S (0.893), whereas M4 was best under G-proj (0.755).
 
-\textbf{Answer to RQ1:} \emph{Grouping duplicates gives no clear difference on PROMISE\_exp (0/6), whereas testing on unseen projects lowers macro-F1 by 0.134--0.190 for every model (6/6) and changes the model ranking.}
+\textbf{Answer to RQ1:} \emph{Grouping duplicates changes macro-F1 on PROMISE\_exp by less than 0.01 for every model, whereas testing on unseen projects lowers macro-F1 by 0.134--0.190 for every model and changes the model ranking.}
 
 \subsection{RQ2: Oversampling before vs.\ inside the training fold}
 \input{tables/rq2}
 
-\textbf{T-bin.} On the binary task, oversampling before splitting gave higher estimates for every model and oversampler (Table~\ref{tab:rq2}): BEFORE reached 0.878--0.920 against 0.855--0.894 for IN-FOLD ($\Delta = +0.015$ to $+0.027$). None of the ten differences is clear after Holm adjustment ($p \geq 0.19$; 0/10).
+\textbf{T-bin.} On the binary task, oversampling before splitting gave higher estimates for every model and oversampler (Table~\ref{tab:rq2}): BEFORE reached 0.878--0.920 against 0.855--0.894 for IN-FOLD ($\Delta = +0.015$ to $+0.027$). These differences are consistent in direction but of the same order as the fold standard deviation (0.015--0.032).
 
-\textbf{T-12.} On the 12-class task the inflation is large and clear for all ten comparisons (10/10). BEFORE reached 0.951--0.994, while IN-FOLD reached 0.495--0.597, a difference of $+0.392$ to $+0.491$ (Holm-adjusted $p < 0.001$). The largest differences were observed for M3 ($+0.488$ with OS-R, $+0.491$ with OS-S).
+\textbf{T-12.} On the 12-class task the inflation is large for all ten model--oversampler combinations. BEFORE reached 0.951--0.994, while IN-FOLD reached 0.495--0.597, a difference of $+0.392$ to $+0.491$. This difference is many times the fold standard deviation (0.002--0.006 under BEFORE, 0.040--0.075 under IN-FOLD). The largest differences were observed for M3 ($+0.488$ with OS-R, $+0.491$ with OS-S).
 
 \textbf{NONE vs.\ IN-FOLD.} Table~\ref{tab:none_infold} (descriptive) shows how much of the gap is due to oversampling itself. On T-12, correct in-fold oversampling raised macro-F1 for M1 ($+0.30$), M5 ($+0.17$ to $+0.18$) and M3 ($+0.11$ to $+0.12$), barely changed M2 ($+0.03$) and lowered M4 ($-0.04$). Without any leakage the 12-class task therefore lies at 0.292--0.563 (NONE) or 0.495--0.597 (IN-FOLD), far below the 0.951--0.994 obtained with BEFORE. On T-bin, IN-FOLD and NONE differ by $-0.001$ to $+0.004$ only.
 
-\textbf{Answer to RQ2:} \emph{Oversampling before splitting inflates macro-F1 on the 12-class task by 0.392--0.491 for all models and both oversamplers (10/10), turning a task that reaches at most 0.597 into an apparent 0.951--0.994. On the binary task, the estimates are higher by 0.015--0.027, but there is no clear difference (0/10).}
+\textbf{Answer to RQ2:} \emph{Oversampling before splitting inflates macro-F1 on the 12-class task by 0.392--0.491 for all models and both oversamplers, turning a task that reaches at most 0.597 into an apparent 0.951--0.994. On the binary task, the estimates are higher by 0.015--0.027, a small difference of the same order as the variation between folds.}
 
 \subsection{RQ3: Ensembles under leakage-aware evaluation}
 \input{tables/rq3}
@@ -42,7 +42,7 @@ Under G-dup, both ensembles were clearly better than the random forest only (Tab
 \subsection{Replication on the Dalpiaz et al.\ dataset}
 \input{tables/dalpiaz}
 
-On the Dalpiaz data (T-bin), BEFORE again gave higher estimates than IN-FOLD for every model and oversampler, by $+0.034$ to $+0.081$ (BEFORE 0.775--0.822, IN-FOLD 0.716--0.754; Table~\ref{tab:dalpiaz}). As on PROMISE\_exp T-bin, none of these differences is clear after Holm adjustment ($p \geq 0.30$; 0/10). Testing on an unseen dataset (LODO) gave 0.405--0.511, compared with 0.709--0.746 under S, a drop of 0.21--0.31. This comparison is descriptive only because LODO has 4 folds. Rankings agreed little between S and LODO (Kendall's $\tau = 0.20$). In the no-both sensitivity analysis (Table~\ref{tab:noboth}), removing the 81 requirements labelled both functional and quality raised M2--M5 by $+0.035$ to $+0.074$ and lowered M1 by 0.103.
+On the Dalpiaz data (T-bin), BEFORE again gave higher estimates than IN-FOLD for every model and oversampler, by $+0.034$ to $+0.081$ (BEFORE 0.775--0.822, IN-FOLD 0.716--0.754; Table~\ref{tab:dalpiaz}). These differences are again consistent in direction and comparable to the fold standard deviation (0.039--0.066). Testing on an unseen dataset (LODO) gave 0.405--0.511, compared with 0.709--0.746 under S, a drop of 0.21--0.31. Rankings agreed little between S and LODO (Kendall's $\tau = 0.20$). In the no-both sensitivity analysis (Table~\ref{tab:noboth}), removing the 81 requirements labelled both functional and quality raised M2--M5 by $+0.035$ to $+0.074$ and lowered M1 by 0.103.
 
 \subsection{Error analysis}
 % CHECK: PROVISIONAL counts from a suggested labelling (error_analysis_suggested.csv).

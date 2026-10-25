@@ -130,6 +130,8 @@ The whole matrix is run **once**, after gate G4. A bug fix means re-running the 
 
 ## 10. Decision rules (fixed before results)
 
+> **A-009 (2026-10-25):** RQ1-dup, RQ1-proj, RQ2-bin, RQ2-12 and the Dalpiaz BEFORE vs IN-FOLD family are reported descriptively only (different test folds cannot be paired). The test and decision rule below now apply to RQ3 only. Text below is kept as locked on 2026-10-16.
+
 Paired comparison A vs B uses the 25 paired fold scores (same folds, same seeds).
 
 - Report mean Δ macro-F1, SD, and a 95% CI from the **corrected repeated k-fold t-test** (Nadeau & Bengio, 2003; Bouckaert & Frank, 2004) with `n_test/n_train` taken from the actual folds.
