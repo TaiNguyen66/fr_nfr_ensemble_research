@@ -30,21 +30,26 @@ FAMILIES = [  # (file stem, label in the figure, tested?) — A-009: only RQ3 is
 
 
 def fmt(mean, sd):
-    return f"{mean:.3f} $\\pm$ {sd:.3f}"
+    return f"${mean:.3f} \\pm {sd:.3f}$"
+
+
+def signed(x):
+    """Format a signed value, suppressing negative zero at display precision."""
+    value = f"{x:+.3f}"
+    return "+0.000" if value == "-0.000" else value
 
 
 def d(x):
-    return f"{x:+.3f}"
+    return f"${signed(x)}$"
 
 
 def p(x):
-    return "$<$0.001" if x < 0.001 else f"{x:.3f}"
+    return "$<0.001$" if x < 0.001 else f"${x:.3f}$"
 
 
 def mark(row):
     """Bold the delta when the §10 rule (|Δ| ≥ 0.01 and Holm p < 0.05) calls it a clear difference."""
-    s = d(row.mean_delta)
-    return s if row.decision == "no clear difference" else f"\\textbf{{{s}}}"
+    return d(row.mean_delta) if row.decision == "no clear difference" else f"$\\mathbf{{{signed(row.mean_delta)}}}$"
 
 
 def stats(name):
@@ -57,7 +62,7 @@ def desc(name):
 
 
 def msd(mean, sd):
-    return f"{mean:.3f} $\\pm$ {sd:.3f}"
+    return fmt(mean, sd)
 
 
 DESC = ("Descriptive only: the protocols use different test folds, so no paired test is applied "
@@ -73,7 +78,7 @@ def table(label, caption, cols, header, rows, wide=False, size="\\small", pos="t
     ])
 
 
-NOTE = "Bold $\\Delta$: clear difference ($|\\Delta| \\geq 0.01$ and Holm-adjusted $p < 0.05$, corrected repeated k-fold $t$-test)."
+NOTE = "Bold $\\Delta$: clear difference ($|\\Delta| \\geq 0.01$ and Holm-adjusted $p < 0.05$, corrected repeated $k$-fold $t$-test)."
 
 
 def rq1():
@@ -87,8 +92,9 @@ def rq1():
                     f"{d(dup.loc[m, 'mean_delta'])} & {d(proj.loc[m, 'mean_delta'])} \\\\")
     return table("tab:rq1",
                  "RQ1: macro-F1 under stratified CV (S), duplicate-grouped CV (G-dup) and project-grouped CV (G-proj) "
-                 "on PROMISE\\_exp, T-bin, no oversampling. $\\Delta$ = S $-$ grouped (difference of means). " + DESC,
-                 "lccc rr",
+                 "on PROMISE\\_exp, T-bin, no oversampling. $\\Delta$ = S $-$ grouped (difference of means). "
+                 "($\\Delta$ computed from unrounded fold scores before rounding for display). " + DESC,
+                 "lrrrrr",
                  ["& \\multicolumn{3}{c}{Macro-F1} & \\multicolumn{2}{c}{$\\Delta$} \\\\",
                   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
                   "Model & S & G-dup & G-proj & S $-$ G-dup & S $-$ G-proj \\\\"],
@@ -113,7 +119,7 @@ def rq2():
                  "OS-S: SMOTE. $\\Delta$ = BEFORE $-$ IN-FOLD (difference of means). Descriptive only: BEFORE test folds "
                  "are drawn from the oversampled set, so they are not the IN-FOLD test rows and no paired test is applied "
                  "(mean $\\pm$ SD over 5 seeds $\\times$ 5 folds).",
-                 "ll ccr ccr",
+                 "llrrrrrr",
                  ["& & \\multicolumn{3}{c}{T-bin (FR vs NFR)} & \\multicolumn{3}{c}{T-12 (12 classes)} \\\\",
                   "\\cmidrule(lr){3-5}\\cmidrule(lr){6-8}",
                   "Model & OS & BEFORE & IN-FOLD & $\\Delta$ & BEFORE & IN-FOLD & $\\Delta$ \\\\"],
@@ -125,13 +131,13 @@ def rq3():
     rows = []
     for (_, a), (_, b) in zip(g.iterrows(), s.iterrows()):
         name = a.comparison.split(" (")[0]
-        rows.append(f"{name} & {mark(a)} & [{a.ci_low:+.3f}, {a.ci_high:+.3f}] & {p(a.p_holm)} & "
+        rows.append(f"{name} & {mark(a)} & $[{signed(a.ci_low)}, {signed(a.ci_high)}]$ & {p(a.p_holm)} & "
                     f"{mark(b)} & {p(b.p_holm)} \\\\")
     return table("tab:rq3",
                  "RQ3: ensembles (M5 hard voting, M6 stacking) versus single classifiers M1--M4, PROMISE\\_exp, T-bin, "
                  "macro-F1. $\\Delta$ = ensemble $-$ single; 95\\% CI from the corrected $t$-test (unadjusted). "
                  f"G-dup is the primary protocol; S is reported for comparison. {NOTE}",
-                 "l rcr rr",
+                 "lrrrrr",
                  ["& \\multicolumn{3}{c}{G-dup (primary)} & \\multicolumn{2}{c}{S} \\\\",
                   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
                   "Comparison & $\\Delta$ & 95\\% CI & $p_{\\mathrm{Holm}}$ & $\\Delta$ & $p_{\\mathrm{Holm}}$ \\\\"],
@@ -145,13 +151,13 @@ def dalpiaz():
     st = st.assign(model=m_os[0], os=m_os[1]).set_index(["model", "os"])
     rows = []
     for m, r in lodo.iterrows():
-        rows.append(f"{m} & {r.mean_S:.3f} & {r.mean_LODO:.3f} & {d(r.delta_S_minus_LODO)} & "
+        rows.append(f"{m} & ${r.mean_S:.3f}$ & ${r.mean_LODO:.3f}$ & {d(r.delta_S_minus_LODO)} & "
                     f"{d(st.loc[(m, 'OS-R'), 'mean_delta'])} & {d(st.loc[(m, 'OS-S'), 'mean_delta'])} \\\\")
     return table("tab:dalpiaz",
                  "Replication on the Dalpiaz et al.\\ dataset ($n=327$, 4 projects), T-bin, macro-F1 (means). "
                  "Left: stratified CV (S) vs leave-one-dataset-out (LODO). Right: $\\Delta$ = BEFORE $-$ IN-FOLD. "
                  "All comparisons are descriptive (different test folds; S has 25 folds, LODO 4).",
-                 "l cc r rr",
+                 "lrrrrr",
                  ["& \\multicolumn{3}{c}{Evaluation protocol} & \\multicolumn{2}{c}{BEFORE $-$ IN-FOLD} \\\\",
                   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
                   "Model & S & LODO & $\\Delta$ & OS-R & OS-S \\\\"],
@@ -174,7 +180,7 @@ def noboth_d2():
                  "Sensitivity of the Dalpiaz replication to removing requirements labelled both F and Q "
                  f"(T-bin, S, no oversampling; macro-F1 mean $\\pm$ SD over 25 folds; full $n={n[DALPIAZ]}$, "
                  f"no-both $n={n[NOBOTH]}$). Descriptive only.",
-                 "lccr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows, pos="H")
+                 "lrrr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows, pos="H")
 
 
 def none_vs_infold():
@@ -189,12 +195,12 @@ def none_vs_infold():
         g = df[df.task == task].set_index(["model", "oversampler"])
         for m in sorted(g.index.get_level_values("model").unique()):
             r, s = g.loc[(m, "OS-R")], g.loc[(m, "OS-S")]
-            rows.append(f"{m} & {r['mean_none']:.3f} & {r['mean_in_fold']:.3f} & {d(-r['delta_none_minus_in_fold'])} & "
-                        f"{s['mean_in_fold']:.3f} & {d(-s['delta_none_minus_in_fold'])} \\\\")
+            rows.append(f"{m} & ${r['mean_none']:.3f}$ & ${r['mean_in_fold']:.3f}$ & {d(-r['delta_none_minus_in_fold'])} & "
+                        f"${s['mean_in_fold']:.3f}$ & {d(-s['delta_none_minus_in_fold'])} \\\\")
     return table("tab:none_infold",
                  "Effect of correct (IN-FOLD) oversampling against no oversampling (NONE), PROMISE\\_exp, stratified CV, "
                  "macro-F1. OS-R: random oversampling; OS-S: SMOTE. $\\Delta$ = IN-FOLD $-$ NONE. Descriptive only.",
-                 "l c cr cr",
+                 "lrrrrr",
                  ["& & \\multicolumn{2}{c}{IN-FOLD, OS-R} & \\multicolumn{2}{c}{IN-FOLD, OS-S} \\\\",
                   "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}",
                   "Model & NONE & F1 & $\\Delta$ & F1 & $\\Delta$ \\\\"],
@@ -204,7 +210,7 @@ def none_vs_infold():
 def kendall():
     df = pd.read_csv(TABLES / "kendall_tau.csv")
     name = {PROMISE: "PROMISE\\_exp", DALPIAZ: "Dalpiaz"}
-    rows = [f"{name[r.dataset]} & {r.protocol_x} vs {r.protocol_y} & {r.models.replace(' ', ', ')} & {r.kendall_tau:.3f} \\\\"
+    rows = [f"{name[r.dataset]} & {r.protocol_x} vs {r.protocol_y} & {r.models.replace(' ', ', ')} & ${r.kendall_tau:.3f}$ \\\\"
             for r in df.itertuples()]
     return table("tab:kendall",
                  "Agreement of model rankings (mean macro-F1, T-bin, no oversampling) between evaluation protocols "

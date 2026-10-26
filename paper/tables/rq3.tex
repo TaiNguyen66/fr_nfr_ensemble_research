@@ -1,23 +1,23 @@
 \begin{table}[t]
 \centering
-\caption{RQ3: ensembles (M5 hard voting, M6 stacking) versus single classifiers M1--M4, PROMISE\_exp, T-bin, macro-F1. $\Delta$ = ensemble $-$ single; 95\% CI from the corrected $t$-test (unadjusted). G-dup is the primary protocol; S is reported for comparison. Bold $\Delta$: clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$, corrected repeated k-fold $t$-test).}
+\caption{RQ3: ensembles (M5 hard voting, M6 stacking) versus single classifiers M1--M4, PROMISE\_exp, T-bin, macro-F1. $\Delta$ = ensemble $-$ single; 95\% CI from the corrected $t$-test (unadjusted). G-dup is the primary protocol; S is reported for comparison. Bold $\Delta$: clear difference ($|\Delta| \geq 0.01$ and Holm-adjusted $p < 0.05$, corrected repeated $k$-fold $t$-test).}
 \label{tab:rq3}
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{l rcr rr}
+\begin{tabular}{lrrrrr}
 \toprule
 & \multicolumn{3}{c}{G-dup (primary)} & \multicolumn{2}{c}{S} \\
 \cmidrule(lr){2-4}\cmidrule(lr){5-6}
 Comparison & $\Delta$ & 95\% CI & $p_{\mathrm{Holm}}$ & $\Delta$ & $p_{\mathrm{Holm}}$ \\
 \midrule
-M5 vs M1 & +0.007 & [-0.002, +0.017] & 0.707 & +0.006 & 1.000 \\
-M5 vs M2 & -0.006 & [-0.022, +0.009] & 1.000 & -0.011 & 0.280 \\
-M5 vs M3 & \textbf{+0.032} & [+0.016, +0.048] & 0.003 & \textbf{+0.030} & 0.013 \\
-M5 vs M4 & +0.001 & [-0.014, +0.016] & 1.000 & -0.007 & 1.000 \\
-M6 vs M1 & +0.017 & [-0.004, +0.038] & 0.707 & +0.015 & 0.280 \\
-M6 vs M2 & +0.003 & [-0.007, +0.012] & 1.000 & -0.002 & 1.000 \\
-M6 vs M3 & \textbf{+0.042} & [+0.024, +0.059] & $<$0.001 & \textbf{+0.040} & 0.007 \\
-M6 vs M4 & +0.010 & [-0.007, +0.028] & 0.916 & +0.002 & 1.000 \\
+M5 vs M1 & $+0.007$ & $[-0.002, +0.017]$ & $0.707$ & $+0.006$ & $1.000$ \\
+M5 vs M2 & $-0.006$ & $[-0.022, +0.009]$ & $1.000$ & $-0.011$ & $0.280$ \\
+M5 vs M3 & $\mathbf{+0.032}$ & $[+0.016, +0.048]$ & $0.003$ & $\mathbf{+0.030}$ & $0.013$ \\
+M5 vs M4 & $+0.001$ & $[-0.014, +0.016]$ & $1.000$ & $-0.007$ & $1.000$ \\
+M6 vs M1 & $+0.017$ & $[-0.004, +0.038]$ & $0.707$ & $+0.015$ & $0.280$ \\
+M6 vs M2 & $+0.003$ & $[-0.007, +0.012]$ & $1.000$ & $-0.002$ & $1.000$ \\
+M6 vs M3 & $\mathbf{+0.042}$ & $[+0.024, +0.059]$ & $<0.001$ & $\mathbf{+0.040}$ & $0.007$ \\
+M6 vs M4 & $+0.010$ & $[-0.007, +0.028]$ & $0.916$ & $+0.002$ & $1.000$ \\
 \bottomrule
 \end{tabular}
 \end{table}

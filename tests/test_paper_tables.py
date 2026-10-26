@@ -14,6 +14,6 @@ def test_tables_built_from_results():
 
 def test_none_vs_infold_fits_one_column():
     tex = paper_tables.none_vs_infold()
-    assert tex.startswith(r"\begin{table}[H]") and r"\begin{tabular}{l c cr cr}" in tex
+    assert tex.startswith(r"\begin{table}[H]") and r"\begin{tabular}{lrrrrr}" in tex
     assert "T-bin (FR vs NFR)" in tex and "T-12 (12 classes)" in tex
     assert sum(bool(re.match(r"M\d &", line)) for line in tex.splitlines()) == 10  # M1..M5 in each panel
