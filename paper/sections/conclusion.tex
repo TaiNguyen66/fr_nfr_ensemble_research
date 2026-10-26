@@ -1,4 +1,3 @@
-% CONCLUSION (~0.3 page) + data availability. Prompt: AGENT_PROMPTS.md, section "Conclusion".
 \section{Conclusion}
 \label{sec:conclusion}
 We re-evaluated FR/NFR requirements classifiers on PROMISE\_exp under a protocol locked before any run. Oversampling the whole dataset before splitting raised macro-F1 on the 12-class task by 0.392 to 0.491. A task with a macro-F1 of at most 0.597 without leakage then appears to score 0.951 to 0.994. On the binary task the increase was 0.015 to 0.027. Testing on unseen projects lowered macro-F1 by 0.134 to 0.190 and changed the model ranking, while grouping the 8 duplicate groups in PROMISE\_exp changed macro-F1 by less than 0.01. The ensembles were clearly better than the random forest and no other model.

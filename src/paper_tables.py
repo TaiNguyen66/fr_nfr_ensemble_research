@@ -254,40 +254,12 @@ def summary_figure():
     plt.close(fig)
 
 
-def rq2_t12_figure():
-    """Slide figure: macro-F1 of NONE / IN-FOLD / BEFORE per model on T-12 (OS-R), one row per model."""
-    s = pd.read_csv(TABLES / "summary_RQ2.csv")
-    s = s[(s.task == "T-12") & ((s.oversampler == "OS-R") | (s.condition == "NONE"))]
-    plt.rcParams.update({"font.size": 11, "font.family": "sans-serif"})
-    fig, ax = plt.subplots(figsize=(7, 3.6))
-    models = ["M1", "M2", "M3", "M4", "M5"]
-    styles = {"NONE": dict(marker="o", facecolors="white", edgecolors="#6b7280"),
-              "IN-FOLD": dict(marker="o", color="#1f2937"),
-              "BEFORE": dict(marker="D", color="#b91c1c")}
-    for y, m in enumerate(reversed(models)):
-        v = s[s.model == m].set_index("condition")["mean"]
-        ax.plot([v["IN-FOLD"], v["BEFORE"]], [y, y], color="#d1d5db", linewidth=2, zorder=1)
-        for c, st in styles.items():
-            ax.scatter(v[c], y, s=70, zorder=3, label=c if y == 0 else None, **st)
-    ax.set_yticks(range(len(models)), list(reversed(models)))
-    ax.set_xlim(0.2, 1.02)
-    ax.set_xlabel("macro-F1 (12 classes, random oversampling)")
-    ax.grid(axis="x", color="#e5e7eb", linewidth=0.6)
-    ax.set_axisbelow(True)
-    for side in ("top", "right", "left"):
-        ax.spines[side].set_visible(False)
-    ax.legend(loc="lower left", frameon=False, ncol=3, bbox_to_anchor=(0, 1.0))
-    fig.savefig(FIG / "slide_rq2_t12.png", bbox_inches="tight", dpi=300)
-    plt.close(fig)
-
-
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for name, fn in [("rq1", rq1), ("rq2", rq2), ("rq3", rq3), ("dalpiaz", dalpiaz), ("noboth_d2", noboth_d2),
                      ("none_vs_infold", none_vs_infold), ("kendall", kendall)]:
         (OUT / f"{name}.tex").write_text(fn(), encoding="utf-8")
     summary_figure()
-    rq2_t12_figure()
     print(f"Wrote tables to {OUT} and summary_deltas.pdf/png to {FIG}")
 
 

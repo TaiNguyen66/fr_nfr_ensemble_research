@@ -280,12 +280,19 @@ Sau khi chạy xong các plan (không cần đủ cả 3, script bỏ qua plan c
 
 Kết quả trong `results/tables/`:
 
-- `stats_<họ>.csv` cho RQ1-dup, RQ1-proj, RQ3-Gdup, RQ3-S, RQ2-bin, RQ2-12, RQ2-D2: mean Δ (A − B theo cột `comparison`), SD, t, p, CI 95% chưa hiệu chỉnh, `p_holm`, `decision` (quy tắc §10: |Δ| ≥ 0.01 và Holm p < 0.05). Ghép cặp theo (seed, fold); tỷ lệ `n_test/n_train` lấy từ các fold thật.
+- `stats_<họ>.csv` chỉ cho **RQ3-Gdup** và **RQ3-S** (các model dùng chung split): mean Δ (A − B theo cột `comparison`), SD, t, p, CI 95% chưa hiệu chỉnh, `p_holm`, `decision` (quy tắc §10: |Δ| ≥ 0.01 và Holm p < 0.05). Ghép cặp theo (seed, fold); tỷ lệ `n_test/n_train` lấy từ các fold thật.
+- `descriptive_<họ>.csv` cho **RQ1-dup, RQ1-proj, RQ2-bin, RQ2-12, RQ2-D2** (A-009): mean và SD của từng bên, Δ = hiệu hai trung bình. **Không** có p-value vì hai bên không cùng tập test.
 - `summary_<plan>.csv`: mean/SD macro-F1 từng cấu hình.
 - `descriptive_none_vs_infold_<plan>.csv`: NONE vs IN-FOLD (chỉ mô tả).
-- `descriptive_RQ1-D2_S_vs_LODO.csv`: S (25 fold) vs LODO (4 fold) trên Dalpiaz — **chỉ mô tả**, vì hai bên không cùng fold nên không ghép cặp được.
+- `descriptive_RQ1-D2_S_vs_LODO.csv`: S (25 fold) vs LODO (4 fold) trên Dalpiaz, chỉ mô tả.
 - `kendall_tau.csv`: τ giữa xếp hạng model S vs G-dup, S vs G-proj (PROMISE_exp) và S vs LODO (Dalpiaz).
 
-Hình trong `results/figures/delta_<họ>.png`: Δ và CI 95%; chấm đặc = khác biệt rõ, chấm rỗng = không khác biệt rõ.
+Hình trong `results/figures/delta_RQ3-*.png`: Δ và CI 95%; chấm đặc = khác biệt rõ, chấm rỗng = không khác biệt rõ.
 
-Lưu ý khi viết Method: điều kiện BEFORE chia fold trên tập đã oversample nên fold của BEFORE và IN-FOLD chỉ trùng chỉ số (seed, fold), không trùng dòng.
+Sinh bảng và hình cho bài báo (`paper/tables/*.tex`, `paper/figures/summary_deltas.*`):
+
+```powershell
+.venv\Scripts\python -m src.paper_tables
+```
+
+Lưu ý: điều kiện BEFORE chia fold trên tập đã oversample, nên fold của BEFORE và IN-FOLD không cùng dòng test; vì vậy RQ2 chỉ báo cáo mô tả (A-009).
