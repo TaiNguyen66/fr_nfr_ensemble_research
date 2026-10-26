@@ -60,7 +60,7 @@ Raw PROMISE_exp is not redistributed (license unknown).
 - Oversamplers (imbalanced-learn `lemaitre2017`): OS-R random oversampling; OS-S SMOTE (`chawla2002`) on TF-IDF vectors.
 - Conditions: NONE; IN-FOLD (oversample training fold only, test folds contain original rows only); BEFORE (oversample the whole dataset, then split; for OS-S TF-IDF is fitted on all rows; test folds come from the oversampled set, as in the reviewed studies).
 - Protocols: S = StratifiedKFold(5); G-dup = StratifiedGroupKFold(5) on duplicate groups; G-proj = StratifiedGroupKFold(5) on ProjectID; LODO = leave-one-dataset-out (Dalpiaz only, 4 folds).
-- Repetition: 5 seeds (42, 123, 2026, 3407, 9917) × 5 folds = **25 paired scores** per configuration. Test fold sizes: S and G-dup 193–194 rows; G-proj 172–245 rows.
+- Repetition: 5 seeds (42, 123, 2026, 3407, 9917) × 5 folds = **25 fold scores** per configuration (paired only within the same protocol and condition, A-009). Test fold sizes: S and G-dup 193–194 rows; G-proj 172–245 rows.
 - Runs: RQ1 21 configurations (525 fold fits), RQ2 50 configurations (1250), Dalpiaz 35 configurations (770).
 
 ## 5. Statistics and wording rules (protocol §10, amended by A-009 on 2026-10-25)

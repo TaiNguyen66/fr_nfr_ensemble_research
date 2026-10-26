@@ -64,10 +64,10 @@ DESC = ("Descriptive only: the protocols use different test folds, so no paired 
         "(mean $\\pm$ SD over 5 seeds $\\times$ 5 folds).")
 
 
-def table(label, caption, cols, header, rows, wide=False, size="\\small"):
+def table(label, caption, cols, header, rows, wide=False, size="\\small", pos="t"):
     env = "table*" if wide else "table"
     return "\n".join([
-        f"\\begin{{{env}}}[t]", "\\centering", f"\\caption{{{caption}}}", f"\\label{{{label}}}", size,
+        f"\\begin{{{env}}}[{pos}]", "\\centering", f"\\caption{{{caption}}}", f"\\label{{{label}}}", size,
         "\\setlength{\\tabcolsep}{4pt}", f"\\begin{{tabular}}{{{cols}}}", "\\toprule", *header, "\\midrule",
         *rows, "\\bottomrule", "\\end{tabular}", f"\\end{{{env}}}", "",
     ])
@@ -174,7 +174,7 @@ def noboth_d2():
                  "Sensitivity of the Dalpiaz replication to removing requirements labelled both F and Q "
                  f"(T-bin, S, no oversampling; macro-F1 mean $\\pm$ SD over 25 folds; full $n={n[DALPIAZ]}$, "
                  f"no-both $n={n[NOBOTH]}$). Descriptive only.",
-                 "lccr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows)
+                 "lccr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows, pos="!htb")
 
 
 def none_vs_infold():
@@ -198,7 +198,7 @@ def none_vs_infold():
                  ["& & \\multicolumn{2}{c}{IN-FOLD, OS-R} & \\multicolumn{2}{c}{IN-FOLD, OS-S} \\\\",
                   "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}",
                   "Model & NONE & F1 & $\\Delta$ & F1 & $\\Delta$ \\\\"],
-                 rows)
+                 rows, pos="!htb")
 
 
 def kendall():
@@ -209,7 +209,7 @@ def kendall():
     return table("tab:kendall",
                  "Agreement of model rankings (mean macro-F1, T-bin, no oversampling) between evaluation protocols "
                  "(Kendall's $\\tau$).",
-                 "llp{2.6cm}r", ["Dataset & Protocols & Models & $\\tau$ \\\\"], rows)
+                 "llp{2.6cm}r", ["Dataset & Protocols & Models & $\\tau$ \\\\"], rows, pos="!htb")
 
 
 def summary_figure():
