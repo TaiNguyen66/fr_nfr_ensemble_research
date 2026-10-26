@@ -133,7 +133,7 @@ Raw PROMISE_exp is not redistributed (license unknown).
 ### Annotation agreement
 
 - Initial agreement: 15/30 (50.0%).
-- Cohen's kappa: 0.3911.
+- Cohen's kappa: 0.391.
 - Disagreements: 15/30.
 - Reconciliation: 30/30 final categories completed.
 - Original reviewer labels were preserved.
