@@ -10,90 +10,46 @@
 \label{fig:summary}
 \end{figure}
 
-Fig.~\ref{fig:summary} summarises all planned comparisons. Comparisons across protocols (RQ1) or oversampling conditions (RQ2 and the replication) are reported as differences of means, because their test folds differ (Section~\ref{sec:method}). Two of them are large compared with the fold-to-fold variation: S vs.\ G-proj and BEFORE vs.\ IN-FOLD on the 12-class task. In RQ3, which compares models on the same splits, 2 of 8 comparisons show a clear difference under both G-dup and S. The dummy classifier M0 reached a macro-F1 of about 0.35 under every protocol, as expected.
+Fig.~\ref{fig:summary} shows all planned comparisons. For RQ1, RQ2 and the replication the test folds differ, so these comparisons are differences of means (Section~\ref{sec:method}). Two of them are large compared with the variation between folds: S vs.\ G-proj and BEFORE vs.\ IN-FOLD on the 12-class task. In RQ3, where models share the same splits, 2 of 8 comparisons show a clear difference under G-dup and under S. The dummy classifier M0 scored a macro-F1 of about 0.35 under every protocol.
 
 \subsection{RQ1: Duplicate- and project-grouped evaluation}
 \input{tables/rq1}
 
-\textbf{S vs.\ G-dup.} Grouping the duplicate requirements left the estimates practically unchanged (Table~\ref{tab:rq1}). $\Delta$ ranged from $-0.003$ to $+0.005$, below the 0.01 threshold for every model and far smaller than the fold standard deviation (0.018--0.031 under S, 0.018--0.025 under G-dup). Rankings changed only slightly (Kendall's $\tau = 0.733$, Table~\ref{tab:kendall}). PROMISE\_exp contains only 8 duplicate groups (16 of 969 rows), so this is a negative result for this dataset, not evidence that duplicates can never matter.
+\textbf{S vs.\ G-dup.} Grouping duplicates left the estimates almost unchanged (Table~\ref{tab:rq1}). $\Delta$ ranged from $-0.003$ to $+0.005$. That is below the 0.01 threshold for every model and far below the fold standard deviation (0.018 to 0.031 under S, 0.018 to 0.025 under G-dup). Kendall's $\tau$ between the two rankings is 0.733 (Table~\ref{tab:kendall}). PROMISE\_exp has only 8 duplicate groups (16 of 969 rows), so this negative result holds for this dataset and does not show that duplicates never matter.
 
-\textbf{S vs.\ G-proj.} Keeping each project in a single fold lowered macro-F1 for all six models. G-proj scores were 0.661--0.755, compared with 0.851--0.893 under S, a drop of 0.134 (M4) to 0.190 (M3). The variation between folds was also larger: the fold standard deviation was 0.052--0.113 under G-proj versus 0.018--0.031 under S. The ranking of the models changed (Kendall's $\tau = 0.600$): M2 was best under S (0.893), whereas M4 was best under G-proj (0.755).
+\textbf{S vs.\ G-proj.} Keeping each project in one fold lowered macro-F1 for all six models, from 0.851 to 0.893 under S to 0.661 to 0.755 under G-proj. The drop ranged from 0.134 (M4) to 0.190 (M3). Scores also varied more between folds, with a standard deviation of 0.052 to 0.113 under G-proj against 0.018 to 0.031 under S. The ranking changed (Kendall's $\tau = 0.600$): M2 was best under S (0.893) and M4 under G-proj (0.755).
 
-\textbf{Answer to RQ1:} \emph{Grouping duplicates changes macro-F1 on PROMISE\_exp by less than 0.01 for every model, whereas testing on unseen projects lowers macro-F1 by 0.134--0.190 for every model and changes the model ranking.}
+\textbf{Answer to RQ1:} \emph{Grouping duplicates changes macro-F1 on PROMISE\_exp by less than 0.01 for every model. Testing on unseen projects lowers macro-F1 by 0.134 to 0.190 for every model and changes the model ranking.}
 
 \subsection{RQ2: Oversampling before vs.\ inside the training fold}
 \input{tables/rq2}
 
-\textbf{T-bin.} On the binary task, oversampling before splitting gave higher estimates for every model and oversampler (Table~\ref{tab:rq2}): BEFORE reached 0.878--0.920 against 0.855--0.894 for IN-FOLD ($\Delta = +0.015$ to $+0.027$). These differences are consistent in direction but of the same order as the fold standard deviation (0.015--0.032).
+\textbf{T-bin.} On the binary task, BEFORE gave higher estimates than IN-FOLD for every model and oversampler (Table~\ref{tab:rq2}): 0.878 to 0.920 against 0.855 to 0.894, a difference of $+0.015$ to $+0.027$. The direction is consistent, but the size is of the same order as the fold standard deviation (0.015 to 0.032).
 
-\textbf{T-12.} On the 12-class task the inflation is large for all ten model--oversampler combinations. BEFORE reached 0.951--0.994, while IN-FOLD reached 0.495--0.597, a difference of $+0.392$ to $+0.491$. This difference is many times the fold standard deviation (0.002--0.006 under BEFORE, 0.040--0.075 under IN-FOLD). The largest differences were observed for M3 ($+0.488$ with OS-R, $+0.491$ with OS-S).
+\textbf{T-12.} On the 12-class task, BEFORE reached 0.951 to 0.994 and IN-FOLD 0.495 to 0.597, a difference of $+0.392$ to $+0.491$ for all ten model and oversampler combinations. The fold standard deviation was 0.002 to 0.006 under BEFORE and 0.040 to 0.075 under IN-FOLD, many times smaller than the difference. M3 showed the largest gaps ($+0.488$ with OS-R, $+0.491$ with OS-S).
 
-\textbf{NONE vs.\ IN-FOLD.} Table~\ref{tab:none_infold} (descriptive) shows how much of the gap is due to oversampling itself. On T-12, correct in-fold oversampling raised macro-F1 for M1 ($+0.30$), M5 ($+0.17$ to $+0.18$) and M3 ($+0.11$ to $+0.12$), barely changed M2 ($+0.03$) and lowered M4 ($-0.04$). Without any leakage the 12-class task therefore lies at 0.292--0.563 (NONE) or 0.495--0.597 (IN-FOLD), far below the 0.951--0.994 obtained with BEFORE. On T-bin, IN-FOLD and NONE differ by $-0.001$ to $+0.004$ only.
+\textbf{NONE vs.\ IN-FOLD.} Table~\ref{tab:none_infold} (descriptive) separates the effect of oversampling itself. On T-12, in-fold oversampling raised macro-F1 for M1 ($+0.30$), M5 ($+0.17$ to $+0.18$) and M3 ($+0.11$ to $+0.12$), barely changed M2 ($+0.03$) and lowered M4 ($-0.04$). Without leakage, the 12-class task scores 0.292 to 0.563 (NONE) or 0.495 to 0.597 (IN-FOLD), far below the 0.951 to 0.994 obtained with BEFORE. On T-bin, IN-FOLD and NONE differ by only $-0.001$ to $+0.004$.
 
-\textbf{Answer to RQ2:} \emph{Oversampling before splitting inflates macro-F1 on the 12-class task by 0.392--0.491 for all models and both oversamplers, turning a task that reaches at most 0.597 into an apparent 0.951--0.994. On the binary task, the estimates are higher by 0.015--0.027, a small difference of the same order as the variation between folds.}
+\textbf{Answer to RQ2:} \emph{Oversampling before splitting raises macro-F1 on the 12-class task by 0.392 to 0.491 for all models and both oversamplers. A task that reaches at most 0.597 then appears to score 0.951 to 0.994. On the binary task the increase is 0.015 to 0.027, of the same order as the variation between folds.}
 
 \subsection{RQ3: Ensembles under leakage-aware evaluation}
 \input{tables/rq3}
 
-Under G-dup, both ensembles were clearly better than the random forest only (Table~\ref{tab:rq3}): M5 vs.\ M3 $\Delta = +0.032$ (Holm-adjusted $p = 0.003$) and M6 vs.\ M3 $\Delta = +0.042$ ($p < 0.001$). Against M1, M2 and M4 there is no clear difference (6/8 comparisons); for these, $\Delta$ ranged from $-0.006$ to $+0.017$, and all confidence intervals include zero. Under S the pattern is the same (2/8): M5 vs.\ M3 $+0.030$ and M6 vs.\ M3 $+0.040$. Hard voting therefore performs close to the better linear models.
+Under G-dup, both ensembles were clearly better than the random forest and no other model (Table~\ref{tab:rq3}): M5 vs.\ M3 $\Delta = +0.032$ (Holm-adjusted $p = 0.003$) and M6 vs.\ M3 $\Delta = +0.042$ ($p < 0.001$). The other 6 comparisons, against M1, M2 and M4, show no clear difference; their $\Delta$ ranges from $-0.006$ to $+0.017$ and all their confidence intervals include zero. Under S the pattern repeats (2/8), with M5 vs.\ M3 at $+0.030$ and M6 vs.\ M3 at $+0.040$.
 
-\textbf{Answer to RQ3:} \emph{Under G-dup, hard voting and stacking are clearly better only than the random forest (M5 $+0.032$, M6 $+0.042$); there is no clear difference against logistic regression, the linear SVM or complement naive Bayes.}
+\textbf{Answer to RQ3:} \emph{Under G-dup, hard voting and stacking are clearly better only than the random forest (M5 $+0.032$, M6 $+0.042$). Against logistic regression, the linear SVM and complement naive Bayes there is no clear difference.}
 
 \subsection{Replication on the Dalpiaz et al.\ dataset}
 \input{tables/dalpiaz}
 
-On the Dalpiaz data (T-bin), BEFORE again gave higher estimates than IN-FOLD for every model and oversampler, by $+0.034$ to $+0.081$ (BEFORE 0.775--0.822, IN-FOLD 0.716--0.754; Table~\ref{tab:dalpiaz}). These differences are again consistent in direction and comparable to the fold standard deviation (0.039--0.066). Testing on an unseen dataset (LODO) gave 0.405--0.511, compared with 0.709--0.746 under S, a drop of 0.21--0.31. Rankings agreed little between S and LODO (Kendall's $\tau = 0.20$). In the no-both sensitivity analysis (Table~\ref{tab:noboth}), removing the 81 requirements labelled both functional and quality raised M2--M5 by $+0.035$ to $+0.074$ and lowered M1 by 0.103.
+On the Dalpiaz data (T-bin), BEFORE again beat IN-FOLD for every model and oversampler, by $+0.034$ to $+0.081$ (BEFORE 0.775 to 0.822, IN-FOLD 0.716 to 0.754; Table~\ref{tab:dalpiaz}). As on PROMISE\_exp T-bin, these differences have a consistent direction and a size comparable to the fold standard deviation (0.039 to 0.066). Testing on an unseen dataset (LODO) gave 0.405 to 0.511, against 0.709 to 0.746 under S, a drop of 0.21 to 0.31. Kendall's $\tau$ between the S and LODO rankings is 0.20. Removing the 81 requirements labelled both functional and quality (Table~\ref{tab:noboth}) raised M2 to M5 by $+0.035$ to $+0.074$ and lowered M1 by 0.103.
 
 \subsection{Error analysis}
 
-We inspected 30 misclassified requirements from
-PROMISE\_exp (T-bin, G-dup, seed 42): 15 errors
-from Linear SVM (M2) and 15 from Hard Voting (M5).
-Each model contributed eight true-NFR and seven
-true-FR instances. Ground-truth labels were
-not changed.
+We inspected 30 misclassified requirements from PROMISE\_exp (T-bin, G-dup, seed 42): 15 errors of the linear SVM (M2) and 15 of hard voting (M5), each with eight true-NFR and seven true-FR rows. We did not change any ground-truth label.
 
-Two authors assigned initial error categories
-to the selected requirements and subsequently
-reconciled their disagreements. Their initial
-categorizations agreed on 15 of 30 instances
-(50.0\%), yielding Cohen's $\kappa = 0.391$.
-Both authors used AI assistance during the
-annotation workflow. Consequently, this
-agreement should not be interpreted as fully
-independent, unaided human inter-rater agreement.
+Both authors assigned an error category to each row and then reconciled their disagreements. Their initial categories agreed on 15 of 30 rows (Cohen's $\kappa = 0.391$). Both used AI assistance while labelling, so this figure is not an agreement between fully independent, unaided raters.
 
-After reconciliation, the most frequent category
-was \emph{ambiguous or underspecified}
-(8/30, 26.7\%), followed by \emph{mixed FR/NFR}
-(7/30, 23.3\%) and \emph{functional verb in NFR}
-(6/30, 20.0\%). An example of an ambiguous
-requirement concerns using stored email addresses
-as the primary means of communication.
-A mixed requirement states that dispute cases
-``must be color coded for easy identification''.
-An NFR requiring the system to ``utilize HTTPS
-communication to ensure data confidentiality''
-was incorrectly predicted as FR.
+After reconciliation, the most frequent category was \emph{ambiguous or underspecified} (8 rows), for example a requirement to use stored e-mail addresses as the primary means of communication. \emph{Mixed FR/NFR} followed with 7 rows, such as a list of dispute cases that ``must be color coded for easy identification''. Six rows were a \emph{functional verb in an NFR}: the security requirement ``The system shall utilize HTTPS communication to ensure data confidentiality'' was predicted as FR. The remaining rows were a \emph{quality keyword in an FR} (4), for example an alert after a failed login, a \emph{possible annotation issue} (2), \emph{other} (2) and \emph{short or low context} (1). Rows P0809 and P0752 contain the same sentence apart from punctuation; they form one duplicate group, and G-dup puts them in the same fold.
 
-The remaining categories were \emph{quality
-keyword in FR} (4/30, 13.3\%), such as a
-requirement concerning failed login alerts;
-\emph{possible annotation issue} (2/30, 6.7\%);
-\emph{other} (2/30, 6.7\%); and
-\emph{short/low context} (1/30, 3.3\%).
-
-Two selected errors, P0809 and P0752, contain
-the same requirement wording apart from
-punctuation and belong to one duplicate group,
-which G-dup assigns to the same fold.
-
-The three most frequent categories accounted
-for 21 of the 30 selected errors (70.0\%).
-The relatively modest initial agreement also
-indicates that identifying a single primary
-error category was challenging for the reviewers.
-These findings are qualitative observations,
-not verified causal explanations of model
-behavior, and the observed proportions
-cannot be generalized to the full dataset.
+The three largest categories cover 21 of the 30 errors. The moderate initial agreement suggests that many errors have no single obvious cause. These categories are qualitative judgements about 30 selected errors, not verified explanations of model behaviour, and their proportions do not generalise to the full dataset.
