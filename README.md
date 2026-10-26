@@ -1,8 +1,10 @@
 # How Much Does Evaluation Leakage Inflate FR/NFR Requirements Classification?
 
-*A Leakage-Aware Re-Evaluation of Single and Ensemble Classifiers*
+_A Leakage-Aware Re-Evaluation of Single and Ensemble Classifiers_
 
 Tai Nguyen Phat, Anh Hoang · FPT University HCMC · SWR302 (FA26)
+
+Vietnamese version: [`README.vi.md`](README.vi.md)
 
 This repository contains the code, protocol, split indices, per-fold scores and paper source for our study of how evaluation choices change the reported performance of functional (FR) and non-functional (NFR) requirements classifiers.
 
@@ -14,23 +16,23 @@ This repository contains the code, protocol, split indices, per-fold scores and 
 
 ## Main results (macro-F1)
 
-| Comparison | Result |
-|---|---|
+| Comparison                        | Result                                                     |
+| --------------------------------- | ---------------------------------------------------------- |
 | RQ2, 12 classes: BEFORE − IN-FOLD | +0.392 to +0.491 (BEFORE 0.951–0.994, IN-FOLD 0.495–0.597) |
-| RQ2, binary: BEFORE − IN-FOLD | +0.015 to +0.027 |
-| RQ1(b): S − G-proj | 0.134 to 0.190; model ranking changes (Kendall τ = 0.600) |
-| RQ1(a): S − G-dup | below 0.01 for every model (only 8 duplicate groups) |
-| RQ3: ensembles vs single models | clearly better than random forest only (+0.032, +0.042) |
-| Replication (Dalpiaz et al.) | BEFORE − IN-FOLD +0.034 to +0.081; S − LODO 0.21 to 0.31 |
+| RQ2, binary: BEFORE − IN-FOLD     | +0.015 to +0.027                                           |
+| RQ1(b): S − G-proj                | 0.134 to 0.190; model ranking changes (Kendall τ = 0.600)  |
+| RQ1(a): S − G-dup                 | below 0.01 for every model (only 8 duplicate groups)       |
+| RQ3: ensembles vs single models   | clearly better than random forest only (+0.032, +0.042)    |
+| Replication (Dalpiaz et al.)      | BEFORE − IN-FOLD +0.034 to +0.081; S − LODO 0.21 to 0.31   |
 
 RQ1, RQ2 and the replication compare different test folds and are reported descriptively. Only RQ3, where models share the same splits, uses the corrected repeated k-fold t-test with Holm adjustment (amendment A-009).
 
 ## Data
 
-| Dataset | Use | Source | In this repo |
-|---|---|---|---|
-| PROMISE_exp (969 requirements, 47 projects, 12 classes) | main benchmark | Lima et al. 2019, public mirror | not redistributed (license unknown); SHA-256 in `data/checksums.csv` |
-| Dalpiaz et al. 2019 (dronology, leeds, reqview, wasp; 327 requirements) | replication | Zenodo, doi:10.5281/zenodo.3309582 | not redistributed; download from Zenodo |
+| Dataset                                                                 | Use            | Source                             | In this repo                                                         |
+| ----------------------------------------------------------------------- | -------------- | ---------------------------------- | -------------------------------------------------------------------- |
+| PROMISE_exp (969 requirements, 47 projects, 12 classes)                 | main benchmark | Lima et al. 2019, public mirror    | not redistributed (license unknown); SHA-256 in `data/checksums.csv` |
+| Dalpiaz et al. 2019 (dronology, leeds, reqview, wasp; 327 requirements) | replication    | Zenodo, doi:10.5281/zenodo.3309582 | not redistributed; download from Zenodo                              |
 
 Details, label mapping and expected row counts: [`data/README.md`](data/README.md).
 
