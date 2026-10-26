@@ -174,7 +174,7 @@ def noboth_d2():
                  "Sensitivity of the Dalpiaz replication to removing requirements labelled both F and Q "
                  f"(T-bin, S, no oversampling; macro-F1 mean $\\pm$ SD over 25 folds; full $n={n[DALPIAZ]}$, "
                  f"no-both $n={n[NOBOTH]}$). Descriptive only.",
-                 "lccr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows, pos="!htb")
+                 "lccr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows, pos="H")
 
 
 def none_vs_infold():
@@ -198,7 +198,7 @@ def none_vs_infold():
                  ["& & \\multicolumn{2}{c}{IN-FOLD, OS-R} & \\multicolumn{2}{c}{IN-FOLD, OS-S} \\\\",
                   "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}",
                   "Model & NONE & F1 & $\\Delta$ & F1 & $\\Delta$ \\\\"],
-                 rows, pos="!htb")
+                 rows, pos="H")
 
 
 def kendall():
@@ -209,7 +209,7 @@ def kendall():
     return table("tab:kendall",
                  "Agreement of model rankings (mean macro-F1, T-bin, no oversampling) between evaluation protocols "
                  "(Kendall's $\\tau$).",
-                 "llp{2.6cm}r", ["Dataset & Protocols & Models & $\\tau$ \\\\"], rows, pos="!htb")
+                 "llp{2.6cm}r", ["Dataset & Protocols & Models & $\\tau$ \\\\"], rows, pos="H")
 
 
 def summary_figure():
