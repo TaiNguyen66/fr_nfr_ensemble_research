@@ -17,7 +17,7 @@
 \draw[arr] (d.east) -- (s.west);
 \draw[arr] (d.east) -- (gd.west);
 \draw[arr] (d.east) -- (gp.west);
-\node[font=\scriptsize, align=left, anchor=north west] at (0,-2.9) {5 seeds $\times$ 5 folds = 25 fold scores per configuration;\\ models M0--M6, TF-IDF fitted on the training fold only.};
+\node[font=\scriptsize, align=left, anchor=north west] at (0,-2.9) {Repeated 5-fold CV: 5 seeds $\times$ 5 folds = 25 scores per configuration.\\TF-IDF is fitted on each training fold, except BEFORE/OS-S (all rows).};
 
 % ---------- (b) oversampling order ----------
 \begin{scope}[xshift=9.2cm]

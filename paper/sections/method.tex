@@ -20,13 +20,13 @@ We wrote down the data, pipeline, models, protocols, statistical decision rule a
 
 \subsection{Pipeline and models}
 
-All models share one pipeline. Preprocessing (P0) applies Unicode NFKC normalisation and lowercasing, expands negative contractions and collapses whitespace; it removes no stop words and does no lemmatisation. Features are TF-IDF word unigrams and bigrams (\texttt{min\_df}~$=2$, sublinear term frequency), and the vectoriser is fitted on the training fold only.
+All models share one pipeline. Preprocessing (P0) applies Unicode NFKC normalisation and lowercasing, expands negative contractions and collapses whitespace; it removes no stop words and does no lemmatisation. Features are TF-IDF word unigrams and bigrams (\texttt{min\_df}~$=2$, sublinear term frequency). The vectoriser is fitted on each training fold, except for BEFORE with OS-S, where it is fitted on all rows before splitting.
 
 We used seven scikit-learn classifiers~\cite{pedregosa2011} with fixed hyperparameters and no tuning. M0 is a most-frequent dummy classifier that sets a floor. M1 is logistic regression ($C=1$), M2 a linear SVM ($C=1$), M3 a random forest with 300 trees and M4 complement naive Bayes ($\alpha=1$). M5 is hard voting over M1, M2 and M3. M6 stacks the same three models with a logistic-regression meta-learner; its meta-features come from an inner 5-fold CV on the outer training rows, with the same splitter type as the outer protocol. A unit test checks that no outer test row enters inner training.
 
 \subsection{Evaluation protocols}
 
-On PROMISE\_exp we compared three 5-fold protocols (Fig.~\ref{fig:design}a). \emph{S} is stratified random CV (\texttt{StratifiedKFold}). \emph{G-dup} uses \texttt{StratifiedGroupKFold} with the duplicate groups, so all copies of a requirement fall into one fold. \emph{G-proj} uses \texttt{StratifiedGroupKFold} with the project ID, so every test fold holds only projects unseen in training. On the Dalpiaz data we also used leave-one-dataset-out (\emph{LODO}, 4 folds). We repeated every configuration with 5 seeds (42, 123, 2026, 3407 and 9917), which gives 25 fold scores per configuration. Test folds held 193 or 194 rows under S and G-dup and 172 to 245 rows under G-proj. RQ1 and RQ3 use T-bin without oversampling, and G-dup is the primary protocol for RQ3.
+On PROMISE\_exp we compared three 5-fold protocols (Fig.~\ref{fig:design}a). \emph{S} is stratified random CV (\texttt{StratifiedKFold}). \emph{G-dup} uses \texttt{StratifiedGroupKFold} with the duplicate groups, so all copies of a requirement fall into one fold. \emph{G-proj} uses \texttt{StratifiedGroupKFold} with the project ID, so every test fold holds only projects unseen in training. These repeated 5-fold configurations use 5 seeds (42, 123, 2026, 3407 and 9917), giving 25 fold scores per configuration. On the Dalpiaz data, stratified CV (S) is also repeated this way; leave-one-dataset-out (\emph{LODO}) is a single deterministic run with 4 fold scores, one for each held-out dataset. Test folds held 193 or 194 rows under S and G-dup and 172 to 245 rows under G-proj. RQ1 and RQ3 use T-bin without oversampling, and G-dup is the primary protocol for RQ3.
 
 \subsection{Oversampling conditions}
 
@@ -34,7 +34,7 @@ For RQ2 we used two oversamplers from imbalanced-learn~\cite{lemaitre2017}: rand
 
 \subsection{Metrics and statistical analysis}
 
-The primary metric is macro-F1, computed on each test fold and averaged over the 25 folds. We also recorded accuracy, macro precision and macro recall. How we analyse a comparison depends on whether both sides are evaluated on the same test rows.
+The primary metric is macro-F1, computed on each test fold and averaged across folds: 25 scores for repeated 5-fold CV and 4 for LODO. We also recorded accuracy, macro precision and macro recall. How we analyse a comparison depends on whether both sides are evaluated on the same test rows.
 
 \textbf{Comparisons on the same splits (RQ3).} Models under the same protocol share the splits of each seed, so their fold scores are paired. For each comparison of A against B we computed the mean paired difference $\Delta$, its standard deviation and a 95\% confidence interval with the corrected repeated $k$-fold $t$-test~\cite{nadeau2003,bouckaert2004}. The test uses the actual test/training size ratio of the folds. We adjusted $p$-values with the Holm method~\cite{holm1979} within each family: RQ3 under G-dup (8 tests) and under S (8 tests). We call a difference \emph{clear} only if $|\Delta| \geq 0.01$ and the Holm-adjusted $p < 0.05$; otherwise we report \emph{no clear difference}.
 

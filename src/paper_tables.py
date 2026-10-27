@@ -141,7 +141,7 @@ def rq3():
                  ["& \\multicolumn{3}{c}{G-dup (primary)} & \\multicolumn{2}{c}{S} \\\\",
                   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
                   "Comparison & $\\Delta$ & 95\\% CI & $p_{\\mathrm{Holm}}$ & $\\Delta$ & $p_{\\mathrm{Holm}}$ \\\\"],
-                 rows)
+                 rows, wide=True)
 
 
 def dalpiaz():
@@ -154,7 +154,7 @@ def dalpiaz():
         rows.append(f"{m} & ${r.mean_S:.3f}$ & ${r.mean_LODO:.3f}$ & {d(r.delta_S_minus_LODO)} & "
                     f"{d(st.loc[(m, 'OS-R'), 'mean_delta'])} & {d(st.loc[(m, 'OS-S'), 'mean_delta'])} \\\\")
     return table("tab:dalpiaz",
-                 "Replication on the Dalpiaz et al.\\ dataset ($n=327$, 4 projects), T-bin, macro-F1 (means). "
+                 "Replication on the Dalpiaz et al.\\ dataset ($n=327$, four datasets), T-bin, macro-F1 (means). "
                  "Left: stratified CV (S) vs leave-one-dataset-out (LODO). Right: $\\Delta$ = BEFORE $-$ IN-FOLD. "
                  "All comparisons are descriptive (different test folds; S has 25 folds, LODO 4).",
                  "lrrrrr",
