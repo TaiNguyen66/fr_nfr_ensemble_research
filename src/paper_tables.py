@@ -93,7 +93,7 @@ def rq1():
     return table("tab:rq1",
                  "RQ1: macro-F1 under stratified CV (S), duplicate-grouped CV (G-dup) and project-grouped CV (G-proj) "
                  "on PROMISE\\_exp, T-bin, no oversampling. $\\Delta$ = S $-$ grouped (difference of means). "
-                 "($\\Delta$ computed from unrounded fold scores before rounding for display). " + DESC,
+                 "$\\Delta$ is computed from unrounded scores. " + DESC,
                  "lrrrrr",
                  ["& \\multicolumn{3}{c}{Macro-F1} & \\multicolumn{2}{c}{$\\Delta$} \\\\",
                   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-6}",
@@ -116,7 +116,7 @@ def rq2():
     return table("tab:rq2",
                  "RQ2: macro-F1 when oversampling is applied to the whole dataset before splitting (BEFORE) versus "
                  "inside each training fold only (IN-FOLD), PROMISE\\_exp, stratified CV. OS-R: random oversampling; "
-                 "OS-S: SMOTE. $\\Delta$ = BEFORE $-$ IN-FOLD (difference of means). Descriptive only: BEFORE test folds "
+                 "OS-S: SMOTE. $\\Delta$ = BEFORE $-$ IN-FOLD (difference of means). $\\Delta$ is computed from unrounded scores. Descriptive only: BEFORE test folds "
                  "are drawn from the oversampled set, so they are not the IN-FOLD test rows and no paired test is applied "
                  "(mean $\\pm$ SD over 5 seeds $\\times$ 5 folds).",
                  "llrrrrrr",
@@ -155,7 +155,7 @@ def dalpiaz():
                     f"{d(st.loc[(m, 'OS-R'), 'mean_delta'])} & {d(st.loc[(m, 'OS-S'), 'mean_delta'])} \\\\")
     return table("tab:dalpiaz",
                  "Replication on the Dalpiaz et al.\\ dataset ($n=327$, 4 projects), T-bin, macro-F1 (means). "
-                 "Left: stratified CV (S) vs leave-one-dataset-out (LODO). Right: $\\Delta$ = BEFORE $-$ IN-FOLD. "
+                 "Left: stratified CV (S) vs leave-one-dataset-out (LODO). Right: $\\Delta$ = BEFORE $-$ IN-FOLD. $\\Delta$ is computed from unrounded scores. "
                  "All comparisons are descriptive (different test folds; S has 25 folds, LODO 4).",
                  "lrrrrr",
                  ["& \\multicolumn{3}{c}{Evaluation protocol} & \\multicolumn{2}{c}{BEFORE $-$ IN-FOLD} \\\\",
@@ -179,7 +179,7 @@ def noboth_d2():
     return table("tab:noboth",
                  "Sensitivity of the Dalpiaz replication to removing requirements labelled both F and Q "
                  f"(T-bin, S, no oversampling; macro-F1 mean $\\pm$ SD over 25 folds; full $n={n[DALPIAZ]}$, "
-                 f"no-both $n={n[NOBOTH]}$). Descriptive only.",
+                 f"no-both $n={n[NOBOTH]}$). $\\Delta$ is computed from unrounded scores. Descriptive only.",
                  "lrrr", ["Model & Full & No-both & $\\Delta$ \\\\"], rows, pos="H")
 
 
@@ -199,7 +199,7 @@ def none_vs_infold():
                         f"${s['mean_in_fold']:.3f}$ & {d(-s['delta_none_minus_in_fold'])} \\\\")
     return table("tab:none_infold",
                  "Effect of correct (IN-FOLD) oversampling against no oversampling (NONE), PROMISE\\_exp, stratified CV, "
-                 "macro-F1. OS-R: random oversampling; OS-S: SMOTE. $\\Delta$ = IN-FOLD $-$ NONE. Descriptive only.",
+                 "macro-F1. OS-R: random oversampling; OS-S: SMOTE. $\\Delta$ = IN-FOLD $-$ NONE. $\\Delta$ is computed from unrounded scores. Descriptive only.",
                  "lrrrrr",
                  ["& & \\multicolumn{2}{c}{IN-FOLD, OS-R} & \\multicolumn{2}{c}{IN-FOLD, OS-S} \\\\",
                   "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}",
