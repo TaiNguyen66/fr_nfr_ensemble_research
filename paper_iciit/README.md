@@ -4,4 +4,4 @@ ACM `sigconf` version of the paper for the 12th International Conference on Inte
 
 - Overleaf: zip the contents of this folder (`main.tex` at the root), *New Project → Upload Project*, compiler pdfLaTeX. Overleaf provides `acmart.cls` and `ACM-Reference-Format.bst`.
 - Content (sections, tables, figures, bibliography) is copied from `../paper/`. Change content there first, then copy the changed files here.
-- Differences from `../paper/`: ACM class and top matter (CCS concepts, keywords), no acknowledgment section, `\Description` for both figures, and `url` fields dropped from bibliography entries that have a DOI (the ACM style prints the DOI link itself).
+- Differences from `../paper/`: ACM class and top matter (CCS concepts, keywords), `\Description` for both figures, and `url` fields dropped from bibliography entries that have a DOI (the ACM style prints the DOI link itself).

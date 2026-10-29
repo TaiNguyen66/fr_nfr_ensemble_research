@@ -15,7 +15,7 @@ Repo này chứa mã nguồn, protocol, chỉ số chia fold, điểm từng fol
 | `paper/` | Bài nộp môn SWR302 (FA26) | IEEE (IEEEtran), 8 trang |
 | `paper_iciit/` | Bài nộp hội nghị ICIIT 2027 (TP.HCM, 4–7/3/2027) | ACM `sigconf` (acmart), 8 trang |
 
-Hai bản dùng chung nội dung, số liệu, bảng và hình. Chỉ khác mẫu trình bày, phần đầu bài (bản ACM có CCS Concepts, Keywords và không có phần Acknowledgment) và vị trí một số bảng.
+Hai bản dùng chung nội dung, số liệu, bảng và hình. Chỉ khác mẫu trình bày, phần đầu bài (bản ACM có thêm CCS Concepts và Keywords) và vị trí một số bảng.
 
 ## Bối cảnh và khoảng trống nghiên cứu
 
