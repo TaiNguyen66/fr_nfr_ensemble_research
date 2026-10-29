@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this code or the split indices, please cite the paper below."
+title: "How Much Does Evaluation Leakage Inflate FR/NFR Requirements Classification? A Leakage-Aware Re-Evaluation of Single and Ensemble Classifiers"
+type: software
+license: MIT
+repository-code: "https://github.com/TaiNguyen66/fr_nfr_ensemble_research"
+authors:
+  - family-names: Nguyen
+    given-names: Phat Tai
+    affiliation: FPT University, Ho Chi Minh City
+  - family-names: Hoang
+    given-names: Anh
+    affiliation: FPT University, Ho Chi Minh City
+  - family-names: Ton That
+    given-names: Hoang Minh
+    affiliation: FPT University, Ho Chi Minh City
+keywords:
+  - requirements classification
+  - data leakage
+  - evaluation methodology
+  - oversampling
+  - ensemble learning

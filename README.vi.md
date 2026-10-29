@@ -2,11 +2,20 @@
 
 *Đánh giá lại có kiểm soát rò rỉ cho các bộ phân loại đơn và ensemble*
 
-Nguyễn Phát Tài, Hoàng Ánh · Đại học FPT TP.HCM · SWR302 (FA26)
+Nguyễn Phát Tài, Hoàng Ánh (sinh viên), Tôn Thất Hoàng Minh (giảng viên hướng dẫn) · Đại học FPT TP.HCM · SWR302 (FA26)
 
 Bản tiếng Anh: [`README.md`](README.md)
 
 Repo này chứa mã nguồn, protocol, chỉ số chia fold, điểm từng fold và mã nguồn LaTeX của bài báo. Nghiên cứu đo xem cách đánh giá làm thay đổi hiệu năng được báo cáo của các bộ phân loại yêu cầu chức năng (FR) và phi chức năng (NFR) đến mức nào.
+
+## Các phiên bản bài báo
+
+| Thư mục | Phiên bản | Định dạng |
+|---|---|---|
+| `paper/` | Bài nộp môn SWR302 (FA26) | IEEE (IEEEtran), 8 trang |
+| `paper_iciit/` | Bài nộp hội nghị ICIIT 2027 (TP.HCM, 4–7/3/2027) | ACM `sigconf` (acmart), 8 trang |
+
+Hai bản dùng chung nội dung, bảng và hình; chỉ khác định dạng, danh sách tác giả và phần đầu bài.
 
 ## Bối cảnh và khoảng trống nghiên cứu
 
@@ -60,7 +69,8 @@ Chi tiết, ánh xạ nhãn và số dòng mong đợi: [`data/README.md`](data/
 ## Cấu trúc repo
 
 ```text
-paper/        mã nguồn LaTeX của bài (IEEEtran); xem paper/README.md
+paper/        mã nguồn LaTeX bản nộp môn (IEEEtran); xem paper/README.md
+paper_iciit/  mã nguồn LaTeX bản nộp ICIIT 2027 (ACM sigconf)
   sections/   mỗi mục một file .tex
   tables/     bảng sinh bởi src/paper_tables.py (không sửa tay)
   figures/    sơ đồ thiết kế (TikZ) và hình tổng hợp
@@ -107,3 +117,7 @@ Tải nội dung thư mục `paper/` lên Overleaf (trình biên dịch pdfLaTeX
 ## Không đưa vào repo
 
 Dữ liệu gốc (`data/raw/`), file đã xử lý có chứa câu yêu cầu, dự đoán từng dòng và nhãn phân tích lỗi (`results/predictions/`), PDF toàn văn của các bài đã đọc và log chạy đều bị loại bởi `.gitignore`.
+
+## Giấy phép và trích dẫn
+
+Mã nguồn phát hành theo giấy phép MIT ([`LICENSE`](LICENSE)). Các bộ dữ liệu giữ giấy phép gốc và không được phân phối lại. Thông tin trích dẫn ở [`CITATION.cff`](CITATION.cff).
