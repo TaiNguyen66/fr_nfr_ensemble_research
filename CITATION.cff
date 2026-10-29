@@ -11,9 +11,6 @@ authors:
   - family-names: Hoang
     given-names: Anh
     affiliation: FPT University, Ho Chi Minh City
-  - family-names: Ton That
-    given-names: Hoang Minh
-    affiliation: FPT University, Ho Chi Minh City
 keywords:
   - requirements classification
   - data leakage
