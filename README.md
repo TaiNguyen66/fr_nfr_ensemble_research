@@ -2,7 +2,7 @@
 
 _A Leakage-Aware Re-Evaluation of Single and Ensemble Classifiers_
 
-Nguyen Phat Tai, Hoang Anh (students), Ton That Hoang Minh (supervisor) · FPT University, Ho Chi Minh City · SWR302 (FA26)
+Nguyen Phat Tai, Hoang Anh · FPT University, Ho Chi Minh City · SWR302 (FA26)
 
 Vietnamese version: [`README.vi.md`](README.vi.md)
 
@@ -15,7 +15,7 @@ This repository contains the code, protocol, split indices, per-fold scores and 
 | `paper/` | Course report for SWR302 (FA26) | IEEE conference (IEEEtran), 8 pages |
 | `paper_iciit/` | Submission to ICIIT 2027 (12th International Conference on Intelligent Information Technology, Ho Chi Minh City, 4–7 March 2027) | ACM `sigconf` (acmart), 8 pages |
 
-Both versions share the same text, tables and figures; they differ only in format, author list and front matter. See [`paper_iciit/README.md`](paper_iciit/README.md).
+Both versions share the same text, numbers, tables and figures. They differ in document class and front matter (the ACM version adds CCS concepts and keywords and has no acknowledgment section) and in where some tables are placed. See [`paper_iciit/README.md`](paper_iciit/README.md).
 
 ## Research questions
 

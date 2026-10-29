@@ -2,7 +2,7 @@
 
 *Đánh giá lại có kiểm soát rò rỉ cho các bộ phân loại đơn và ensemble*
 
-Nguyễn Phát Tài, Hoàng Ánh (sinh viên), Tôn Thất Hoàng Minh (giảng viên hướng dẫn) · Đại học FPT TP.HCM · SWR302 (FA26)
+Nguyễn Phát Tài, Hoàng Ánh · Đại học FPT TP.HCM · SWR302 (FA26)
 
 Bản tiếng Anh: [`README.md`](README.md)
 
@@ -15,7 +15,7 @@ Repo này chứa mã nguồn, protocol, chỉ số chia fold, điểm từng fol
 | `paper/` | Bài nộp môn SWR302 (FA26) | IEEE (IEEEtran), 8 trang |
 | `paper_iciit/` | Bài nộp hội nghị ICIIT 2027 (TP.HCM, 4–7/3/2027) | ACM `sigconf` (acmart), 8 trang |
 
-Hai bản dùng chung nội dung, bảng và hình; chỉ khác định dạng, danh sách tác giả và phần đầu bài.
+Hai bản dùng chung nội dung, số liệu, bảng và hình. Chỉ khác mẫu trình bày, phần đầu bài (bản ACM có CCS Concepts, Keywords và không có phần Acknowledgment) và vị trí một số bảng.
 
 ## Bối cảnh và khoảng trống nghiên cứu
 

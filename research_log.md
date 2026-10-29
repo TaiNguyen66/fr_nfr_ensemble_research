@@ -52,3 +52,16 @@ Decisions: Tái sử dụng kết quả gán nhãn và hòa giải cũ sau khi x
 Next: Chạy pytest trên phiên bản mới, kiểm tra Git, commit và push nội dung Error Analysis; gửi Phát Tài commit hash, Agreement, Kappa và bảng đếm chính thức.
 
 Needs review from: Phat Tai — Error Analysis, tính nhất quán của paper và bản biên dịch IEEEtran.
+## 2026-10-27 — Phat Tai
+
+Done: Rà commit db3aacc của Hoang Anh (bib, định dạng bảng; số liệu không đổi). Thống nhất chú thích bảng. Bản IEEE: tên tác giả "Nguyen Phat Tai / Hoang Anh", giảng viên hướng dẫn ở phần Acknowledgment. Hoang Anh sửa abstract, introduction, method, discussion (commit 76825ff, "Edit form").
+
+Decisions: Bản nộp môn giữ định dạng IEEE trong `paper/`.
+
+## 2026-10-29 — Phat Tai
+
+Done: Tạo bản nộp ICIIT 2027 trong `paper_iciit/` (ACM sigconf, nội dung giống `paper/`). Sửa bố cục: tiêu đề rút gọn ở đầu trang, Bảng 1–2 cạnh phần Results, Bảng 3 một cột, phụ lục trước References, bỏ chân trang ACM mẫu. Bản nộp có 2 tác giả, không có Acknowledgment; 8 trang. Repo để công khai; thêm LICENSE (MIT), CITATION.cff; README ghi hai phiên bản bài.
+
+Decisions: Nộp full paper ICIIT trước 30/10/2026. Chỉ đóng phí nếu bài được nhận (hạn đăng ký 10/12/2026). Nếu được nhận, bản camera-ready nên thêm khai báo dùng AI theo chính sách tác giả của ACM.
+
+Next: Nộp bài trên confsys.iconf.org; gắn tag `v1.0-iciit-submission`; nộp bản IEEE cho môn ngày 05/11 và gắn tag `v1.0-course`.
