@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{RQ1: macro-F1 under stratified CV (S), duplicate-grouped CV (G-dup) and project-grouped CV (G-proj) on PROMISE\_exp, T-bin, no oversampling. $\Delta$ = S $-$ grouped (difference of means). Descriptive only: the protocols use different test folds, so no paired test is applied (mean $\pm$ SD over 5 seeds $\times$ 5 folds).}
+\label{tab:rq1}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrr}
+\toprule
+& \multicolumn{3}{c}{Macro-F1} & \multicolumn{2}{c}{$\Delta$} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}
+Model & S & G-dup & G-proj & S $-$ G-dup & S $-$ G-proj \\
+\midrule
+M0 & $0.351 \pm 0.000$ & $0.351 \pm 0.000$ & $0.352 \pm 0.008$ & -- & -- \\
+M1 & $0.876 \pm 0.020$ & $0.878 \pm 0.025$ & $0.694 \pm 0.094$ & $-0.002$ & $+0.182$ \\
+M2 & $0.893 \pm 0.019$ & $0.891 \pm 0.018$ & $0.722 \pm 0.061$ & $+0.001$ & $+0.171$ \\
+M3 & $0.851 \pm 0.031$ & $0.853 \pm 0.022$ & $0.661 \pm 0.113$ & $-0.001$ & $+0.190$ \\
+M4 & $0.889 \pm 0.019$ & $0.884 \pm 0.025$ & $0.755 \pm 0.055$ & $+0.005$ & $+0.134$ \\
+M5 & $0.882 \pm 0.023$ & $0.885 \pm 0.019$ & $0.705 \pm 0.083$ & $-0.003$ & $+0.176$ \\
+M6 & $0.891 \pm 0.018$ & $0.894 \pm 0.019$ & $0.749 \pm 0.052$ & $-0.003$ & $+0.142$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

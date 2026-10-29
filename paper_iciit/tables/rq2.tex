@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\centering
+\caption{RQ2: macro-F1 when oversampling is applied to the whole dataset before splitting (BEFORE) versus inside each training fold only (IN-FOLD), PROMISE\_exp, stratified CV. OS-R: random oversampling; OS-S: SMOTE. $\Delta$ = BEFORE $-$ IN-FOLD (difference of means). Descriptive only: BEFORE test folds are drawn from the oversampled set, so they are not the IN-FOLD test rows and no paired test is applied (mean $\pm$ SD over 5 seeds $\times$ 5 folds).}
+\label{tab:rq2}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llrrrrrr}
+\toprule
+& & \multicolumn{3}{c}{T-bin (FR vs NFR)} & \multicolumn{3}{c}{T-12 (12 classes)} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+Model & OS & BEFORE & IN-FOLD & $\Delta$ & BEFORE & IN-FOLD & $\Delta$ \\
+\midrule
+M1 & OS-R & $0.899 \pm 0.021$ & $0.878 \pm 0.019$ & $+0.020$ & $0.989 \pm 0.003$ & $0.597 \pm 0.064$ & $+0.392$ \\
+M1 & OS-S & $0.900 \pm 0.025$ & $0.879 \pm 0.022$ & $+0.021$ & $0.988 \pm 0.003$ & $0.589 \pm 0.063$ & $+0.399$ \\
+M2 & OS-R & $0.917 \pm 0.017$ & $0.893 \pm 0.020$ & $+0.024$ & $0.992 \pm 0.003$ & $0.593 \pm 0.075$ & $+0.399$ \\
+M2 & OS-S & $0.920 \pm 0.015$ & $0.894 \pm 0.018$ & $+0.026$ & $0.992 \pm 0.003$ & $0.595 \pm 0.070$ & $+0.398$ \\
+M3 & OS-R & $0.882 \pm 0.021$ & $0.855 \pm 0.027$ & $+0.027$ & $0.994 \pm 0.003$ & $0.506 \pm 0.061$ & $+0.488$ \\
+M3 & OS-S & $0.878 \pm 0.023$ & $0.855 \pm 0.032$ & $+0.023$ & $0.986 \pm 0.003$ & $0.495 \pm 0.058$ & $+0.491$ \\
+M4 & OS-R & $0.903 \pm 0.021$ & $0.888 \pm 0.018$ & $+0.015$ & $0.967 \pm 0.006$ & $0.526 \pm 0.040$ & $+0.441$ \\
+M4 & OS-S & $0.905 \pm 0.019$ & $0.890 \pm 0.018$ & $+0.015$ & $0.951 \pm 0.006$ & $0.525 \pm 0.049$ & $+0.425$ \\
+M5 & OS-R & $0.909 \pm 0.023$ & $0.886 \pm 0.022$ & $+0.023$ & $0.992 \pm 0.003$ & $0.595 \pm 0.070$ & $+0.398$ \\
+M5 & OS-S & $0.908 \pm 0.022$ & $0.885 \pm 0.023$ & $+0.023$ & $0.993 \pm 0.002$ & $0.587 \pm 0.065$ & $+0.406$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

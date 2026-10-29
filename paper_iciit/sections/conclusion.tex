@@ -1,0 +1,10 @@
+\section{Conclusion}
+\label{sec:conclusion}
+We re-evaluated FR/NFR requirements classifiers on PROMISE\_exp under a protocol locked before any run. Oversampling the whole dataset before splitting raised macro-F1 on the 12-class task by 0.392 to 0.491. A task with a macro-F1 of at most 0.597 without leakage then appears to score 0.951 to 0.994. On the binary task the increase was 0.015 to 0.027. Testing on unseen projects lowered macro-F1 by 0.134 to 0.190 and changed the model ranking, while grouping the 8 duplicate groups in PROMISE\_exp changed macro-F1 by less than 0.01. The ensembles were clearly better than the random forest and no other model.
+
+On T-bin under stratified CV, models M1 to M6 differ by at most 0.042 (0.851 to 0.893), whereas the choice of protocol moved macro-F1 by up to 0.190 and the order of oversampling by up to 0.491 on T-12. Results obtained with oversampling before splitting, or with random CV only, should not be compared with results from leakage-aware or project-level evaluation. A claim that one model is better needs a corrected paired test on the same test folds.
+
+Future work can apply the same protocol to transformer and LLM classifiers and to datasets with more duplicates, and can use the 30 analysed errors as a starting point for a label review.
+
+\section*{Data and code availability}
+Code, split indices, per-fold scores and the analysis scripts are available at \url{https://github.com/TaiNguyen66/fr_nfr_ensemble_research}. The PROMISE\_exp file is not redistributed because its license is unknown; the Dalpiaz et al.\ data are available from Zenodo~\cite{dalpiaz2019data}.

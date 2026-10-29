@@ -1,0 +1,19 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\textbf{Why BEFORE inflates T-12 so much and T-bin so little.} When the whole dataset is oversampled before splitting, test folds can contain exact copies (OS-R) or synthetic neighbours (OS-S) related to training rows. T-12 has rare classes such as PO (12 rows) and L (15 rows), which are oversampled many times to approach the 444 F rows. This creates substantial opportunity for overlap between training and test data; we did not directly measure the share of rare-class test rows with an exact training copy. Macro-F1 weighs each class equally and rises to between 0.951 and 0.994. On T-bin the two classes are close in size (444 vs.\ 525), fewer rows need to be added, and the increase stays at 0.015 to 0.027. BEFORE on T-12 yields values in the same range as the 98\% to 99\% reported by studies that appear to oversample before splitting~\cite{metu2024hybrid,baskoro2021systematic}. Our data cannot show that those results are wrong, because data versions, splits and metrics differ. They show that the BEFORE practice alone produces such numbers on a task whose macro-F1 without leakage is at most 0.597 in our setup.
+
+\textbf{Duplicates: a negative finding on this dataset.} Grouping duplicates changed macro-F1 on PROMISE\_exp by less than 0.01, because only 8 groups (16 rows) exist. Duplicates may still matter elsewhere. In source code, duplication inflated results considerably~\cite{allamanis2019adverse}, and larger, scraped or merged requirement corpora may contain far more duplicates.
+
+\textbf{Random CV vs.\ unseen projects.} Under G-proj, macro-F1 dropped by 0.134 to 0.190, fold scores varied more and the model ranking changed. We do not read this drop as leakage. Random CV estimates performance on new requirements from projects already seen in training, while a practitioner usually applies a classifier to a new project with its own vocabulary and class balance. Here the model chosen by random CV (M2) is not the one that generalises best to unseen projects (M4). The Dalpiaz LODO results, with a drop of 0.21 to 0.31, point the same way.
+
+\textbf{Ensembles.} Hard voting and stacking beat only the random forest; against the linear models and complement naive Bayes there was no clear difference. M1 and M2 are both linear models on the same TF-IDF features, so their errors are probably correlated, and combining them adds little. Four of the six reviewed ensemble studies claim improvements without a statistical test (Section~\ref{sec:related}). With a corrected test and Holm adjustment, we find no gain over the best single linear model.
+
+\textbf{Recommendations.} From these results, we recommend that FR/NFR classification studies:
+\begin{enumerate}
+\item oversample, and fit any vectoriser, inside the training fold only, never before splitting;
+\item report how duplicates were handled, group them when splitting, and report the number of duplicate groups;
+\item report a project-level or dataset-level evaluation alongside random CV when claiming generalisation;
+\item report macro-F1 per fold with repeated CV, and use a corrected paired test with multiple-comparison control before claiming that one model, such as an ensemble, is better; apply paired tests only when both sides use the same test folds;
+\item publish code, splits and per-fold scores.
+\end{enumerate}
