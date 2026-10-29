@@ -41,6 +41,9 @@ The primary metric is macro-F1, computed on each test fold and averaged across f
 
 \textbf{Comparisons across protocols or oversampling conditions (RQ1, RQ2, replication).} S, G-dup and G-proj produce different test folds. At the same (seed, fold) index, none of the 25 S folds equals the matching G-dup or G-proj fold, and they share only about 20\% of their rows, which is the overlap expected by chance. BEFORE test folds come from the oversampled set and hold 210 to 1066 rows instead of 193 or 194. Pairing such fold scores by index would break the assumption of the paired test. We therefore report the mean and standard deviation of macro-F1 over each side's own 25 folds, and $\Delta$ as the difference of the two means. The protocol had planned paired tests for these families; after the runs we replaced them with descriptive reporting in a documented amendment, without re-running any model. Kendall's $\tau$ measures agreement between model rankings. S vs.\ LODO (25 vs.\ 4 folds), NONE vs.\ IN-FOLD and the no-both analysis are descriptive as well.
 
+\input{tables/rq1}
+\input{tables/rq2}
+
 \subsection{Reproducibility}
 
 We locked the protocol on 16 October 2026, before running any model, and re-ran no configuration to change a result. The runs comprised 21 configurations for RQ1 (525 fold fits), 50 for RQ2 (1250) and 35 for the Dalpiaz replication (770). Each run logged the git commit, dataset hashes, seeds and package versions. A complete re-run on 18 October 2026 reproduced every per-fold score bit for bit: the SHA-256 hashes of all fold-score files were identical. Code, split indices, per-fold scores and analysis scripts are public (Section~\ref{sec:conclusion}).

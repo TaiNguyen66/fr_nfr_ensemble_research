@@ -12,7 +12,6 @@
 Fig.~\ref{fig:summary} shows all planned comparisons. For RQ1, RQ2 and the replication the test folds differ, so these comparisons are differences of means (Section~\ref{sec:method}). Two of them are large compared with the variation between folds: S vs.\ G-proj and BEFORE vs.\ IN-FOLD on the 12-class task. In RQ3, where models share the same splits, 2 of 8 comparisons show a clear difference under G-dup and under S. The dummy classifier M0 scored a macro-F1 of about 0.35 under every protocol.
 
 \subsection{RQ1: Duplicate- and project-grouped evaluation}
-\input{tables/rq1}
 
 \textbf{S vs.\ G-dup.} Grouping duplicates left the estimates almost unchanged (Table~\ref{tab:rq1}). $\Delta$ ranged from $-0.003$ to $+0.005$. That is below the 0.01 threshold for every model and far below the fold standard deviation (0.018 to 0.031 under S, 0.018 to 0.025 under G-dup). Kendall's $\tau$ between the two rankings is 0.733 (Table~\ref{tab:kendall}). PROMISE\_exp has only 8 duplicate groups (16 of 969 rows), so this negative result holds for this dataset and does not show that duplicates never matter.
 
@@ -21,7 +20,6 @@ Fig.~\ref{fig:summary} shows all planned comparisons. For RQ1, RQ2 and the repli
 \textbf{Answer to RQ1:} \emph{Grouping duplicates changes macro-F1 on PROMISE\_exp by less than 0.01 for every model. Testing on unseen projects lowers macro-F1 by 0.134 to 0.190 for every model and changes the model ranking.}
 
 \subsection{RQ2: Oversampling before vs.\ inside the training fold}
-\input{tables/rq2}
 
 \textbf{T-bin.} On the binary task, BEFORE gave higher estimates than IN-FOLD for every model and oversampler (Table~\ref{tab:rq2}): 0.878 to 0.920 against 0.855 to 0.894, a difference of $+0.015$ to $+0.027$. The direction is consistent, but the size is of the same order as the fold standard deviation (0.015 to 0.032).
 
