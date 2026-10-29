@@ -1,7 +1,7 @@
 """Build LaTeX tables and the summary figure for the paper from results/tables/*.csv.
 
 No number is typed by hand: every value comes from the analysis outputs.
-Run: python -m src.paper_tables  -> paper/tables/*.tex, paper/figures/*.pdf|png
+Run: python -m src.paper_tables  -> results/paper_tables/*.tex and summary_deltas.pdf/png
 """
 import re
 from pathlib import Path
@@ -14,8 +14,8 @@ import pandas as pd  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 TABLES = ROOT / "results" / "tables"
-OUT = ROOT / "paper" / "tables"
-FIG = ROOT / "paper" / "figures"
+OUT = ROOT / "results" / "paper_tables"
+FIG = ROOT / "results" / "paper_tables"
 MODELS = ["M1", "M2", "M3", "M4", "M5", "M6"]
 PROMISE, DALPIAZ, NOBOTH = "requirements.csv", "dalpiaz_requirements.csv", "dalpiaz_requirements_noboth.csv"
 FAMILIES = [  # (file stem, label in the figure, tested?) — A-009: only RQ3 is tested

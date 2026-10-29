@@ -65,3 +65,7 @@ Done: Tạo bản nộp ICIIT 2027 trong `paper_iciit/` (ACM sigconf, nội dung
 Decisions: Nộp full paper ICIIT trước 30/10/2026. Chỉ đóng phí nếu bài được nhận (hạn đăng ký 10/12/2026). Nếu được nhận, bản camera-ready nên thêm khai báo dùng AI theo chính sách tác giả của ACM.
 
 Next: Nộp bài trên confsys.iconf.org; gắn tag `v1.0-iciit-submission`; nộp bản IEEE cho môn ngày 05/11 và gắn tag `v1.0-course`.
+
+## 2026-10-29 (tiếp) — Phat Tai
+
+Done: Tách mã nguồn LaTeX (`paper/`, `paper_iciit/`) sang repo riêng tư `TaiNguyen66/fr_nfr_paper`. Repo công khai chỉ giữ code, protocol, dữ liệu kết quả; `src/paper_tables.py` ghi bảng và hình vào `results/paper_tables/`. Không viết lại lịch sử; bản đầy đủ trước khi tách là commit f08621b (tag `v1.0-iciit-submission`).

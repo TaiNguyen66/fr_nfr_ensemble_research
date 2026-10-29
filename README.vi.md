@@ -6,16 +6,11 @@ Nguyễn Phát Tài, Hoàng Ánh · Đại học FPT TP.HCM · SWR302 (FA26)
 
 Bản tiếng Anh: [`README.md`](README.md)
 
-Repo này chứa mã nguồn, protocol, chỉ số chia fold, điểm từng fold và mã nguồn LaTeX của bài báo. Nghiên cứu đo xem cách đánh giá làm thay đổi hiệu năng được báo cáo của các bộ phân loại yêu cầu chức năng (FR) và phi chức năng (NFR) đến mức nào.
+Repo này chứa mã nguồn, protocol, chỉ số chia fold và điểm từng fold của nghiên cứu. Nghiên cứu đo xem cách đánh giá làm thay đổi hiệu năng được báo cáo của các bộ phân loại yêu cầu chức năng (FR) và phi chức năng (NFR) đến mức nào.
 
-## Các phiên bản bài báo
+## Bài báo
 
-| Thư mục | Phiên bản | Định dạng |
-|---|---|---|
-| `paper/` | Bài nộp môn SWR302 (FA26) | IEEE (IEEEtran), 8 trang |
-| `paper_iciit/` | Bài nộp hội nghị ICIIT 2027 (TP.HCM, 4–7/3/2027) | ACM `sigconf` (acmart), 8 trang |
-
-Hai bản dùng chung nội dung, số liệu, bảng và hình. Chỉ khác mẫu trình bày, phần đầu bài (bản ACM có thêm CCS Concepts và Keywords) và vị trí một số bảng.
+Nghiên cứu được viết thành bài báo cho hội nghị ICIIT 2027 (TP.HCM, 4–7/3/2027), đồng thời là báo cáo môn SWR302 (FA26). Mã nguồn LaTeX của bài được lưu riêng, không nằm trong repo này. Repo giữ mọi thứ cần để kiểm tra và chạy lại kết quả: mã nguồn, protocol, chỉ số chia fold, điểm từng fold, kết quả phân tích và các bảng sinh cho bài báo (`results/paper_tables/`).
 
 ## Bối cảnh và khoảng trống nghiên cứu
 
@@ -69,11 +64,6 @@ Chi tiết, ánh xạ nhãn và số dòng mong đợi: [`data/README.md`](data/
 ## Cấu trúc repo
 
 ```text
-paper/        mã nguồn LaTeX bản nộp môn (IEEEtran); xem paper/README.md
-paper_iciit/  mã nguồn LaTeX bản nộp ICIIT 2027 (ACM sigconf)
-  sections/   mỗi mục một file .tex
-  tables/     bảng sinh bởi src/paper_tables.py (không sửa tay)
-  figures/    sơ đồ thiết kế (TikZ) và hình tổng hợp
 protocol/     research_protocol.md (khóa 16/10/2026), amendment_log.md (A-001 đến A-009), review_protocol.md
 src/          nạp dữ liệu, chia fold, model, chạy thí nghiệm, thống kê, phân tích, bảng cho bài báo
 tests/        unit test (chia fold, kiểm tra rò rỉ, thống kê, phân tích, bảng)
@@ -83,6 +73,7 @@ results/
   splits/     chỉ số chia fold cho mọi protocol và seed
   tables/     điểm từng fold, tóm tắt, thống kê (RQ3) và so sánh mô tả
   figures/    forest plot cho RQ3
+  paper_tables/  bảng LaTeX và hình tổng hợp dùng trong bài (sinh bởi src/paper_tables.py)
 experiments/  experiment_log.csv (mỗi lần chạy một dòng)
 literature/   hồ sơ tìm kiếm, quyết định sàng lọc, bộ tài liệu cuối và phân tích gap
 research_log.md                 nhật ký làm việc
@@ -105,14 +96,10 @@ python -m src.run_experiments --plan RQ1       # 525 lần fit
 python -m src.run_experiments --plan RQ2       # 1250 lần fit
 python -m src.run_experiments --plan D2        # 770 lần fit
 python -m src.analyze_results                  # results/tables, results/figures
-python -m src.paper_tables                     # paper/tables, paper/figures/summary_deltas
+python -m src.paper_tables                     # results/paper_tables
 ```
 
 Lần chạy lại toàn bộ ngày 18/10/2026 cho ra đúng từng điểm fold (SHA-256 của mọi `fold_scores_*.csv` trùng khớp). Kết quả mong đợi và thời gian chạy: [`HUONG_DAN_CHAY_THI_NGHIEM.md`](HUONG_DAN_CHAY_THI_NGHIEM.md).
-
-## Biên dịch bài báo
-
-Tải nội dung thư mục `paper/` lên Overleaf (trình biên dịch pdfLaTeX, file chính `main.tex`) hoặc biên dịch trên máy bằng `pdflatex` và `bibtex`. Xem [`paper/README.md`](paper/README.md).
 
 ## Không đưa vào repo
 

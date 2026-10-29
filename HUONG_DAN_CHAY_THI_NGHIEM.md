@@ -289,7 +289,7 @@ Kết quả trong `results/tables/`:
 
 Hình trong `results/figures/delta_RQ3-*.png`: Δ và CI 95%; chấm đặc = khác biệt rõ, chấm rỗng = không khác biệt rõ.
 
-Sinh bảng và hình cho bài báo (`paper/tables/*.tex`, `paper/figures/summary_deltas.*`):
+Sinh bảng và hình cho bài báo (`results/paper_tables/*.tex`, `results/paper_tables/summary_deltas.*`; mã nguồn bài báo lưu ở repo riêng):
 
 ```powershell
 .venv\Scripts\python -m src.paper_tables
