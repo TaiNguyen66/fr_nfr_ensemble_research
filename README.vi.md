@@ -50,7 +50,7 @@ Nhóm lọc tài liệu theo protocol tổng quan (`protocol/review_protocol.md`
 | RQ3: ensemble so với model đơn | chỉ tốt hơn rõ so với random forest (+0.032, +0.042) |
 | Tái lập (Dalpiaz et al.) | BEFORE − IN-FOLD +0.034 đến +0.081; S − LODO 0.21 đến 0.31 |
 
-Phân tích lỗi trên 30 dòng phân loại sai (T-bin, G-dup, seed 42) cho thấy ba nhóm lớn nhất là yêu cầu mơ hồ (8), lẫn FR/NFR (7) và động từ chức năng trong NFR (6). Hai người gán nhãn đồng thuận ban đầu 15/30 dòng (κ = 0.391); cả hai đều có dùng AI hỗ trợ khi gán nhãn.
+Phân tích lỗi trên 30 dòng phân loại sai (T-bin, G-dup, seed 42) cho thấy ba nhóm lớn nhất là yêu cầu mơ hồ (8), lẫn FR/NFR (7) và động từ chức năng trong NFR (6). Hai người gán nhãn đồng thuận ban đầu 15/30 dòng (κ = 0.391); cả hai có dùng AI hỗ trợ nên đây không phải độ đồng thuận độc lập hoàn toàn.
 
 ## Dữ liệu
 
@@ -76,8 +76,7 @@ results/
   paper_tables/  bảng LaTeX và hình tổng hợp dùng trong bài (sinh bởi src/paper_tables.py)
 experiments/  experiment_log.csv (mỗi lần chạy một dòng)
 literature/   hồ sơ tìm kiếm, quyết định sàng lọc, bộ tài liệu cuối và phân tích gap
-research_log.md                 nhật ký làm việc
-HUONG_DAN_CHAY_THI_NGHIEM.md    hướng dẫn chạy từng bước
+RUNNING.md                      hướng dẫn chạy lại từng bước (tiếng Anh)
 ```
 
 ## Chạy lại kết quả
@@ -99,7 +98,7 @@ python -m src.analyze_results                  # results/tables, results/figures
 python -m src.paper_tables                     # results/paper_tables
 ```
 
-Lần chạy lại toàn bộ ngày 18/10/2026 cho ra đúng từng điểm fold (SHA-256 của mọi `fold_scores_*.csv` trùng khớp). Kết quả mong đợi và thời gian chạy: [`HUONG_DAN_CHAY_THI_NGHIEM.md`](HUONG_DAN_CHAY_THI_NGHIEM.md).
+Lần chạy lại toàn bộ ngày 18/10/2026 cho ra đúng từng điểm fold (SHA-256 của mọi `fold_scores_*.csv` trùng khớp). Hướng dẫn từng bước và kết quả mong đợi (tiếng Anh): [`RUNNING.md`](RUNNING.md).
 
 ## Không đưa vào repo
 

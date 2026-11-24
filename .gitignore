@@ -19,3 +19,7 @@ literature/pdf/
 data/processed/requirements.csv
 data/processed/dalpiaz_requirements*.csv
 logs/
+
+# Local-only working files (kept on the authors' machines, not published)
+HUONG_DAN_CHAY_THI_NGHIEM.md
+research_log.md
